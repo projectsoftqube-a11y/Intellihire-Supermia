@@ -5,6 +5,7 @@ import HiringFlow from "@/components/HiringFlow";
 import HumanBalance from "@/components/HumanBalance";
 import FeatureSuite from "@/components/FeatureSuite";
 import Pricing from "@/components/Pricing";
+import Brochure from "@/components/Brochure";
 import FinalCta from "@/components/FinalCta";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -19,6 +20,7 @@ export default function Home() {
         <HumanBalance />
         <FeatureSuite />
         <Pricing />
+        <Brochure />
         <FinalCta />
       </main>
       <SiteFooter />

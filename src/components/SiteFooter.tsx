@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Globe, Mail, MapPin } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -28,6 +28,7 @@ const FOOTER_LINKS = [
       { label: "Human oversight", href: "/#oversight" },
       { label: "All capabilities", href: "/#features" },
       { label: "Pricing", href: "/#pricing" },
+      { label: "Brochure", href: "/#brochure" },
     ],
   },
 ];
@@ -140,7 +141,7 @@ export default function SiteFooter() {
 
       <div className="mx-auto mt-16 max-w-[1920px] overflow-hidden rounded-[34px] bg-[#071a3d] px-7 py-14 md:mt-20 md:px-14 md:py-16">
         <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
-          <div data-ft-anim className="sm:col-span-2 lg:col-span-4">
+          <div data-ft-anim className="sm:col-span-2 lg:col-span-3">
             <Image
               src="/images/logo.png"
               alt="IntelliHire"
@@ -152,14 +153,6 @@ export default function SiteFooter() {
               AI-powered recruitment that finds, evaluates and connects you with
               the right talent, faster.
             </p>
-
-            <a
-              href="mailto:hello@supermia.ai"
-              className="mt-7 inline-flex items-center gap-2.5 text-[15px] font-semibold text-[#ffffff] transition-colors duration-200 hover:text-[#087ef5]"
-            >
-              <Mail className="h-4 w-4 text-[#087ef5]" aria-hidden="true" />
-              hello@supermia.ai
-            </a>
           </div>
 
           {FOOTER_LINKS.map(({ title, links }) => (
@@ -182,22 +175,48 @@ export default function SiteFooter() {
             </div>
           ))}
 
-          <div data-ft-anim className="lg:col-span-2">
+          <div data-ft-anim className="lg:col-span-3">
             <p className="m-0 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#ffffff]/40">
               Office
             </p>
-            <p className="mt-5 m-0 text-[14px] leading-[1.6] text-[#ffffff]/70">
-              2451 W Grapevine Mills Cir #547
-              <span className="block">Grapevine, TX 76051</span>
-            </p>
-            <a
-              href="https://supermia.ai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block text-[14px] font-semibold text-[#ffffff] transition-colors duration-200 hover:text-[#087ef5]"
-            >
-              supermia.ai
-            </a>
+            <ul className="m-0 mt-5 flex list-none flex-col gap-4 p-0">
+              <li className="flex items-start gap-3 text-[14px] leading-[1.6] text-[#ffffff]/70">
+                <MapPin
+                  className="mt-[3px] h-4 w-4 shrink-0 text-[#087ef5]"
+                  aria-hidden="true"
+                />
+                <span>
+                  2451 W Grapevine Mills Cir #547
+                  <span className="block">Grapevine, TX 76051</span>
+                </span>
+              </li>
+              <li>
+                <a
+                  href="https://supermia.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 text-[14px] font-semibold text-[#ffffff] transition-colors duration-200 hover:text-[#087ef5]"
+                >
+                  <Globe
+                    className="h-4 w-4 shrink-0 text-[#087ef5]"
+                    aria-hidden="true"
+                  />
+                  supermia.ai
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:hello@supermia.ai"
+                  className="inline-flex items-center gap-3 text-[14px] font-semibold text-[#ffffff] transition-colors duration-200 hover:text-[#087ef5]"
+                >
+                  <Mail
+                    className="h-4 w-4 shrink-0 text-[#087ef5]"
+                    aria-hidden="true"
+                  />
+                  hello@supermia.ai
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
