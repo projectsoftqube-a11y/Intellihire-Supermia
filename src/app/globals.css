@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-dark-blue: #071a3d;
+  --color-brand-light-blue: #087ef5;
+  --color-brand-orange: #ff6b00;
+  --color-brand-white: #ffffff;
+  --color-brand-bg-light: #f2f8fd;
+  --color-brand-surface: #f2f8fd;
+  --color-brand-border: #e5eaf0;
+  --color-brand-text-secondary: #5b6575;
+
+  --color-background: #f2f8fd;
+  --color-foreground: #071a3d;
+
+  --font-display: "questrial", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --background: var(--color-brand-surface);
+  --foreground: var(--color-brand-dark-blue);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font: inherit;
+  }
+}
+
+::selection {
+  background: var(--color-brand-light-blue);
+  color: var(--color-brand-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
