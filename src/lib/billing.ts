@@ -283,16 +283,20 @@ function formatPrice(plan: BillingPlan): { price: string; cadence: string } {
     ? plan.currency
     : "USD";
 
+  // A whole number stays clean ($49); a fractional one always shows exactly
+  // two decimals, so 49.5 reads as $49.50 and 99.555 rounds to $99.56.
+  const decimals = Number.isInteger(cost) ? 0 : 2;
+
   let formatted: string;
   try {
     formatted = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency,
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
     }).format(cost);
   } catch {
-    formatted = `$${Math.round(cost)}`;
+    formatted = `$${cost.toFixed(decimals)}`;
   }
 
   return { price: formatted, cadence: "/month" };
