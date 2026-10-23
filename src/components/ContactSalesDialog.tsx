@@ -54,7 +54,11 @@ const INITIAL = {
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-1.5 text-[12.5px] leading-[1.45] text-[#d92d20]">
+    <p
+      id={id}
+      role="alert"
+      className="mt-1.5 text-[12.5px] leading-[1.45] text-[#d92d20]"
+    >
       {message}
     </p>
   );
@@ -301,7 +305,7 @@ export default function ContactSalesDialog({ open, onClose, planId }: Props) {
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative w-full max-w-140 rounded-[26px] border border-brand-border bg-brand-surface p-6 shadow-[0_30px_80px_-20px_rgba(7,26,61,0.5)] md:p-8"
+        className="relative w-full max-w-[880px] rounded-[26px] border border-brand-border bg-brand-surface p-6 shadow-[0_30px_80px_-20px_rgba(7,26,61,0.5)] md:p-8"
       >
         <button
           ref={closeButtonRef}
@@ -350,8 +354,8 @@ export default function ContactSalesDialog({ open, onClose, planId }: Props) {
               security and onboarding shaped to your volume.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-6" noValidate>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <form onSubmit={handleSubmit} className="mt-5" noValidate>
+              <div className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-2">
                 <div>
                   <label className={labelClass} htmlFor="cs-first_name">
                     First name <span aria-hidden="true">*</span>
@@ -368,11 +372,16 @@ export default function ContactSalesDialog({ open, onClose, planId }: Props) {
                     onChange={update("first_name")}
                     onBlur={handleBlur("first_name")}
                     aria-invalid={Boolean(fieldErrors.first_name)}
-                    aria-describedby={fieldErrors.first_name ? "cs-first_name-error" : undefined}
+                    aria-describedby={
+                      fieldErrors.first_name ? "cs-first_name-error" : undefined
+                    }
                     className={fieldClass(Boolean(fieldErrors.first_name))}
                     placeholder="Jane"
                   />
-                  <FieldError id="cs-first_name-error" message={fieldErrors.first_name} />
+                  <FieldError
+                    id="cs-first_name-error"
+                    message={fieldErrors.first_name}
+                  />
                 </div>
 
                 <div>
@@ -390,160 +399,186 @@ export default function ContactSalesDialog({ open, onClose, planId }: Props) {
                     onChange={update("last_name")}
                     onBlur={handleBlur("last_name")}
                     aria-invalid={Boolean(fieldErrors.last_name)}
-                    aria-describedby={fieldErrors.last_name ? "cs-last_name-error" : undefined}
+                    aria-describedby={
+                      fieldErrors.last_name ? "cs-last_name-error" : undefined
+                    }
                     className={fieldClass(Boolean(fieldErrors.last_name))}
                     placeholder="Doe"
                   />
-                  <FieldError id="cs-last_name-error" message={fieldErrors.last_name} />
-                </div>
-              </div>
-
-              <div className="mt-4">
-                <label className={labelClass} htmlFor="cs-email">
-                  Work email <span aria-hidden="true">*</span>
-                </label>
-                <input
-                  id="cs-email"
-                  name="email"
-                  type="email"
-                  required
-                  maxLength={254}
-                  autoComplete="email"
-                  disabled={loading}
-                  value={form.email}
-                  onChange={update("email")}
-                    onBlur={handleBlur("email")}
-                    aria-invalid={Boolean(fieldErrors.email)}
-                    aria-describedby={fieldErrors.email ? "cs-email-error" : undefined}
-                  className={fieldClass(Boolean(fieldErrors.email))}
-                  placeholder="jane@company.com"
-                />
-                <FieldError id="cs-email-error" message={fieldErrors.email} />
-              </div>
-
-              <div className="mt-4">
-                <label className={labelClass} htmlFor="cs-company_name">
-                  Company name <span aria-hidden="true">*</span>
-                </label>
-                <input
-                  id="cs-company_name"
-                  name="company_name"
-                  required
-                  maxLength={255}
-                  autoComplete="organization"
-                  disabled={loading}
-                  value={form.company_name}
-                  onChange={update("company_name")}
-                    onBlur={handleBlur("company_name")}
-                    aria-invalid={Boolean(fieldErrors.company_name)}
-                    aria-describedby={fieldErrors.company_name ? "cs-company_name-error" : undefined}
-                  className={fieldClass(Boolean(fieldErrors.company_name))}
-                  placeholder="Acme Corp"
-                />
-                <FieldError id="cs-company_name-error" message={fieldErrors.company_name} />
-              </div>
-
-              <div className="mt-4 grid grid-cols-[minmax(0,136px)_1fr] gap-3">
-                <div>
-                  <span className={labelClass} id="cs-country-code-label">
-                    Code
-                  </span>
-                  <CountryCodeSelect
-                    value={country}
-                    onChange={(next) => {
-                      setCountry(next);
-                      // The expected length just changed, so re-check the
-                      // number already entered against the new country.
-                      const digits = form.phone_number.replace(/\D/g, "");
-                      const trimmedDigits = digits.slice(
-                        0,
-                        digitRange(next).max,
-                      );
-                      setForm((prev) => ({
-                        ...prev,
-                        phone_number: trimmedDigits,
-                      }));
-                      setFieldErrors((prev) => ({
-                        ...prev,
-                        phone_number: touched.phone_number
-                          ? (validatePhone(trimmedDigits, next) ?? undefined)
-                          : undefined,
-                      }));
-                    }}
-                    disabled={loading}
-                    labelledBy="cs-country-code-label"
+                  <FieldError
+                    id="cs-last_name-error"
+                    message={fieldErrors.last_name}
                   />
                 </div>
 
                 <div>
-                  <label className={labelClass} htmlFor="cs-phone_number">
-                    Phone number
+                  <label className={labelClass} htmlFor="cs-email">
+                    Work email <span aria-hidden="true">*</span>
                   </label>
                   <input
-                    id="cs-phone_number"
-                    name="phone_number"
-                    type="tel"
-                    inputMode="numeric"
-                    maxLength={maxDigits}
-                    autoComplete="tel-national"
+                    id="cs-email"
+                    name="email"
+                    type="email"
+                    required
+                    maxLength={254}
+                    autoComplete="email"
                     disabled={loading}
-                    value={form.phone_number}
-                    onChange={update("phone_number")}
-                    onBlur={handleBlur("phone_number")}
-                    aria-invalid={Boolean(fieldErrors.phone_number)}
-                    aria-describedby={fieldErrors.phone_number ? "cs-phone_number-error" : undefined}
-                    className={fieldClass(Boolean(fieldErrors.phone_number))}
-                    placeholder={country.example}
+                    value={form.email}
+                    onChange={update("email")}
+                    onBlur={handleBlur("email")}
+                    aria-invalid={Boolean(fieldErrors.email)}
+                    aria-describedby={
+                      fieldErrors.email ? "cs-email-error" : undefined
+                    }
+                    className={fieldClass(Boolean(fieldErrors.email))}
+                    placeholder="jane@company.com"
                   />
-                    <FieldError
-                    id="cs-phone_number-error"
-                    message={fieldErrors.phone_number}
-                  />
-                  {!fieldErrors.phone_number && (
-                    <p className="mt-1.5 text-[12.5px] leading-[1.45] text-brand-text-secondary">
-                      {phoneDigits.length > 0
-                        ? `${phoneDigits.length} of ${maxDigits} digits`
-                        : `${maxDigits} digits for ${country.name}`}
-                    </p>
-                  )}
+                  <FieldError id="cs-email-error" message={fieldErrors.email} />
                 </div>
-              </div>
 
-              <div className="mt-4">
-                <span className={labelClass} id="cs-industry-label">
-                  Industry
-                </span>
-                <SelectField
-                  value={form.industry}
-                  onChange={(industry) =>
-                    setForm((prev) => ({ ...prev, industry }))
-                  }
-                  options={INDUSTRIES}
-                  placeholder="Select an industry"
-                  disabled={loading}
-                  labelledBy="cs-industry-label"
-                />
-              </div>
+                <div>
+                  <label className={labelClass} htmlFor="cs-company_name">
+                    Company name <span aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    id="cs-company_name"
+                    name="company_name"
+                    required
+                    maxLength={255}
+                    autoComplete="organization"
+                    disabled={loading}
+                    value={form.company_name}
+                    onChange={update("company_name")}
+                    onBlur={handleBlur("company_name")}
+                    aria-invalid={Boolean(fieldErrors.company_name)}
+                    aria-describedby={
+                      fieldErrors.company_name
+                        ? "cs-company_name-error"
+                        : undefined
+                    }
+                    className={fieldClass(Boolean(fieldErrors.company_name))}
+                    placeholder="Acme Corp"
+                  />
+                  <FieldError
+                    id="cs-company_name-error"
+                    message={fieldErrors.company_name}
+                  />
+                </div>
 
-              <div className="mt-4">
-                <label className={labelClass} htmlFor="cs-message">
-                  Tell us about your hiring needs
-                </label>
-                <textarea
-                  id="cs-message"
-                  name="message"
-                  rows={4}
-                  maxLength={2000}
-                  disabled={loading}
-                  value={form.message}
-                  onChange={update("message")}
+                <div className="grid grid-cols-[minmax(0,136px)_1fr] gap-3">
+                  <div>
+                    <span className={labelClass} id="cs-country-code-label">
+                      Code
+                    </span>
+                    <CountryCodeSelect
+                      value={country}
+                      onChange={(next) => {
+                        setCountry(next);
+                        // The expected length just changed, so re-check the
+                        // number already entered against the new country.
+                        const digits = form.phone_number.replace(/\D/g, "");
+                        const trimmedDigits = digits.slice(
+                          0,
+                          digitRange(next).max,
+                        );
+                        setForm((prev) => ({
+                          ...prev,
+                          phone_number: trimmedDigits,
+                        }));
+                        setFieldErrors((prev) => ({
+                          ...prev,
+                          phone_number: touched.phone_number
+                            ? (validatePhone(trimmedDigits, next) ?? undefined)
+                            : undefined,
+                        }));
+                      }}
+                      disabled={loading}
+                      labelledBy="cs-country-code-label"
+                    />
+                  </div>
+
+                  <div>
+                    <label className={labelClass} htmlFor="cs-phone_number">
+                      Phone number
+                    </label>
+                    <input
+                      id="cs-phone_number"
+                      name="phone_number"
+                      type="tel"
+                      inputMode="numeric"
+                      maxLength={maxDigits}
+                      autoComplete="tel-national"
+                      disabled={loading}
+                      value={form.phone_number}
+                      onChange={update("phone_number")}
+                      onBlur={handleBlur("phone_number")}
+                      aria-invalid={Boolean(fieldErrors.phone_number)}
+                      aria-describedby={
+                        fieldErrors.phone_number
+                          ? "cs-phone_number-error"
+                          : undefined
+                      }
+                      className={fieldClass(Boolean(fieldErrors.phone_number))}
+                      placeholder={country.example}
+                    />
+                  </div>
+
+                  <div className="col-span-2">
+                    <FieldError
+                      id="cs-phone_number-error"
+                      message={fieldErrors.phone_number}
+                    />
+                    {!fieldErrors.phone_number && (
+                      <p className="mt-1.5 text-[12.5px] leading-normal text-brand-text-secondary">
+                        {phoneDigits.length > 0
+                          ? `${phoneDigits.length} of ${maxDigits} digits`
+                          : `${maxDigits} digits for ${country.name}`}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <span className={labelClass} id="cs-industry-label">
+                    Industry
+                  </span>
+                  <SelectField
+                    value={form.industry}
+                    onChange={(industry) =>
+                      setForm((prev) => ({ ...prev, industry }))
+                    }
+                    options={INDUSTRIES}
+                    placeholder="Select an industry"
+                    disabled={loading}
+                    labelledBy="cs-industry-label"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className={labelClass} htmlFor="cs-message">
+                    Tell us about your hiring needs
+                  </label>
+                  <textarea
+                    id="cs-message"
+                    name="message"
+                    rows={3}
+                    maxLength={2000}
+                    disabled={loading}
+                    value={form.message}
+                    onChange={update("message")}
                     onBlur={handleBlur("message")}
                     aria-invalid={Boolean(fieldErrors.message)}
-                    aria-describedby={fieldErrors.message ? "cs-message-error" : undefined}
-                  className={`${fieldClass(Boolean(fieldErrors.message))} resize-y`}
-                  placeholder="Roles you hire for, volume per quarter, team size, any compliance needs."
-                />
-                <FieldError id="cs-message-error" message={fieldErrors.message} />
+                    aria-describedby={
+                      fieldErrors.message ? "cs-message-error" : undefined
+                    }
+                    className={`${fieldClass(Boolean(fieldErrors.message))} resize-y`}
+                    placeholder="Roles you hire for, volume per quarter, team size, any compliance needs."
+                  />
+                  <FieldError
+                    id="cs-message-error"
+                    message={fieldErrors.message}
+                  />
+                </div>
               </div>
 
               {error && (
@@ -556,21 +591,26 @@ export default function ContactSalesDialog({ open, onClose, planId }: Props) {
                 </p>
               )}
 
-              <button
-                type="submit"
-                disabled={loading}
-                aria-describedby={error ? errorId : undefined}
-                className="mt-6 inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-brand-dark-blue px-6 text-[14px] font-semibold text-brand-white transition-all duration-300 hover:bg-brand-light-blue focus-visible:ring-2 focus-visible:ring-brand-light-blue focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-70"
-              >
-                {loading && (
-                  <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                )}
-                {loading ? "Submitting" : "Submit inquiry"}
-              </button>
+              <div className="mt-6 flex flex-col-reverse items-center gap-3 sm:flex-row sm:justify-between">
+                <p className="m-0 text-[12px] leading-normal text-brand-text-secondary">
+                  We use your details only to respond to this inquiry.
+                </p>
 
-              <p className="mt-3 text-center text-[12px] leading-normal text-brand-text-secondary">
-                We use your details only to respond to this inquiry.
-              </p>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  aria-describedby={error ? errorId : undefined}
+                  className="inline-flex min-h-13 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-brand-dark-blue px-8 text-[14px] font-semibold text-brand-white transition-all duration-300 hover:bg-brand-light-blue focus-visible:ring-2 focus-visible:ring-brand-light-blue focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+                >
+                  {loading && (
+                    <Loader2
+                      className="h-4 w-4 animate-spin"
+                      aria-hidden="true"
+                    />
+                  )}
+                  {loading ? "Submitting" : "Submit inquiry"}
+                </button>
+              </div>
             </form>
           </>
         )}
