@@ -52,10 +52,25 @@ body {
   a {
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
   }
 
   button {
     font: inherit;
+    cursor: pointer;
+  }
+
+  /* A disabled control should not invite a click. */
+  button:disabled,
+  button[aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  label,
+  summary,
+  select,
+  [role="button"] {
+    cursor: pointer;
   }
 }
 

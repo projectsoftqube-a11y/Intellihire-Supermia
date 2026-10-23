@@ -8,8 +8,11 @@ import Pricing from "@/components/Pricing";
 import Brochure from "@/components/Brochure";
 import FinalCta from "@/components/FinalCta";
 import SiteFooter from "@/components/SiteFooter";
+import { getBillingPlans } from "@/lib/billing";
 
-export default function Home() {
+export default async function Home() {
+  const plans = await getBillingPlans();
+
   return (
     <>
       <SiteHeader />
@@ -19,7 +22,7 @@ export default function Home() {
         <HiringFlow />
         <HumanBalance />
         <FeatureSuite />
-        <Pricing />
+        <Pricing plans={plans} />
         <Brochure />
         <FinalCta />
       </main>
