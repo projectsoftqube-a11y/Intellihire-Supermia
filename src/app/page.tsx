@@ -10,6 +10,11 @@ import FinalCta from "@/components/FinalCta";
 import SiteFooter from "@/components/SiteFooter";
 import { getBillingPlans } from "@/lib/billing";
 
+// Render on every request so pricing always reflects the billing API. Without
+// this the page is prerendered once at build time and the API is never called
+// again.
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const plans = await getBillingPlans();
 

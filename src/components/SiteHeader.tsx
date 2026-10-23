@@ -9,6 +9,12 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
+// Login lives in the separate app. Configurable so staging can point
+// elsewhere, and always https since credentials are entered there.
+const APP_LOGIN_URL =
+  process.env.NEXT_PUBLIC_APP_LOGIN_URL ??
+  "https://app.intellihire.supermia.ai/";
+
 const NAV_ITEMS = [
   { label: "The Hiring Gap", href: "/#solutions" },
   { label: "How It Works", href: "/#how-it-works" },
@@ -155,7 +161,7 @@ export default function SiteHeader() {
       <div data-hd-item className="flex shrink-0 items-center gap-2 sm:gap-3">
         <a
           className="group relative hidden min-h-[48px] items-center justify-center gap-2.5 rounded-full bg-[#071a3d] px-6 text-[14px] font-semibold text-[#ffffff] shadow-[0_6px_20px_rgba(7,26,61,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:shadow-[0_14px_32px_rgba(8,126,245,0.45)] sm:inline-flex lg:min-h-[52px] lg:px-8 lg:text-[15px]"
-          href="http://app.IntelliHire.supermia.ai/"
+          href={APP_LOGIN_URL}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -195,10 +201,7 @@ export default function SiteHeader() {
         aria-hidden={!menuOpen}
       >
         <div className="flex h-full flex-col justify-between overflow-y-auto px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
-          <nav
-            className="flex flex-col"
-            aria-label="Mobile navigation"
-          >
+          <nav className="flex flex-col" aria-label="Mobile navigation">
             {NAV_ITEMS.map(({ label, href }, i) => (
               <a
                 data-hd-link
@@ -225,9 +228,9 @@ export default function SiteHeader() {
 
           <div data-hd-link className="mt-8">
             <a
-              href="http://app.IntelliHire.supermia.ai/"
-          target="_blank"
-          rel="noopener noreferrer"
+              href={APP_LOGIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
               className="group inline-flex min-h-[56px] w-full items-center justify-center gap-3 rounded-full bg-[#ffffff] px-6 text-[15px] font-semibold text-[#071a3d] transition-colors duration-300 hover:bg-[#087ef5] hover:text-[#ffffff]"
             >

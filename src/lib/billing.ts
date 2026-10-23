@@ -370,9 +370,9 @@ export async function getBillingPlans(): Promise<PricingPlan[]> {
       redirect: "error",
       // Abort a hung upstream so a slow API cannot stall page rendering.
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      // Re-fetch at most once per hour so pricing stays reasonably fresh
-      // without hitting the API on every request.
-      next: { revalidate: 3600 },
+      // Always fetch fresh pricing: a plan change in the database must show
+      // on the next page load, not up to an hour later.
+      cache: "no-store",
     });
 
     if (!res.ok) return FALLBACK_PLANS;
