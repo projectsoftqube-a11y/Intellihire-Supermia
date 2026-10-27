@@ -239,6 +239,18 @@ export default function SiteFooter() {
           <p className="m-0 text-[13px] text-[#ffffff]/55">
             © {new Date().getFullYear()} {BRAND_NAME}
           </p>
+
+          <p className="m-0 text-[13px] text-[#ffffff]/55">
+            Design &amp; Develop by{" "}
+            <a
+              href="https://softqubes.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#ffffff] transition-colors duration-200 hover:text-[#087ef5]"
+            >
+              Softqube Technologies LLC
+            </a>
+          </p>
         </div>
       </div>
     </footer>
