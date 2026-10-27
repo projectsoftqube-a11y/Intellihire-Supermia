@@ -8,6 +8,8 @@
  * empty or broken.
  */
 
+import { cache } from "react";
+
 export type BillingPlanFeatures = {
   plan_feature_id: string;
   total_active_job_post: number;
@@ -67,6 +69,24 @@ export type PricingPoint = {
   included: boolean;
 };
 
+/**
+ * Structured plan limits from the API, used for the comparison table on
+ * /pricing. Null for the static fallback plans, which only list features.
+ */
+export type PlanLimits = {
+  activeJobPosts: number;
+  candidateProfiles: number;
+  aiInterviewMinutes: number;
+  humanInterviewMinutes: number;
+  questionBankUploads: number;
+  questionGenerations: number;
+  linkedinPosts: number;
+  users: number;
+  careerPageApi: boolean;
+  interviewReminders: boolean;
+  resumeScreening: boolean;
+};
+
 export type PricingPlan = {
   id: string;
   name: string;
@@ -75,9 +95,15 @@ export type PricingPlan = {
   price: string;
   /** Billing cadence shown next to the price, e.g. "/month". Empty when N/A. */
   cadence: string;
+  /** Monthly cost as a number, or null when not priced (custom, coming soon). */
+  monthlyCost: number | null;
+  currency: string;
+  /** Free-trial length in days; 0 when the plan is not a trial. */
+  trialDays: number;
   featured: boolean;
   isCustom: boolean;
   points: PricingPoint[];
+  limits: PlanLimits | null;
   cta: { label: string; href: string };
 };
 
@@ -126,8 +152,12 @@ const FALLBACK_PLANS: PricingPlan[] = [
     blurb: "For small teams running their first AI-assisted hires.",
     price: "Coming soon",
     cadence: "",
+    monthlyCost: null,
+    currency: "USD",
+    trialDays: 0,
     featured: false,
     isCustom: false,
+    limits: null,
     points: [
       included("Resume parsing and candidate matching"),
       included("AI voice interviews"),
@@ -142,8 +172,12 @@ const FALLBACK_PLANS: PricingPlan[] = [
     blurb: "For scaling teams hiring across multiple roles at once.",
     price: "Coming soon",
     cadence: "",
+    monthlyCost: null,
+    currency: "USD",
+    trialDays: 0,
     featured: true,
     isCustom: false,
+    limits: null,
     points: [
       included("Everything in Starter"),
       included("AI-assisted human interviews"),
@@ -156,11 +190,15 @@ const FALLBACK_PLANS: PricingPlan[] = [
   {
     id: "fallback-enterprise",
     name: "Enterprise",
-    blurb: "For organisations with compliance and scale requirements.",
+    blurb: "For organizations with compliance and scale requirements.",
     price: "Let's talk",
     cadence: "custom pricing",
+    monthlyCost: null,
+    currency: "USD",
+    trialDays: 0,
     featured: false,
     isCustom: true,
+    limits: null,
     points: [
       included("Everything in Growth"),
       included("Multi-tenant isolation and SSO"),
@@ -313,10 +351,29 @@ function ctaLabel(plan: BillingPlan): string {
   return days > 0 ? `Start ${days} Day Free Trial` : "Start Free Trial";
 }
 
+/** Pull the structured limits out of the API feature block. */
+function toLimits(features: BillingPlanFeatures | undefined): PlanLimits | null {
+  if (!features || typeof features !== "object") return null;
+  return {
+    activeJobPosts: safeNumber(features.total_active_job_post),
+    candidateProfiles: safeNumber(features.total_candidate_profile),
+    aiInterviewMinutes: safeNumber(features.total_ai_interview_min),
+    humanInterviewMinutes: safeNumber(features.total_human_interview_minutes),
+    questionBankUploads: safeNumber(features.total_question_bank_upload),
+    questionGenerations: safeNumber(features.total_no_question),
+    linkedinPosts: safeNumber(features.linkedin_post),
+    users: safeNumber(features.no_of_user),
+    careerPageApi: features.career_page_api_access === true,
+    interviewReminders: features.interview_call_reminder === true,
+    resumeScreening: features.resume_screening === true,
+  };
+}
+
 /** Map a raw API plan into the display-ready view model. */
 function toPricingPlan(plan: BillingPlan): PricingPlan {
   const { price, cadence } = formatPrice(plan);
   const custom = isCustomPlan(plan);
+  const cost = safeNumber(plan.monthly_cost);
 
   const rawPoints = Array.isArray(plan.features?.plan_features)
     ? plan.features.plan_features
@@ -328,6 +385,10 @@ function toPricingPlan(plan: BillingPlan): PricingPlan {
     blurb: safeText(plan.description),
     price,
     cadence,
+    monthlyCost: custom ? null : cost,
+    currency: /^[A-Z]{3}$/.test(plan.currency ?? "") ? plan.currency : "USD",
+    trialDays: plan.is_trial === true ? trialDays(plan) : 0,
+    limits: toLimits(plan.features),
     // A custom plan is never the highlighted tier.
     featured: plan.is_popular === true && !custom,
     isCustom: custom,
@@ -351,7 +412,7 @@ function toPricingPlan(plan: BillingPlan): PricingPlan {
  * Returns display-ready plans sorted by `order_no`. Falls back to a static set
  * on any failure (missing base URL, network error, non-OK status, bad payload).
  */
-export async function getBillingPlans(): Promise<PricingPlan[]> {
+async function fetchBillingPlans(): Promise<PricingPlan[]> {
   const baseUrl = process.env.BILLING_API_BASE_URL;
 
   const endpoint = buildEndpoint(baseUrl);
@@ -428,3 +489,9 @@ export async function getBillingPlans(): Promise<PricingPlan[]> {
     return FALLBACK_PLANS;
   }
 }
+
+/**
+ * Request-scoped: generateMetadata and the page share one API call per
+ * request (both need the plans on /pricing and /faq).
+ */
+export const getBillingPlans = cache(fetchBillingPlans);

@@ -2,13 +2,33 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import LegalPage, { type LegalSection } from "@/components/LegalPage";
+import { JsonLd } from "@/components/ui";
+import { breadcrumbNode, buildMetadata, webPageNode, type Crumb } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions",
-  description:
-    "The terms governing use of the IntelliHire recruitment platform, including customer obligations, acceptable use and service commitments.",
-  alternates: { canonical: "/terms" },
-};
+const PATH = "/terms";
+const TITLE = "Terms & Conditions | IntelliHire";
+const DESCRIPTION =
+  "The terms that govern use of IntelliHire, including responsibilities for hiring decisions and candidate data.";
+const CRUMBS: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Terms & Conditions", path: PATH },
+];
+
+export const metadata: Metadata = buildMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
+});
+
+const GRAPH = [
+  webPageNode({
+    path: PATH,
+    name: TITLE,
+    description: DESCRIPTION,
+    dateModified: "2026-10-27",
+  }),
+  breadcrumbNode(PATH, CRUMBS),
+];
 
 const SECTIONS: LegalSection[] = [
   {
@@ -141,8 +161,10 @@ const SECTIONS: LegalSection[] = [
 export default function TermsPage() {
   return (
     <>
+      <JsonLd nodes={GRAPH} />
       <SiteHeader />
       <LegalPage
+        crumbs={CRUMBS}
         eyebrow="Legal"
         title="Terms & Conditions"
         intro="The terms governing use of the IntelliHire platform, covering customer responsibilities, acceptable use, AI outputs and the limits of our service commitments."

@@ -2,13 +2,33 @@ import type { Metadata } from "next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import LegalPage, { type LegalSection } from "@/components/LegalPage";
+import { JsonLd } from "@/components/ui";
+import { breadcrumbNode, buildMetadata, webPageNode, type Crumb } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description:
-    "How IntelliHire collects, uses, stores and protects candidate and customer data across the recruitment platform.",
-  alternates: { canonical: "/privacy" },
-};
+const PATH = "/privacy";
+const TITLE = "Privacy Policy | IntelliHire";
+const DESCRIPTION =
+  "How IntelliHire collects, uses and protects account, candidate and interview data, and the choices available to candidates.";
+const CRUMBS: Crumb[] = [
+  { name: "Home", path: "/" },
+  { name: "Privacy Policy", path: PATH },
+];
+
+export const metadata: Metadata = buildMetadata({
+  title: TITLE,
+  description: DESCRIPTION,
+  path: PATH,
+});
+
+const GRAPH = [
+  webPageNode({
+    path: PATH,
+    name: TITLE,
+    description: DESCRIPTION,
+    dateModified: "2026-10-27",
+  }),
+  breadcrumbNode(PATH, CRUMBS),
+];
 
 const SECTIONS: LegalSection[] = [
   {
@@ -135,8 +155,10 @@ const SECTIONS: LegalSection[] = [
 export default function PrivacyPolicyPage() {
   return (
     <>
+      <JsonLd nodes={GRAPH} />
       <SiteHeader />
       <LegalPage
+        crumbs={CRUMBS}
         eyebrow="Legal"
         title="Privacy Policy"
         intro="How IntelliHire collects, uses and protects personal information across the recruitment platform, for both hiring teams and the candidates they evaluate."

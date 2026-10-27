@@ -11,25 +11,25 @@ const PROBLEMS = [
   {
     index: "01",
     title: "Too many applications",
-    copy: "Volume hides the people who could make the greatest impact.",
+    copy: "When a role draws hundreds of applicants, nobody has time to read each one properly. The strongest applicant can be the one nobody opened.",
     load: 92,
   },
   {
     index: "02",
     title: "Too much manual screening",
-    copy: "Recruiters lose valuable hours to repetitive review.",
+    copy: "Recruiters spend their days reading resume after resume against the same checklist. Every hour on first-pass review is an hour not spent talking to the people you want to hire.",
     load: 78,
   },
   {
     index: "03",
     title: "Slow interview coordination",
-    copy: "Momentum disappears between calendars and follow-ups.",
+    copy: "Momentum disappears between calendars and follow-ups. Every day spent arranging a first conversation is a day a strong candidate can walk away.",
     load: 64,
   },
   {
     index: "04",
     title: "Great candidates get missed",
-    copy: "Strong potential can be buried beneath imperfect signals.",
+    copy: "Strong potential can sit behind an unusual resume or an imperfect keyword match. A rushed first pass rarely finds it.",
     load: 47,
   },
 ];
@@ -86,11 +86,11 @@ export default function HiringGap() {
 
   return (
     <section
-      className="relative bg-brand-surface px-5 py-20 md:px-10 md:py-28"
-      id="solutions"
+      className="relative bg-brand-surface px-4 py-20 sm:px-5 md:px-10 md:py-28"
+      id="problem"
       ref={root}
     >
-      <div className="mx-auto max-w-[1920px] overflow-hidden rounded-[34px] bg-[#071a3d]">
+      <div className="mx-auto max-w-[1920px] overflow-hidden rounded-[28px] bg-[#071a3d] sm:rounded-[34px]">
         <div className="relative grid grid-cols-1 lg:grid-cols-2">
           <span
             data-gap-seam
@@ -100,7 +100,7 @@ export default function HiringGap() {
 
           <div
             data-gap-heading
-            className="relative px-7 pt-14 pb-10 md:px-14 md:pt-20 lg:py-24"
+            className="relative px-6 pt-14 pb-10 sm:px-7 md:px-14 md:pt-20 lg:py-24"
           >
             <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#ffffff]/90">
               <span
@@ -110,25 +110,30 @@ export default function HiringGap() {
               The hiring gap
             </p>
 
-            <h2 className="mt-8 font-display text-[clamp(34px,3.8vw,60px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#ffffff]">
-              Great candidates are out there.
+            <h2 className="mt-8 font-display text-[clamp(30px,3.8vw,60px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#ffffff]">
+              Why Hiring Stalls{" "}
               <span className="block text-[#087ef5]">
-                Finding them shouldn&rsquo;t take forever.
+                Before Anyone Talks to a Candidate
               </span>
             </h2>
 
             <p className="mt-8 max-w-[480px] text-[clamp(15px,1.2vw,19px)] leading-[1.7] text-[#ffffff]/65">
-              Recruitment teams need clarity, not more noise. IntelliHire turns
-              an overwhelming process into a focused path forward.
+              Good candidates apply. The trouble is what happens next.
+              Applications pile up and recruiters spend their week on
+              first-pass review. By the time interviews are arranged, some of
+              the people you wanted may have taken other offers.
             </p>
 
-            <div className="mt-12 flex items-center gap-5 border-t border-[#ffffff]/12 pt-8">
-              <p className="m-0 font-display text-[clamp(40px,4.2vw,62px)] leading-none text-[#ff6b00]">
-                60%
-              </p>
-              <p className="m-0 max-w-[260px] text-[13px] leading-[1.6] text-[#ffffff]/55">
-                of a recruiter&rsquo;s week goes to repetitive screening instead
-                of talking to people.
+            <div className="mt-12 flex items-start gap-5 border-t border-[#ffffff]/12 pt-8">
+              <span
+                className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-[#ff6b00]"
+                aria-hidden="true"
+              />
+              <p className="m-0 max-w-[460px] text-[clamp(14px,1.05vw,16px)] leading-[1.7] text-[#ffffff]/80">
+                IntelliHire takes the reading, ranking and first-round
+                interviews off your recruiters&rsquo; desks, so their hours go
+                to the conversations that matter. Your team still decides who
+                moves forward.
               </p>
             </div>
           </div>
@@ -138,7 +143,7 @@ export default function HiringGap() {
               <article
                 data-gap-row
                 key={index}
-                className="group relative border-b border-[#ffffff]/10 px-7 py-8 transition-colors duration-300 last:border-b-0 hover:bg-[#ffffff]/[0.04] md:px-14 md:py-10"
+                className="group relative border-b border-[#ffffff]/10 px-6 py-8 transition-colors duration-300 last:border-b-0 hover:bg-[#ffffff]/[0.04] sm:px-7 md:px-14 md:py-10"
               >
                 <div className="flex items-baseline gap-5 md:gap-7">
                   <span className="font-display text-[15px] leading-none text-[#087ef5]">

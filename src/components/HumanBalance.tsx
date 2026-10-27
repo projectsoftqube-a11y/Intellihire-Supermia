@@ -4,6 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -11,23 +12,23 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const HANDOFFS = [
   {
     ai: "Reads and structures every application",
-    you: "Decide what the role actually needs",
+    you: "What the role actually needs",
   },
   {
     ai: "Ranks candidates against your rubric",
-    you: "Decide which signals carry weight",
+    you: "Which signals carry weight",
   },
   {
     ai: "Runs first-round interviews around the clock",
-    you: "Decide who moves forward",
+    you: "Who moves forward",
   },
   {
     ai: "Drafts scorecards with transcript evidence",
-    you: "Decide what the evidence means",
+    you: "What the evidence means",
   },
   {
     ai: "Flags integrity concerns for review",
-    you: "Decide the final offer, every time",
+    you: "The final offer, every time",
   },
 ];
 
@@ -74,7 +75,7 @@ export default function HumanBalance() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#071a3d] px-5 py-24 md:px-10 md:py-32"
+      className="relative overflow-hidden bg-[#071a3d] px-4 py-24 sm:px-5 md:px-10 md:py-32"
       id="oversight"
       ref={root}
     >
@@ -93,21 +94,22 @@ export default function HumanBalance() {
             Intelligence, with oversight
           </p>
 
-          <h2 className="mt-8 font-display text-[clamp(34px,4.2vw,64px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#ffffff]">
-            AI does the searching.
-            <span className="block text-[#087ef5]">People do the deciding.</span>
+          <h2 className="mt-8 font-display text-[clamp(30px,4.2vw,64px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#ffffff]">
+            AI Does the Reading.{" "}
+            <span className="block text-[#087ef5]">Your Team Makes the Call.</span>
           </h2>
 
-          <p className="mt-8 max-w-[560px] text-[clamp(16px,1.3vw,20px)] leading-[1.7] text-[#ffffff]/65">
-            Every step ends with a handoff. IntelliHire does the reading, your
-            team makes the call.
+          <p className="mt-8 max-w-[600px] text-[clamp(16px,1.3vw,20px)] leading-[1.7] text-[#ffffff]/65">
+            IntelliHire is built for human in the loop hiring. Every stage ends
+            with a handoff to a person: the AI handles the volume, and your team
+            makes every decision.
           </p>
         </div>
 
         <div className="mt-16 flex flex-col md:mt-20">
           <div className="hidden grid-cols-[1fr_auto_1fr] items-center gap-8 pb-5 lg:grid">
             <p className="m-0 text-[12px] font-semibold tracking-[0.18em] uppercase text-[#087ef5]">
-              IntelliHire handles
+              IntelliHire does
             </p>
             <span className="w-12" aria-hidden="true" />
             <p className="m-0 text-[12px] font-semibold tracking-[0.18em] uppercase text-[#ff6b00]">
@@ -126,6 +128,7 @@ export default function HumanBalance() {
                   0{i + 1}
                 </span>
                 <p className="m-0 text-[clamp(16px,1.35vw,21px)] leading-[1.5] text-[#ffffff]/60">
+                  <span className="sr-only">IntelliHire does: </span>
                   {ai}
                 </p>
               </div>
@@ -147,6 +150,10 @@ export default function HumanBalance() {
               </div>
 
               <p className="m-0 text-[clamp(17px,1.5vw,23px)] leading-[1.4] font-semibold text-[#ffffff]">
+                <span className="sr-only">Your team decides: </span>
+                <span className="text-[#ff6b00] lg:hidden" aria-hidden="true">
+                  Your team decides:{" "}
+                </span>
                 {you}
               </p>
             </div>
@@ -159,12 +166,12 @@ export default function HumanBalance() {
             <span className="text-[#ff6b00]">.</span>
           </p>
 
-          <a
-            className="group inline-flex min-h-[58px] shrink-0 items-center gap-4 rounded-full bg-[#ffffff] py-2 pr-2 pl-8 text-[15px] font-semibold text-[#071a3d] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5]"
-            href="#features"
+          <Link
+            className="group inline-flex min-h-[58px] max-w-full shrink-0 items-center gap-4 rounded-full bg-[#ffffff] py-2 pr-2 pl-6 text-[15px] font-semibold text-[#071a3d] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] sm:pl-8"
+            href="/platform/human-oversight"
           >
             <span className="text-[#071a3d] group-hover:text-[#ffffff]">
-              See how oversight works
+              Read how human oversight and data security work
             </span>
             <span className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-full bg-[#071a3d] transition-transform duration-300 group-hover:rotate-45">
               <ArrowRight
@@ -172,7 +179,7 @@ export default function HumanBalance() {
                 aria-hidden="true"
               />
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

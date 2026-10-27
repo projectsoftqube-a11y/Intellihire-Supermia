@@ -1,27 +1,44 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
+import { MARKETING_PAGES } from "@/content";
+import {
+  BLOG_CATEGORIES,
+  BLOG_POSTS,
+  INDEX_THRESHOLD,
+  postPath,
+  postsInCategory,
+} from "@/content/blog";
+import { absoluteUrl } from "@/lib/seo";
 
+/** Content date of the October 2026 SEO release. */
+const RELEASED = "2026-10-27";
+
+/**
+ * Live, indexable pages only (launch kit rule): noindex pages such as a blog
+ * hub or category with fewer than three posts stay out until they qualify.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const entry = (
+    path: string,
+    lastModified: string,
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"],
+    priority: number,
+  ) => ({ url: absoluteUrl(path), lastModified, changeFrequency, priority });
+
+  const blogIndexed = BLOG_POSTS.length >= INDEX_THRESHOLD;
 
   return [
-    {
-      url: SITE_URL,
-      lastModified,
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${SITE_URL}/privacy`,
-      lastModified,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${SITE_URL}/terms`,
-      lastModified,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
+    entry("/", RELEASED, "weekly", 1),
+    entry("/pricing", RELEASED, "weekly", 0.9),
+    entry("/faq", RELEASED, "monthly", 0.8),
+    ...MARKETING_PAGES.map((page) =>
+      entry(page.path, page.dateModified, "monthly", page.kind === "about" ? 0.5 : 0.8),
+    ),
+    ...(blogIndexed ? [entry("/blog", RELEASED, "weekly", 0.7)] : []),
+    ...BLOG_CATEGORIES.filter(
+      (category) => postsInCategory(category.slug).length >= INDEX_THRESHOLD,
+    ).map((category) => entry(category.path, RELEASED, "weekly", 0.5)),
+    ...BLOG_POSTS.map((post) => entry(postPath(post), post.dateModified, "monthly", 0.6)),
+    entry("/privacy", RELEASED, "yearly", 0.3),
+    entry("/terms", RELEASED, "yearly", 0.3),
   ];
 }

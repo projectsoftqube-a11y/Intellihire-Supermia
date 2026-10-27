@@ -3,31 +3,100 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ArrowRight, ArrowUpRight, ChevronDown, Menu, Minus, Plus, X } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import {
+  PLATFORM_COLUMNS,
+  PLATFORM_FOOTER,
+  PLATFORM_LINKS,
+  TOP_LINKS,
+  USE_CASE_LINKS,
+  isActivePath,
+  type NavLink,
+} from "@/lib/nav";
+import { APP_LOGIN_URL, BRAND_NAME, CONTACT_EMAIL, DEMO_URL } from "@/lib/site";
 
 gsap.registerPlugin(useGSAP);
 
-// Login lives in the separate app. Configurable so staging can point
-// elsewhere, and always https since credentials are entered there.
-const APP_LOGIN_URL =
-  process.env.NEXT_PUBLIC_APP_LOGIN_URL ??
-  "https://app.intellihire.supermia.ai/";
+type DropdownKey = "platform" | "use-cases";
 
-const NAV_ITEMS = [
-  { label: "The Hiring Gap", href: "/#solutions" },
-  { label: "How It Works", href: "/#how-it-works" },
-  { label: "Platform", href: "/#features" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "Contact Us", href: "/#contact" },
+const MOBILE_SECTIONS: { key: DropdownKey; label: string; links: NavLink[] }[] = [
+  { key: "platform", label: "Platform", links: [...PLATFORM_LINKS, PLATFORM_FOOTER[1]] },
+  { key: "use-cases", label: "Use Cases", links: USE_CASE_LINKS },
 ];
+
+/** Desktop label with the homepage's slide-up hover effect. */
+function SlideLabel({ label, active }: { label: string; active: boolean }) {
+  return (
+    <span className="relative inline-block overflow-hidden align-bottom">
+      <span className="relative inline-block transition-transform duration-300 ease-out group-hover:-translate-y-full">
+        <span className={`block ${active ? "text-[#087ef5]" : ""}`}>{label}</span>
+        <span className="absolute top-full left-0 block text-[#087ef5]" aria-hidden="true">
+          {label}
+        </span>
+      </span>
+    </span>
+  );
+}
+
+function MenuItemLink({
+  link,
+  pathname,
+  onNavigate,
+}: {
+  link: NavLink;
+  pathname: string;
+  onNavigate: () => void;
+}) {
+  const Icon = link.icon;
+  const active = isActivePath(pathname, link.href);
+  return (
+    <Link
+      href={link.href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={`group/item flex items-start gap-3.5 rounded-2xl p-3 transition-colors duration-200 hover:bg-[#f2f8fd] focus-visible:bg-[#f2f8fd] focus-visible:outline-none ${
+        active ? "bg-[#f2f8fd]" : ""
+      }`}
+    >
+      {Icon && (
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#087ef5]/10 text-[#087ef5] transition-colors duration-200 group-hover/item:bg-[#087ef5] group-hover/item:text-[#ffffff]">
+          <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+        </span>
+      )}
+      <span className="min-w-0">
+        <span className="flex items-center gap-1.5 text-[14.5px] leading-snug font-semibold text-[#071a3d]">
+          {link.label}
+          <ArrowRight
+            className="h-3.5 w-3.5 -translate-x-1 text-[#087ef5] opacity-0 transition-all duration-200 group-hover/item:translate-x-0 group-hover/item:opacity-100"
+            aria-hidden="true"
+          />
+        </span>
+        {link.description && (
+          <span className="mt-0.5 block text-[13px] leading-[1.45] text-[#5b6575]">
+            {link.description}
+          </span>
+        )}
+      </span>
+    </Link>
+  );
+}
 
 export default function SiteHeader() {
   const root = useRef<HTMLElement>(null);
   const panel = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number | null>(null);
+  const pathname = usePathname() ?? "/";
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdown, setDropdown] = useState<DropdownKey | null>(null);
+  const [mobileSection, setMobileSection] = useState<DropdownKey | null>(null);
+
+  const platformActive = PLATFORM_LINKS.some((l) => isActivePath(pathname, l.href));
+  const useCasesActive = USE_CASE_LINKS.some((l) => isActivePath(pathname, l.href));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -45,11 +114,41 @@ export default function SiteHeader() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
+      if (e.key !== "Escape") return;
+      setMenuOpen(false);
+      setDropdown(null);
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      if (!root.current?.contains(e.target as Node)) setDropdown(null);
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
   }, []);
+
+  const cancelClose = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
+
+  const openDropdown = (key: DropdownKey) => {
+    cancelClose();
+    setDropdown(key);
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = window.setTimeout(() => setDropdown(null), 140);
+  };
+
+  const closeAll = () => {
+    cancelClose();
+    setDropdown(null);
+    setMenuOpen(false);
+  };
 
   useGSAP(
     () => {
@@ -70,10 +169,14 @@ export default function SiteHeader() {
   useGSAP(
     () => {
       if (!panel.current) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(panel.current, {
+          clipPath: menuOpen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)",
+        });
+        return;
+      }
 
       if (menuOpen) {
-        gsap.set(panel.current, { pointerEvents: "auto" });
         gsap
           .timeline({ defaults: { ease: "power3.out" } })
           .fromTo(
@@ -84,7 +187,7 @@ export default function SiteHeader() {
           .fromTo(
             "[data-hd-link]",
             { y: 26, opacity: 0 },
-            { y: 0, opacity: 1, stagger: 0.07, duration: 0.45 },
+            { y: 0, opacity: 1, stagger: 0.06, duration: 0.45 },
             "-=0.3",
           );
       } else {
@@ -92,24 +195,22 @@ export default function SiteHeader() {
           clipPath: "inset(0% 0% 100% 0%)",
           duration: 0.4,
           ease: "power3.inOut",
-          onComplete: () => {
-            if (panel.current) {
-              gsap.set(panel.current, { pointerEvents: "none" });
-            }
-          },
         });
       }
     },
     { dependencies: [menuOpen], scope: root },
   );
 
+  const navItemClass =
+    "group relative inline-flex items-center gap-1.5 py-1 text-[14px] font-medium whitespace-nowrap text-[#071a3d] xl:text-[15px]";
+
   return (
     <header
       ref={root}
-      className={`fixed top-0 left-1/2 z-50 flex w-full max-w-[1920px] -translate-x-1/2 items-center justify-between gap-4 border-b px-4 transition-all duration-300 sm:px-6 md:gap-8 md:px-10 ${
+      className={`fixed top-0 left-1/2 z-50 flex w-full max-w-[1920px] -translate-x-1/2 items-center justify-between gap-3 border-b px-4 transition-all duration-300 sm:px-6 md:gap-6 md:px-10 ${
         menuOpen
           ? "border-transparent bg-transparent py-4"
-          : scrolled
+          : scrolled || dropdown
             ? "border-[#e5eaf0] bg-[#f2f8fd] py-3 shadow-[0_6px_24px_rgba(7,26,61,0.08)]"
             : "border-transparent bg-[#f2f8fd] py-4 md:py-5"
       }`}
@@ -117,7 +218,9 @@ export default function SiteHeader() {
       <Link
         data-hd-item
         href="/"
-        aria-label="IntelliHire home"
+        aria-label={`${BRAND_NAME}, home`}
+        aria-current={pathname === "/" ? "page" : undefined}
+        onClick={closeAll}
         className="relative z-[60] shrink-0 transition-transform duration-300 hover:scale-[1.03]"
       >
         <Image
@@ -125,49 +228,202 @@ export default function SiteHeader() {
             menuOpen ? "brightness-0 invert" : ""
           } ${
             scrolled
-              ? "w-[112px] sm:w-[150px] md:w-[170px]"
-              : "w-[120px] sm:w-[165px] md:w-[200px]"
+              ? "w-[104px] min-[380px]:w-[118px] sm:w-[150px] lg:w-[150px] xl:w-[170px]"
+              : "w-[104px] min-[380px]:w-[124px] sm:w-[165px] lg:w-[160px] xl:w-[200px]"
           }`}
           src="/images/logo.png"
-          alt="IntelliHire"
+          alt={BRAND_NAME}
           width={517}
           height={106}
           priority
         />
       </Link>
 
-      <nav
-        data-hd-item
-        className="hidden lg:flex lg:items-center lg:gap-7 xl:gap-11"
-        aria-label="Primary navigation"
-      >
-        {NAV_ITEMS.map(({ label, href }) => (
-          <a
-            key={label}
-            href={href}
-            className="group relative overflow-hidden py-1 text-[14px] font-medium whitespace-nowrap text-brand-dark-blue xl:text-[15px]"
+      {/* Desktop navigation. Every dropdown link is in the HTML on load and
+          only hidden with CSS, so crawlers see the full menu. */}
+      <nav data-hd-item className="hidden lg:block" aria-label="Primary">
+        <ul className="m-0 flex list-none items-center gap-6 p-0 xl:gap-9">
+          <li
+            className="static"
+            onMouseEnter={() => openDropdown("platform")}
+            onMouseLeave={scheduleClose}
           >
-            <span className="relative inline-block transition-transform duration-300 ease-out group-hover:-translate-y-full">
-              <span className="block">{label}</span>
-              <span className="absolute top-full left-0 block text-brand-light-blue">
-                {label}
-              </span>
-            </span>
-            <span className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 rounded-full bg-brand-light-blue transition-transform duration-300 ease-out group-hover:scale-x-100" />
-          </a>
-        ))}
+            <button
+              type="button"
+              className={navItemClass}
+              aria-expanded={dropdown === "platform"}
+              aria-controls="menu-platform"
+              onClick={() => setDropdown((d) => (d === "platform" ? null : "platform"))}
+            >
+              <SlideLabel label="Platform" active={platformActive} />
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-300 ${
+                  dropdown === "platform" ? "rotate-180 text-[#087ef5]" : "text-[#071a3d]/50"
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+
+            <div
+              id="menu-platform"
+              className={`absolute top-full left-1/2 w-[min(940px,calc(100vw-48px))] -translate-x-1/2 pt-3 transition-all duration-300 ${
+                dropdown === "platform"
+                  ? "visible translate-y-0 opacity-100"
+                  : "invisible -translate-y-2 opacity-0"
+              }`}
+              onMouseEnter={cancelClose}
+              onMouseLeave={scheduleClose}
+            >
+              <div className="overflow-hidden rounded-[28px] border border-[#e5eaf0] bg-[#ffffff] p-3 shadow-[0_32px_80px_-24px_rgba(7,26,61,0.38)]">
+                <div className="grid grid-cols-3 gap-2 p-2">
+                  {PLATFORM_COLUMNS.map((column) => (
+                    <div key={column.heading}>
+                      <p className="m-0 flex items-center gap-2 px-3 pt-1 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#071a3d]/40">
+                        <span className="h-px w-4 bg-[#ff6b00]" aria-hidden="true" />
+                        {column.heading}
+                      </p>
+                      <ul className="m-0 mt-2 flex list-none flex-col gap-1 p-0">
+                        {column.links.map((link) => (
+                          <li key={link.href}>
+                            <MenuItemLink link={link} pathname={pathname} onNavigate={closeAll} />
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-2 flex flex-wrap items-center justify-between gap-4 rounded-[22px] bg-[#071a3d] px-5 py-4">
+                  <Link
+                    href={PLATFORM_FOOTER[0].href}
+                    onClick={closeAll}
+                    aria-current={isActivePath(pathname, PLATFORM_FOOTER[0].href) ? "page" : undefined}
+                    className="group/f flex min-w-0 items-center gap-3.5"
+                  >
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#ffffff]/10 text-[#ffffff]">
+                      {(() => {
+                        const Icon = PLATFORM_FOOTER[0].icon!;
+                        return <Icon className="h-[18px] w-[18px]" aria-hidden="true" />;
+                      })()}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="flex items-center gap-1.5 text-[14.5px] font-semibold text-[#ffffff]">
+                        {PLATFORM_FOOTER[0].label}
+                        <ArrowRight
+                          className="h-3.5 w-3.5 text-[#087ef5] transition-transform duration-200 group-hover/f:translate-x-1"
+                          aria-hidden="true"
+                        />
+                      </span>
+                      <span className="block text-[13px] text-[#ffffff]/55">
+                        {PLATFORM_FOOTER[0].description}
+                      </span>
+                    </span>
+                  </Link>
+
+                  <a
+                    href={PLATFORM_FOOTER[1].href}
+                    onClick={closeAll}
+                    className="group/h inline-flex items-center gap-2 rounded-full border border-[#ffffff]/15 px-4 py-2 text-[13.5px] font-semibold text-[#ffffff] transition-colors duration-200 hover:border-[#087ef5] hover:bg-[#087ef5]"
+                  >
+                    {PLATFORM_FOOTER[1].label}
+                    <ArrowRight
+                      className="h-3.5 w-3.5 transition-transform duration-200 group-hover/h:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li
+            className="relative"
+            onMouseEnter={() => openDropdown("use-cases")}
+            onMouseLeave={scheduleClose}
+          >
+            <button
+              type="button"
+              className={navItemClass}
+              aria-expanded={dropdown === "use-cases"}
+              aria-controls="menu-use-cases"
+              onClick={() => setDropdown((d) => (d === "use-cases" ? null : "use-cases"))}
+            >
+              <SlideLabel label="Use Cases" active={useCasesActive} />
+              <ChevronDown
+                className={`h-4 w-4 transition-transform duration-300 ${
+                  dropdown === "use-cases" ? "rotate-180 text-[#087ef5]" : "text-[#071a3d]/50"
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+
+            <div
+              id="menu-use-cases"
+              className={`absolute top-full left-1/2 w-[400px] -translate-x-1/2 pt-5 transition-all duration-300 ${
+                dropdown === "use-cases"
+                  ? "visible translate-y-0 opacity-100"
+                  : "invisible -translate-y-2 opacity-0"
+              }`}
+              onMouseEnter={cancelClose}
+              onMouseLeave={scheduleClose}
+            >
+              <div className="rounded-[26px] border border-[#e5eaf0] bg-[#ffffff] p-3 shadow-[0_32px_80px_-24px_rgba(7,26,61,0.38)]">
+                <ul className="m-0 flex list-none flex-col gap-1 p-0">
+                  {USE_CASE_LINKS.map((link) => (
+                    <li key={link.href}>
+                      <MenuItemLink link={link} pathname={pathname} onNavigate={closeAll} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </li>
+
+          {TOP_LINKS.map(({ label, href }) => {
+            const active = isActivePath(pathname, href);
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  onClick={closeAll}
+                  aria-current={active ? "page" : undefined}
+                  className={navItemClass}
+                >
+                  <SlideLabel label={label} active={active} />
+                  <span
+                    className={`absolute bottom-0 left-0 h-[2px] w-full origin-left rounded-full bg-[#087ef5] transition-transform duration-300 ease-out group-hover:scale-x-100 ${
+                      active ? "scale-x-100" : "scale-x-0"
+                    }`}
+                    aria-hidden="true"
+                  />
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
 
-      <div data-hd-item className="flex shrink-0 items-center gap-2 sm:gap-3">
+      <div data-hd-item className="flex shrink-0 items-center gap-2 sm:gap-3 xl:gap-5">
         <a
-          className="group relative hidden min-h-[48px] items-center justify-center gap-2.5 rounded-full bg-[#071a3d] px-6 text-[14px] font-semibold text-[#ffffff] shadow-[0_6px_20px_rgba(7,26,61,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:shadow-[0_14px_32px_rgba(8,126,245,0.45)] sm:inline-flex lg:min-h-[52px] lg:px-8 lg:text-[15px]"
           href={APP_LOGIN_URL}
+          data-track="login_click"
+          className="group relative hidden py-1 text-[14px] font-semibold whitespace-nowrap text-[#071a3d] transition-colors duration-200 hover:text-[#087ef5] lg:inline-flex xl:text-[15px]"
+        >
+          Log in
+        </a>
+
+        <a
+          href={DEMO_URL}
           target="_blank"
           rel="noopener noreferrer"
+          data-track="book_demo_click"
+          className={`group relative inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-4 text-[13px] font-semibold whitespace-nowrap shadow-[0_6px_20px_rgba(7,26,61,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:shadow-[0_14px_32px_rgba(8,126,245,0.45)] sm:min-h-[48px] sm:px-6 sm:text-[14px] lg:min-h-[50px] lg:px-7 xl:text-[15px] ${
+            menuOpen ? "bg-[#ffffff] text-[#071a3d] hover:text-[#ffffff]" : "bg-[#071a3d] text-[#ffffff]"
+          }`}
         >
-          <span className="text-[#ffffff]">Login</span>
+          <span>Book a demo</span>
           <ArrowRight
-            className="h-4 w-4 text-[#ffffff] transition-transform duration-300 ease-out group-hover:translate-x-1"
+            className="hidden h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1 min-[400px]:block"
             aria-hidden="true"
           />
         </a>
@@ -181,6 +437,7 @@ export default function SiteHeader() {
           type="button"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
           onClick={() => setMenuOpen((open) => !open)}
         >
           {menuOpen ? (
@@ -191,56 +448,165 @@ export default function SiteHeader() {
         </button>
       </div>
 
+      {/* Mobile menu: same links as desktop, in the same order (Google indexes
+          the mobile version). Dropdowns become accordions. */}
       <div
+        id="mobile-menu"
         ref={panel}
-        className="fixed inset-x-0 top-0 -z-10 h-[100dvh] bg-[#071a3d] lg:hidden"
+        className="fixed inset-x-0 top-0 -z-10 h-[100dvh] overflow-hidden bg-[#071a3d] lg:hidden"
         style={{
           clipPath: "inset(0% 0% 100% 0%)",
           pointerEvents: menuOpen ? "auto" : "none",
         }}
-        aria-hidden={!menuOpen}
+        inert={!menuOpen}
       >
-        <div className="flex h-full flex-col justify-between overflow-y-auto px-5 pt-24 pb-8 sm:px-8 sm:pt-28">
-          <nav className="flex flex-col" aria-label="Mobile navigation">
-            {NAV_ITEMS.map(({ label, href }, i) => (
-              <a
-                data-hd-link
-                key={label}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className="group flex items-center justify-between gap-3 border-b border-[#ffffff]/12 py-4 text-[#ffffff] sm:py-5"
-              >
-                <span className="flex min-w-0 flex-1 items-baseline gap-3 sm:gap-4">
-                  <span className="shrink-0 font-display text-[11px] text-[#ffffff]/35 sm:text-[12px]">
-                    0{i + 1}
-                  </span>
-                  <span className="min-w-0 font-display text-[clamp(18px,5.5vw,30px)] leading-tight break-words">
-                    {label}
-                  </span>
-                </span>
-                <ArrowRight
-                  className="h-4 w-4 shrink-0 text-[#087ef5] transition-transform duration-300 group-hover:translate-x-1 sm:h-5 sm:w-5"
-                  aria-hidden="true"
-                />
-              </a>
-            ))}
+        <span
+          className="pointer-events-none absolute top-[-10%] right-[-20%] h-[360px] w-[360px] rounded-full bg-[#087ef5]/20 blur-[120px]"
+          aria-hidden="true"
+        />
+        <div
+          className="relative flex h-full flex-col overflow-y-auto overscroll-contain px-5 pt-24 pb-8 sm:px-8 sm:pt-28"
+          data-lenis-prevent
+        >
+          <nav aria-label="Mobile">
+            <ul className="m-0 flex list-none flex-col p-0">
+              {MOBILE_SECTIONS.map(({ key, label, links }, i) => {
+                const open = mobileSection === key;
+                return (
+                  <li key={key} data-hd-link className="border-b border-[#ffffff]/12">
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      aria-controls={`mobile-${key}`}
+                      onClick={() => setMobileSection(open ? null : key)}
+                      className="flex w-full items-center justify-between gap-3 py-4 text-left text-[#ffffff] sm:py-5"
+                    >
+                      <span className="flex min-w-0 flex-1 items-baseline gap-3 sm:gap-4">
+                        <span className="shrink-0 font-display text-[11px] text-[#ffffff]/35 sm:text-[12px]">
+                          0{i + 1}
+                        </span>
+                        <span className="min-w-0 font-display text-[clamp(20px,5.5vw,30px)] leading-tight">
+                          {label}
+                        </span>
+                      </span>
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#ffffff]/15 text-[#087ef5]">
+                        {open ? (
+                          <Minus className="h-4 w-4" aria-hidden="true" />
+                        ) : (
+                          <Plus className="h-4 w-4" aria-hidden="true" />
+                        )}
+                      </span>
+                    </button>
+
+                    <div
+                      id={`mobile-${key}`}
+                      className="grid transition-[grid-template-rows] duration-300 ease-out"
+                      style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+                    >
+                      <div className="overflow-hidden" inert={!open}>
+                        <ul className="m-0 flex list-none flex-col gap-1 p-0 pb-5 sm:pl-8">
+                          {links.map((link) => {
+                            const Icon = link.icon;
+                            const active = isActivePath(pathname, link.href);
+                            return (
+                              <li key={link.href}>
+                                <Link
+                                  href={link.href}
+                                  onClick={closeAll}
+                                  aria-current={active ? "page" : undefined}
+                                  className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 transition-colors duration-200 hover:bg-[#ffffff]/[0.06] ${
+                                    active ? "bg-[#ffffff]/[0.08]" : ""
+                                  }`}
+                                >
+                                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#ffffff]/[0.08] text-[#087ef5]">
+                                    {Icon ? (
+                                      <Icon className="h-4 w-4" aria-hidden="true" />
+                                    ) : (
+                                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                                    )}
+                                  </span>
+                                  <span className="min-w-0">
+                                    <span className="block text-[15px] leading-snug font-semibold text-[#ffffff]">
+                                      {link.label}
+                                    </span>
+                                    {link.description && (
+                                      <span className="block text-[12.5px] leading-snug text-[#ffffff]/50">
+                                        {link.description}
+                                      </span>
+                                    )}
+                                  </span>
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+
+              {TOP_LINKS.map(({ label, href }, i) => {
+                const active = isActivePath(pathname, href);
+                return (
+                  <li key={href} data-hd-link className="border-b border-[#ffffff]/12">
+                    <Link
+                      href={href}
+                      onClick={closeAll}
+                      aria-current={active ? "page" : undefined}
+                      className="group flex items-center justify-between gap-3 py-4 text-[#ffffff] sm:py-5"
+                    >
+                      <span className="flex min-w-0 flex-1 items-baseline gap-3 sm:gap-4">
+                        <span className="shrink-0 font-display text-[11px] text-[#ffffff]/35 sm:text-[12px]">
+                          0{i + 3}
+                        </span>
+                        <span
+                          className={`min-w-0 font-display text-[clamp(20px,5.5vw,30px)] leading-tight ${
+                            active ? "text-[#087ef5]" : ""
+                          }`}
+                        >
+                          {label}
+                        </span>
+                      </span>
+                      <ArrowRight
+                        className="h-4 w-4 shrink-0 text-[#087ef5] transition-transform duration-300 group-hover:translate-x-1 sm:h-5 sm:w-5"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </nav>
 
-          <div data-hd-link className="mt-8">
+          <div data-hd-link className="mt-auto flex flex-col gap-3 pt-8">
             <a
-              href={APP_LOGIN_URL}
+              href={DEMO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
+              data-track="book_demo_click"
+              onClick={closeAll}
               className="group inline-flex min-h-[56px] w-full items-center justify-center gap-3 rounded-full bg-[#ffffff] px-6 text-[15px] font-semibold text-[#071a3d] transition-colors duration-300 hover:bg-[#087ef5] hover:text-[#ffffff]"
             >
-              <span>Login</span>
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              <span>Book a demo</span>
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              href={APP_LOGIN_URL}
+              data-track="login_click"
+              onClick={closeAll}
+              className="inline-flex min-h-[52px] w-full items-center justify-center gap-3 rounded-full border border-[#ffffff]/20 px-6 text-[15px] font-semibold text-[#ffffff] transition-colors duration-300 hover:border-[#087ef5] hover:bg-[#087ef5]"
+            >
+              Log in
             </a>
 
-            <p className="mt-6 m-0 text-[13px] break-words text-[#ffffff]/45">
-              hello@supermia.ai
-            </p>
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              data-track="contact_email_click"
+              className="mt-3 text-[13px] break-words text-[#ffffff]/45 transition-colors hover:text-[#ffffff]"
+            >
+              {CONTACT_EMAIL}
+            </a>
           </div>
         </div>
       </div>

@@ -1,20 +1,20 @@
 "use client";
 
 import { useRef } from "react";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
+import { CONTACT_EMAIL, DEMO_URL } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const MARQUEE = [
-  "Find better candidates",
-  "Screen without the backlog",
+  "Read every application",
   "Interview around the clock",
-  "Score every answer fairly",
-  "Hire with confidence",
+  "Scorecards that cite the transcript",
+  "Your team decides",
+  "No candidate rejected by a machine",
 ];
 
 export default function FinalCta() {
@@ -117,15 +117,14 @@ export default function FinalCta() {
           Your next great hire starts here
         </p>
 
-        <h2 className="m-0 mt-6 font-display text-[clamp(40px,9.5vw,158px)] leading-[0.9] font-normal tracking-[-0.035em] text-[#ffffff]">
-          <span data-cta-word className="block overflow-hidden pb-[0.05em]">
-            <span className="block">Ready to</span>
-          </span>
-          <span data-cta-word className="block overflow-hidden pb-[0.05em]">
+        <h2 className="m-0 mt-6 font-display text-[clamp(36px,7.4vw,128px)] leading-[0.95] font-normal tracking-[-0.035em] text-[#ffffff]">
+          <span data-cta-word className="block overflow-hidden pb-[0.06em]">
+            <span className="block">See IntelliHire on</span>
+          </span>{" "}
+          <span data-cta-word className="block overflow-hidden pb-[0.06em]">
             <span className="block">
-              hire{" "}
-              <span className="text-[#087ef5]">smarter</span>
-              <span className="text-[#ff6b00]">?</span>
+              Your Next <span className="text-[#087ef5]">Open Role</span>
+              <span className="text-[#ff6b00]">.</span>
             </span>
           </span>
         </h2>
@@ -133,27 +132,42 @@ export default function FinalCta() {
         <div className="mt-8 flex flex-col gap-8 md:mt-14 md:gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <p
             data-cta-copy
-            className="m-0 max-w-[520px] text-[clamp(17px,1.5vw,24px)] leading-[1.6] text-[#ffffff]"
+            className="m-0 max-w-[640px] text-[clamp(16px,1.35vw,21px)] leading-[1.65] text-[#ffffff]/85"
           >
-            Turn your recruitment process into a faster, more intelligent hiring
-            engine.
+            Bring a role you are hiring for now. We&rsquo;ll walk through how
+            IntelliHire would screen, interview and score it, and show where
+            your team stays in control. IntelliHire is built by SuperMIA, so
+            you&rsquo;ll pick a time on the SuperMIA demo calendar.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <Link
+          <div className="flex flex-wrap items-center gap-x-7 gap-y-5">
+            <a
               data-cta-btn
+              data-track="book_demo_click"
               className="group inline-flex min-h-[64px] items-center gap-5 rounded-full bg-[#ffffff] py-2.5 pr-2.5 pl-9 text-[16px] font-semibold text-[#071a3d] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(255,255,255,0.18)]"
-              href="/#features"
-              scroll={false}
+              href={DEMO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <span className="text-[#071a3d]">Explore IntelliHire</span>
+              <span className="text-[#071a3d]">Book a demo</span>
               <span className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-full bg-[#071a3d] transition-transform duration-300 group-hover:rotate-45">
                 <ArrowRight
                   className="h-[19px] w-[19px] text-[#ffffff]"
                   aria-hidden="true"
                 />
               </span>
-            </Link>
+            </a>
+
+            <a
+              data-cta-btn
+              data-track="contact_email_click"
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="group relative inline-flex items-center gap-2.5 pb-1 text-[15px] font-semibold text-[#ffffff] transition-opacity duration-300 hover:opacity-80"
+            >
+              <Mail className="h-4 w-4 text-[#087ef5]" aria-hidden="true" />
+              Email the team
+              <span className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-100 bg-[#ffffff]/40 transition-transform duration-300 group-hover:scale-x-0" />
+            </a>
           </div>
         </div>
       </div>

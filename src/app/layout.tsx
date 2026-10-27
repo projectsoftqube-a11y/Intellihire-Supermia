@@ -1,12 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import TrackClicks from "@/components/TrackClicks";
+import { JsonLd } from "@/components/ui";
 import {
-  SITE_URL,
-  SITE_NAME,
+  BRAND_NAME,
+  OG_IMAGE_ALT,
   SITE_DESCRIPTION,
-  SITE_TAGLINE,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+  TWITTER_HANDLE,
 } from "@/lib/site";
+import { SITEWIDE_GRAPH } from "@/lib/seo";
 import "./globals.css";
 
 const questrial = localFont({
@@ -26,44 +32,34 @@ const inter = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | AI-Powered Recruitment & Hiring Platform`,
+    default: SITE_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  applicationName: SITE_NAME,
-  keywords: [
-    "IntelliHire",
-    "AI recruitment platform",
-    "AI hiring software",
-    "AI voice interviews",
-    "automated candidate screening",
-    "resume parsing software",
-    "AI candidate matching",
-    "interview scheduling software",
-    "recruitment automation",
-    "applicant tracking system",
-    "interview proctoring",
-    "hiring scorecards",
-  ],
-  authors: [{ name: SITE_NAME, url: SITE_URL }],
-  creator: SITE_NAME,
-  publisher: SITE_NAME,
-  alternates: {
-    canonical: "/",
-  },
+  applicationName: BRAND_NAME,
+  authors: [{ name: BRAND_NAME, url: SITE_URL }],
+  creator: BRAND_NAME,
+  publisher: "SuperMIA",
   openGraph: {
     type: "website",
-    siteName: SITE_NAME,
-    url: SITE_URL,
-    title: `${SITE_NAME} | AI-Powered Recruitment & Hiring Platform`,
+    siteName: BRAND_NAME,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     locale: "en_US",
+    images: [
+      {
+        url: `${SITE_URL}/opengraph-image`,
+        width: 1200,
+        height: 630,
+        alt: OG_IMAGE_ALT,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} | AI-Powered Recruitment`,
+    site: TWITTER_HANDLE,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    creator: "@intellihire",
   },
   robots: {
     index: true,
@@ -86,89 +82,26 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      name: SITE_NAME,
-      url: SITE_URL,
-      slogan: SITE_TAGLINE,
-      description: SITE_DESCRIPTION,
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE_URL}/images/logo.png`,
-        width: 517,
-        height: 106,
-      },
-      email: "hello@supermia.ai",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "2451 W Grapevine Mills Cir #547",
-        addressLocality: "Grapevine",
-        addressRegion: "TX",
-        postalCode: "76051",
-        addressCountry: "US",
-      },
-      parentOrganization: {
-        "@type": "Organization",
-        name: "SuperMIA",
-        url: "https://supermia.ai/",
-      },
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: SITE_NAME,
-      description: SITE_DESCRIPTION,
-      publisher: { "@id": `${SITE_URL}/#organization` },
-      inLanguage: "en-US",
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": `${SITE_URL}/#software`,
-      name: SITE_NAME,
-      applicationCategory: "BusinessApplication",
-      applicationSubCategory: "Recruitment Software",
-      operatingSystem: "Web",
-      url: SITE_URL,
-      description: SITE_DESCRIPTION,
-      publisher: { "@id": `${SITE_URL}/#organization` },
-      featureList: [
-        "AI job description and rubric studio",
-        "Intelligent resume parsing",
-        "Explainable AI candidate matching",
-        "Autonomous AI voice interviews",
-        "AI-assisted human interviews",
-        "Automated candidate scorecards",
-        "AI interview proctoring",
-        "Automated candidate communication",
-        "Smart interview scheduling",
-        "Recruitment pipeline management",
-        "Recruitment analytics",
-        "ATS and platform integrations",
-        "Enterprise security and compliance",
-      ],
-    },
-  ],
-};
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-US"
       className={`${questrial.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        {/* Organization, WebSite and SoftwareApplication, referenced by @id
+            from every page's own graph. */}
+        <JsonLd nodes={SITEWIDE_GRAPH} />
       </head>
       <body>
+        <a
+          href="#main"
+          className="fixed top-3 left-3 z-[100] -translate-y-24 rounded-full bg-[#071a3d] px-5 py-3 text-[14px] font-semibold text-[#ffffff] shadow-lg transition-transform duration-200 focus:translate-y-0"
+        >
+          Skip to content
+        </a>
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <TrackClicks />
       </body>
     </html>
   );

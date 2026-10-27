@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "IntelliHire, AI-powered recruitment that finds, evaluates and connects you with the right talent, faster";
+  "IntelliHire: AI recruitment software that screens, interviews and leaves the hiring decision to your team";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -44,7 +44,7 @@ export default async function OpengraphImage() {
               fontWeight: 600,
             }}
           >
-            IntelliHire
+            IntelliHire by SuperMIA
           </div>
         </div>
 
@@ -52,16 +52,17 @@ export default async function OpengraphImage() {
           <div
             style={{
               color: "#ffffff",
-              fontSize: 86,
+              fontSize: 76,
               lineHeight: 1.05,
               letterSpacing: -2,
               display: "flex",
               flexDirection: "column",
             }}
           >
-            <span>Hire smarter.</span>
+            <span>AI recruitment software that</span>
+            <span>screens and interviews.</span>
             <span style={{ color: "#087ef5", display: "flex" }}>
-              Build stronger teams
+              Your team decides
               <span style={{ color: "#ff6b00" }}>.</span>
             </span>
           </div>
@@ -75,8 +76,7 @@ export default async function OpengraphImage() {
               maxWidth: 820,
             }}
           >
-            AI-powered recruitment that finds, evaluates and connects you with
-            the right talent, faster.
+            No candidate is ever rejected by a machine.
           </div>
         </div>
 
@@ -92,7 +92,7 @@ export default async function OpengraphImage() {
           {[
             "AI voice interviews",
             "Candidate matching",
-            "Evidence-backed scorecards",
+            "Scorecards that cite the transcript",
           ].map((item) => (
             <div
               key={item}

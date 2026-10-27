@@ -5,7 +5,8 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import { DEMO_URL } from "@/lib/site";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -13,45 +14,45 @@ const STAGES = [
   {
     index: "01",
     label: "Attract",
-    short: "Reach the right talent",
-    title: "Bring the right people closer.",
-    copy: "Turn every role into a clear, compelling opportunity and reach talent where they already are.",
+    short: "Set the job description and rubric",
+    title: "Attract",
+    copy: "Turn each role into a clear job description and a scoring rubric. Every applicant is then reviewed against the rubric you set.",
     image: "/images/flow-attract.png",
-    alt: "Recruiter in a modern office atrium looking out toward the city",
+    alt: "Recruiter holding a tablet in a bright office overlooking the city",
   },
   {
     index: "02",
     label: "Screen",
-    short: "Surface real potential",
-    title: "See potential, not paperwork.",
-    copy: "IntelliHire surfaces relevant experience and skills without losing the context behind each person.",
+    short: "Every resume parsed and structured",
+    title: "Screen",
+    copy: "IntelliHire parses every resume and surfaces relevant skills and experience without losing the context behind each person.",
     image: "/images/flow-screen.png",
-    alt: "Recruiter reviewing ranked candidate profiles on a large monitor",
+    alt: "Recruiter reviewing a ranked candidate list with match scores in IntelliHire",
   },
   {
     index: "03",
     label: "Assess",
-    short: "Compare what matters",
-    title: "Compare what matters.",
-    copy: "Structured signals help teams evaluate capability consistently and build a stronger shortlist.",
+    short: "Ranked with the reasoning shown",
+    title: "Assess",
+    copy: "Candidates are ranked against your rubric with the reasoning shown. Your team builds the shortlist and can see why each person is on it.",
     image: "/images/flow-assess.png",
     alt: "Two colleagues comparing candidate cards on a glass planning wall",
   },
   {
     index: "04",
     label: "Interview",
-    short: "Talk to the right people",
-    title: "Make every conversation count.",
-    copy: "Smart coordination and focused insights keep interviews moving while people stay at the center.",
+    short: "First rounds at any hour",
+    title: "Interview",
+    copy: "AI voice interviews run first rounds at any hour. On selected plans, AI can also join your team's own interviews. Scheduling keeps candidates moving between rounds.",
     image: "/images/flow-interview.png",
-    alt: "Hiring manager listening attentively during a candidate interview",
+    alt: "Hiring manager listening closely to a candidate during an interview",
   },
   {
     index: "05",
     label: "Hire",
-    short: "Decide with confidence",
-    title: "Move forward with confidence.",
-    copy: "Bring the full hiring story together so decision-makers can act clearly, quickly, and fairly.",
+    short: "Evidence first, then the offer",
+    title: "Hire",
+    copy: "Every scorecard cites the transcript it came from, and on selected plans, pipeline analytics show where hiring slows. Your hiring manager reads the evidence and makes the offer decision.",
     image: "/images/flow-hire.png",
     alt: "Hiring team welcoming a new colleague with a handshake",
   },
@@ -123,7 +124,7 @@ export default function HiringFlow() {
       id="how-it-works"
       ref={root}
     >
-      <div className="mx-auto max-w-[1920px] px-5 pt-20 pb-12 md:px-10 md:pt-28 md:pb-16">
+      <div className="mx-auto max-w-[1920px] px-4 pt-20 pb-12 sm:px-5 md:px-10 md:pt-28 md:pb-16">
         <div data-flow-heading className="max-w-[760px]">
           <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]">
             <span
@@ -133,14 +134,20 @@ export default function HiringFlow() {
             The IntelliHire flow
           </p>
 
-          <h2 className="mt-8 font-display text-[clamp(34px,4.2vw,64px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#071a3d]">
-            From application
-            <span className="block text-[#087ef5]">to the right hire.</span>
+          <h2 className="mt-8 font-display text-[clamp(30px,4.2vw,64px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#071a3d]">
+            How IntelliHire Works:{" "}
+            <span className="block text-[#087ef5]">From Application to Offer</span>
           </h2>
+
+          <p className="mt-7 max-w-[620px] text-[clamp(15px,1.25vw,19px)] leading-[1.7] text-[#5b6575]">
+            As an AI recruiting platform, IntelliHire organizes hiring into five
+            stages: attract, screen, assess, interview and hire. At each stage
+            the AI does the reading and organizing, and a person makes the call.
+          </p>
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1920px] px-5 pb-20 md:px-10 md:pb-28 lg:hidden">
+      <div className="mx-auto max-w-[1920px] px-4 pb-16 sm:px-5 md:px-10 md:pb-20 lg:hidden">
         <div className="mt-10 flex flex-col gap-16">
           {STAGES.map(({ index, label, title, copy, image, alt }, i) => (
             <article key={index} data-flow-mobile>
@@ -187,7 +194,7 @@ export default function HiringFlow() {
         </div>
       </div>
 
-      <div className="mx-auto hidden max-w-[1920px] lg:block lg:px-0 lg:pb-24">
+      <div className="mx-auto hidden max-w-[1920px] lg:block lg:px-0 lg:pb-16">
         <div
           data-flow-pin
           className="lg:flex lg:h-screen lg:items-stretch lg:pt-[72px]"
@@ -342,6 +349,28 @@ export default function HiringFlow() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-[1920px] px-4 pb-20 sm:px-5 md:px-10 md:pb-28">
+        <div className="flex flex-col items-start gap-6 rounded-[28px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-8 md:flex-row md:items-center md:justify-between md:gap-10 md:p-10">
+          <p className="m-0 max-w-[620px] font-display text-[clamp(22px,2.4vw,34px)] leading-[1.25] text-[#071a3d]">
+            See the five stages on one of your own open roles
+            <span className="text-[#ff6b00]">.</span>
+          </p>
+
+          <a
+            className="group inline-flex min-h-[58px] shrink-0 items-center gap-4 rounded-full bg-[#071a3d] py-2 pr-2 pl-8 text-[15px] font-semibold text-[#ffffff] shadow-[0_8px_24px_rgba(7,26,61,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5]"
+            href={DEMO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="book_demo_click"
+          >
+            <span>Book a demo</span>
+            <span className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-full bg-[#ffffff] text-[#071a3d] transition-transform duration-300 group-hover:rotate-45">
+              <ArrowRight className="h-[18px] w-[18px]" aria-hidden="true" />
+            </span>
+          </a>
         </div>
       </div>
     </section>

@@ -79,6 +79,65 @@ body {
   color: var(--color-brand-white);
 }
 
+/* FAQ accordions: animate <details> open/close where the browser supports
+   transitioning ::details-content; elsewhere they simply open. */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  details.faq::details-content {
+    block-size: 0;
+    overflow-y: clip;
+    transition:
+      block-size 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      content-visibility 0.4s allow-discrete;
+  }
+
+  details.faq[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* Inner-page hero entrance. Pure CSS, so server-rendered content never
+   flashes hidden while scripts load. */
+@keyframes ih-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ih-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.ih-rise {
+  animation: ih-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ih-float {
+  animation: ih-float 5s ease-in-out infinite;
+}
+
+/* Wide tables scroll inside their card on small screens instead of
+   pushing the page sideways. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

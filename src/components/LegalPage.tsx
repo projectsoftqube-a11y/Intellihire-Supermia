@@ -5,6 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import type { Crumb } from "@/lib/seo";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -16,6 +18,7 @@ export type LegalSection = {
 };
 
 type Props = {
+  crumbs: Crumb[];
   eyebrow: string;
   title: string;
   intro: string;
@@ -23,6 +26,7 @@ type Props = {
 };
 
 export default function LegalPage({
+  crumbs,
   eyebrow,
   title,
   intro,
@@ -72,9 +76,12 @@ export default function LegalPage({
   }, [sections]);
 
   return (
-    <main className="bg-brand-surface" ref={root}>
-      <section className="px-5 pt-28 pb-10 md:px-10 md:pt-32 md:pb-12">
+    <main id="main" className="bg-brand-surface" ref={root}>
+      <section className="px-4 pt-24 pb-10 sm:px-5 sm:pt-28 md:px-10 md:pt-32 md:pb-12">
         <div className="mx-auto max-w-[1920px]">
+          <div className="mb-8">
+            <Breadcrumbs crumbs={crumbs} />
+          </div>
           <div data-lp-anim className="max-w-[760px]">
             <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]">
               <span
@@ -95,7 +102,7 @@ export default function LegalPage({
         </div>
       </section>
 
-      <section className="px-5 pb-24 md:px-10 md:pb-32">
+      <section className="px-4 pb-24 sm:px-5 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-[1920px] grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <aside className="lg:col-span-3">
             <div className="lg:sticky lg:top-28">
@@ -196,6 +203,7 @@ export default function LegalPage({
 
               <a
                 href="mailto:hello@supermia.ai"
+                data-track="contact_email_click"
                 className="group inline-flex min-h-[54px] shrink-0 items-center gap-4 rounded-full bg-[#ffffff] py-2 pr-2 pl-7 text-[15px] font-semibold text-[#071a3d] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:text-[#ffffff]"
               >
                 <span>Contact us</span>
