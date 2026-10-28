@@ -199,6 +199,7 @@ export default function SiteFooter() {
               alt={BRAND_NAME}
               width={517}
               height={106}
+              unoptimized
               className="block h-auto w-[170px] brightness-0 invert sm:w-[185px]"
             />
             <p className="mt-6 max-w-[360px] text-[15px] leading-[1.7] text-[#ffffff]/55">

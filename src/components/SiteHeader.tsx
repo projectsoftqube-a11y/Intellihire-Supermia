@@ -280,6 +280,9 @@ export default function SiteHeader() {
           width={517}
           height={106}
           priority
+          // Served as the original PNG: lossy AVIF/WebP re-encoding blurs the
+          // logo's edges, and the file is only 44 KB.
+          unoptimized
         />
       </Link>
 
