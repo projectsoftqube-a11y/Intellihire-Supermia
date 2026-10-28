@@ -16,6 +16,7 @@ import SiteFooter from "@/components/SiteFooter";
 import AnswerBlock from "@/components/AnswerBlock";
 import Reveal from "@/components/Reveal";
 import FaqAccordion from "@/components/FaqAccordion";
+import ArticleToc from "@/components/blog/ArticleToc";
 import CtaBand from "@/components/CtaBand";
 import ArticleBody from "@/components/blog/ArticleBody";
 import PostCard from "@/components/blog/PostCard";
@@ -201,28 +202,9 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                       </ol>
                     </details>
 
-                    <nav aria-label="On this page" className="hidden lg:block">
-                      <p className="m-0 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#071a3d]/40">
-                        On this page
-                      </p>
-                      <ol className="m-0 mt-5 flex list-none flex-col p-0">
-                        {toc.map((block, n) =>
-                          block.type === "h2" ? (
-                            <li key={block.id}>
-                              <a
-                                href={`#${block.id}`}
-                                className="flex gap-3 border-l-2 border-[#e5eaf0] py-2.5 pl-4 text-[14px] leading-[1.5] text-[#5b6575] transition-colors duration-200 hover:border-[#087ef5] hover:text-[#071a3d]"
-                              >
-                                <span className="font-display text-[12px] text-[#071a3d]/30">
-                                  {String(n + 1).padStart(2, "0")}
-                                </span>
-                                {block.text}
-                              </a>
-                            </li>
-                          ) : null,
-                        )}
-                      </ol>
-                    </nav>
+                    <ArticleToc
+                      items={toc.flatMap((block) => (block.type === "h2" ? [{ id: block.id, text: block.text }] : []))}
+                    />
                   </div>
                 </aside>
 
