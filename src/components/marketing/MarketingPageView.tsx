@@ -5,7 +5,11 @@ import CtaBand from "@/components/CtaBand";
 import FaqSection from "@/components/FaqSection";
 import RelatedLinks from "@/components/RelatedLinks";
 import MarketingHero from "@/components/marketing/MarketingHero";
+import MarketingIntro from "@/components/marketing/MarketingIntro";
 import MarketingSections from "@/components/marketing/MarketingSections";
+import SectionMotion from "@/components/marketing/SectionMotion";
+import UseCaseHero from "@/components/usecase/UseCaseHero";
+import UseCaseSections from "@/components/usecase/UseCaseSections";
 import { JsonLd } from "@/components/ui";
 import type { MarketingPage } from "@/content/types";
 import { absoluteUrl, breadcrumbNode, faqPageNode, webPageNode, type Crumb } from "@/lib/seo";
@@ -52,6 +56,7 @@ const SECONDARY = {
 export default function MarketingPageView({ page }: { page: MarketingPage }) {
   const crumbs = marketingCrumbs(page);
   const secondary = SECONDARY[page.kind];
+  const useCase = page.kind === "use-case";
 
   const graph = [
     webPageNode({
@@ -75,10 +80,26 @@ export default function MarketingPageView({ page }: { page: MarketingPage }) {
       <JsonLd nodes={graph} />
       <SiteHeader />
       <main id="main" className="bg-brand-surface">
-        <MarketingHero page={page} crumbs={crumbs} secondary={secondary.hero} />
+        {/* No visible breadcrumb on these pages; the BreadcrumbList above
+            still gives search engines the page's place in the site. */}
+        {/* Use-case pages tell an audience's story and get their own cover
+            hero and section layouts; platform and company pages share the
+            feature template. */}
+        {useCase ? (
+          <UseCaseHero page={page} secondary={secondary.hero} />
+        ) : (
+          <MarketingHero page={page} secondary={secondary.hero} />
+        )}
         <Reveal>
-          <MarketingSections sections={page.sections} />
-          <FaqSection heading={page.faqHeading} items={page.faqs} />
+          <MarketingIntro page={page} />
+          <SectionMotion>
+            {useCase ? (
+              <UseCaseSections sections={page.sections} />
+            ) : (
+              <MarketingSections sections={page.sections} />
+            )}
+          </SectionMotion>
+          <FaqSection heading={page.faqHeading} items={page.faqs} image={page.faqImage} />
           <RelatedLinks paths={page.related} />
           <CtaBand
             heading={page.cta.heading}

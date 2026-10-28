@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, ArrowUpRight, ChevronDown, Menu, Minus, Plus, X } from "lucide-react";
+import { ArrowRight, ChevronDown, Menu, Minus, Plus, X } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import {
@@ -141,7 +142,32 @@ export default function SiteHeader() {
 
   const scheduleClose = () => {
     cancelClose();
-    closeTimer.current = window.setTimeout(() => setDropdown(null), 140);
+    closeTimer.current = window.setTimeout(() => setDropdown(null), 250);
+  };
+
+  // Hover only means something for a real mouse. Touch screens fire emulated
+  // mouse events before the click, which used to open the menu and then
+  // close it again in the same tap.
+  const lastPointer = useRef<string>("mouse");
+  const hoverOpen = (e: ReactPointerEvent, key: DropdownKey) => {
+    if (e.pointerType === "mouse") openDropdown(key);
+  };
+  const hoverStay = (e: ReactPointerEvent) => {
+    if (e.pointerType === "mouse") cancelClose();
+  };
+  const hoverClose = (e: ReactPointerEvent) => {
+    if (e.pointerType === "mouse") scheduleClose();
+  };
+
+  // A mouse has already opened the menu on hover, so its click only keeps the
+  // menu open; toggling here is what closed menus the moment they were
+  // clicked. Keyboard (detail 0) and touch still toggle.
+  const triggerClick = (e: ReactMouseEvent, key: DropdownKey) => {
+    if (e.detail !== 0 && lastPointer.current === "mouse") {
+      openDropdown(key);
+      return;
+    }
+    setDropdown((d) => (d === key ? null : key));
   };
 
   const closeAll = () => {
@@ -207,12 +233,17 @@ export default function SiteHeader() {
   return (
     <header
       ref={root}
-      className={`fixed top-0 left-1/2 z-50 flex w-full max-w-[1920px] -translate-x-1/2 items-center justify-between gap-3 border-b px-4 transition-all duration-300 sm:px-6 md:gap-6 md:px-10 ${
+      // The bar's background is a full-viewport-width layer behind the
+      // content, so it runs edge to edge on screens wider than 1920px while
+      // the logo and menu stay aligned with the page's 1920px container.
+      className={`fixed top-0 left-1/2 z-50 flex w-full max-w-[1920px] -translate-x-1/2 items-center justify-between gap-3 px-4 transition-[padding] duration-300 before:pointer-events-none before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:border-b before:transition-all before:duration-300 before:content-[''] sm:px-6 md:gap-6 md:px-10 ${
+        menuOpen ? "py-4" : scrolled ? "py-3" : "py-4 md:py-5"
+      } ${
         menuOpen
-          ? "border-transparent bg-transparent py-4"
+          ? "before:border-transparent before:bg-transparent"
           : scrolled || dropdown
-            ? "border-[#e5eaf0] bg-[#f2f8fd] py-3 shadow-[0_6px_24px_rgba(7,26,61,0.08)]"
-            : "border-transparent bg-[#f2f8fd] py-4 md:py-5"
+            ? "before:border-[#e5eaf0] before:bg-[#f2f8fd]/95 before:shadow-[0_6px_24px_rgba(7,26,61,0.08)] before:backdrop-blur-md"
+            : "before:border-transparent before:bg-[#f2f8fd]"
       }`}
     >
       <Link
@@ -242,18 +273,22 @@ export default function SiteHeader() {
       {/* Desktop navigation. Every dropdown link is in the HTML on load and
           only hidden with CSS, so crawlers see the full menu. */}
       <nav data-hd-item className="hidden lg:block" aria-label="Primary">
-        <ul className="m-0 flex list-none items-center gap-6 p-0 xl:gap-9">
+        {/* Both dropdowns hang from the bottom of this row: Platform from
+            the list itself, Use Cases from its item minus the item's 2rem
+            hover padding, so they open the same distance below the links. */}
+        <ul className="relative m-0 flex list-none items-center gap-6 p-0 xl:gap-9">
           <li
-            className="static"
-            onMouseEnter={() => openDropdown("platform")}
-            onMouseLeave={scheduleClose}
+            className="static -my-8 py-8"
+            onPointerEnter={(e) => hoverOpen(e, "platform")}
+            onPointerLeave={hoverClose}
           >
             <button
               type="button"
               className={navItemClass}
               aria-expanded={dropdown === "platform"}
               aria-controls="menu-platform"
-              onClick={() => setDropdown((d) => (d === "platform" ? null : "platform"))}
+              onPointerDown={(e) => (lastPointer.current = e.pointerType)}
+              onClick={(e) => triggerClick(e, "platform")}
             >
               <SlideLabel label="Platform" active={platformActive} />
               <ChevronDown
@@ -271,8 +306,8 @@ export default function SiteHeader() {
                   ? "visible translate-y-0 opacity-100"
                   : "invisible -translate-y-2 opacity-0"
               }`}
-              onMouseEnter={cancelClose}
-              onMouseLeave={scheduleClose}
+              onPointerEnter={hoverStay}
+              onPointerLeave={hoverClose}
             >
               <div className="overflow-hidden rounded-[28px] border border-[#e5eaf0] bg-[#ffffff] p-3 shadow-[0_32px_80px_-24px_rgba(7,26,61,0.38)]">
                 <div className="grid grid-cols-3 gap-2 p-2">
@@ -337,16 +372,17 @@ export default function SiteHeader() {
           </li>
 
           <li
-            className="relative"
-            onMouseEnter={() => openDropdown("use-cases")}
-            onMouseLeave={scheduleClose}
+            className="relative -my-8 py-8"
+            onPointerEnter={(e) => hoverOpen(e, "use-cases")}
+            onPointerLeave={hoverClose}
           >
             <button
               type="button"
               className={navItemClass}
               aria-expanded={dropdown === "use-cases"}
               aria-controls="menu-use-cases"
-              onClick={() => setDropdown((d) => (d === "use-cases" ? null : "use-cases"))}
+              onPointerDown={(e) => (lastPointer.current = e.pointerType)}
+              onClick={(e) => triggerClick(e, "use-cases")}
             >
               <SlideLabel label="Use Cases" active={useCasesActive} />
               <ChevronDown
@@ -359,13 +395,13 @@ export default function SiteHeader() {
 
             <div
               id="menu-use-cases"
-              className={`absolute top-full left-1/2 w-[400px] -translate-x-1/2 pt-5 transition-all duration-300 ${
+              className={`absolute top-[calc(100%-2rem)] left-1/2 w-[400px] -translate-x-1/2 pt-3 transition-all duration-300 ${
                 dropdown === "use-cases"
                   ? "visible translate-y-0 opacity-100"
                   : "invisible -translate-y-2 opacity-0"
               }`}
-              onMouseEnter={cancelClose}
-              onMouseLeave={scheduleClose}
+              onPointerEnter={hoverStay}
+              onPointerLeave={hoverClose}
             >
               <div className="rounded-[26px] border border-[#e5eaf0] bg-[#ffffff] p-3 shadow-[0_32px_80px_-24px_rgba(7,26,61,0.38)]">
                 <ul className="m-0 flex list-none flex-col gap-1 p-0">
@@ -414,8 +450,6 @@ export default function SiteHeader() {
 
         <a
           href={DEMO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
           data-track="book_demo_click"
           className={`group relative inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-4 text-[13px] font-semibold whitespace-nowrap shadow-[0_6px_20px_rgba(7,26,61,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:shadow-[0_14px_32px_rgba(8,126,245,0.45)] sm:min-h-[48px] sm:px-6 sm:text-[14px] lg:min-h-[50px] lg:px-7 xl:text-[15px] ${
             menuOpen ? "bg-[#ffffff] text-[#071a3d] hover:text-[#ffffff]" : "bg-[#071a3d] text-[#ffffff]"
@@ -582,14 +616,12 @@ export default function SiteHeader() {
           <div data-hd-link className="mt-auto flex flex-col gap-3 pt-8">
             <a
               href={DEMO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               data-track="book_demo_click"
               onClick={closeAll}
               className="group inline-flex min-h-[56px] w-full items-center justify-center gap-3 rounded-full bg-[#ffffff] px-6 text-[15px] font-semibold text-[#071a3d] transition-colors duration-300 hover:bg-[#087ef5] hover:text-[#ffffff]"
             >
               <span>Book a demo</span>
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
             <a
               href={APP_LOGIN_URL}

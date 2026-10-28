@@ -127,12 +127,7 @@ async function routeList() {
   const fromSitemap = [...text.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
     (m) => new URL(m[1]).pathname.replace(/\/$/, "") || "/",
   );
-  const noindexPages = [
-    "/blog",
-    "/blog/category/ai-recruiting",
-    "/blog/category/interviews",
-    "/blog/category/hiring-metrics",
-  ];
+  const noindexPages = ["/blog"];
   return [...new Set([...fromSitemap, ...noindexPages])];
 }
 

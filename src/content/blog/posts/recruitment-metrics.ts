@@ -10,7 +10,7 @@ const post: BlogPost = {
   excerpt:
     "The recruitment metrics worth tracking, with formulas, how to read each one and what to change when a number moves.",
   datePublished: "2026-10-27",
-  dateModified: "2026-10-27",
+  dateModified: "2026-10-28",
   image: {
     src: "/images/blog/blog-recruitment-metrics.webp",
     width: 1672,
@@ -90,6 +90,10 @@ const post: BlogPost = {
       tone: "tip",
       title: "Pick your start and end points once",
       text: "Write down exactly which event starts and stops each clock, such as application date and offer acceptance date. Report the median alongside the average, because one role that stays open for months can distort an average.",
+    },
+    {
+      type: "p",
+      text: "If time to hire is the number that worries you, our guide on [how to reduce time to hire](/blog/reduce-time-to-hire) shows how to find the slowest stage and fix it first.",
     },
     { type: "h2", id: "funnel-conversion-and-drop-off", text: "Funnel Conversion and Stage Drop-Off" },
     {
@@ -204,7 +208,7 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "If you would rather not build this from spreadsheets, IntelliHire's [recruitment analytics](/platform/recruitment-analytics) show time-to-hire, funnel conversion and the stages where candidates stall, and track candidates across the pipeline. Analytics are available on selected plans; see [pricing](/pricing) for details. Your team still reads the numbers and decides what to change. For more, browse [hiring metrics guides](/blog/category/hiring-metrics) or the [IntelliHire blog](/blog).",
+      text: "If you would rather not build this from spreadsheets, IntelliHire's [recruitment analytics](/platform/recruitment-analytics) show time-to-hire, funnel conversion and the stages where candidates stall, and track candidates across the pipeline. Analytics are available on selected plans; see [pricing](/pricing) for details. Your team still reads the numbers and decides what to change. For more, browse the [IntelliHire blog](/blog).",
     },
   ],
   faqs: [

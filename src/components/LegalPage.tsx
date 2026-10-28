@@ -5,8 +5,6 @@ import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import type { Crumb } from "@/lib/seo";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -18,7 +16,6 @@ export type LegalSection = {
 };
 
 type Props = {
-  crumbs: Crumb[];
   eyebrow: string;
   title: string;
   intro: string;
@@ -26,7 +23,6 @@ type Props = {
 };
 
 export default function LegalPage({
-  crumbs,
   eyebrow,
   title,
   intro,
@@ -79,9 +75,6 @@ export default function LegalPage({
     <main id="main" className="bg-brand-surface" ref={root}>
       <section className="px-4 pt-24 pb-10 sm:px-5 sm:pt-28 md:px-10 md:pt-32 md:pb-12">
         <div className="mx-auto max-w-[1920px]">
-          <div className="mb-8">
-            <Breadcrumbs crumbs={crumbs} />
-          </div>
           <div data-lp-anim className="max-w-[760px]">
             <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]">
               <span

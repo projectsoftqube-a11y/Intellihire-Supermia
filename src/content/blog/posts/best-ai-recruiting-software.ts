@@ -205,7 +205,7 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "Whichever tool you choose, keep the final decision with people and the evidence behind it. For more, browse [AI in recruiting guides](/blog/category/ai-recruiting) or the [IntelliHire blog](/blog).",
+      text: "Whichever tool you choose, keep the final decision with people and the evidence behind it. An [interview scoring rubric](/blog/interview-scoring-rubric) keeps that evidence consistent, and the [IntelliHire blog](/blog) has more guides.",
     },
   ],
   faqs: [

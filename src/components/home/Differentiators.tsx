@@ -29,7 +29,7 @@ export default function Differentiators() {
       id="why-intellihire"
       className="relative bg-brand-surface px-4 pb-24 sm:px-5 md:px-10 md:pb-32"
     >
-      <div className="relative mx-auto max-w-[1920px] overflow-hidden rounded-[28px] bg-[#071a3d] px-6 py-14 sm:rounded-[34px] sm:px-7 md:px-14 md:py-20">
+      <div className="relative mx-auto max-w-[1920px] overflow-hidden rounded-[28px] bg-[#071a3d] px-4 py-14 sm:rounded-[34px] sm:px-7 md:px-14 md:py-20">
         <span
           className="pointer-events-none absolute -top-24 right-[-6%] h-[420px] w-[420px] rounded-full bg-[#087ef5]/16 blur-[130px]"
           aria-hidden="true"
@@ -61,7 +61,7 @@ export default function Differentiators() {
             <li
               data-reveal
               key={lead}
-              className={`group relative flex flex-col overflow-hidden rounded-[22px] border border-[#ffffff]/10 bg-[#ffffff]/[0.04] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#087ef5]/50 hover:bg-[#ffffff]/[0.07] md:p-8 ${
+              className={`group relative flex flex-col overflow-hidden rounded-[22px] border border-[#ffffff]/10 bg-[#ffffff]/[0.04] p-6 transition-all duration-300 hover:-translate-y-1 sm:p-7 hover:border-[#087ef5]/50 hover:bg-[#ffffff]/[0.07] md:p-8 ${
                 i < 3 ? "lg:col-span-2" : "lg:col-span-3"
               } ${i === 4 ? "sm:col-span-2 lg:col-span-3" : ""}`}
             >

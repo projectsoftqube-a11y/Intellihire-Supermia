@@ -11,7 +11,7 @@ import {
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
-import { APP_LOGIN_URL, CONTACT_EMAIL, DEMO_URL, SUPERMIA_PRODUCT_URL } from "@/lib/site";
+import { CONTACT_EMAIL, SUPERMIA_PRODUCT_URL } from "@/lib/site";
 
 /**
  * Site navigation, per "00 Site Navigation / Navigation and Menu Spec".
@@ -139,10 +139,7 @@ export type FooterLink = NavLink & {
 export const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
   {
     heading: "Platform",
-    links: [
-      ...PLATFORM_LINKS.map(({ label, href }) => ({ label, href })),
-      { label: "Pricing", href: "/pricing" },
-    ],
+    links: PLATFORM_LINKS.map(({ label, href }) => ({ label, href })),
   },
   {
     heading: "Use Cases",
@@ -151,9 +148,10 @@ export const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
   {
     heading: "Resources",
     links: [
-      { label: "FAQ", href: "/faq" },
-      { label: "Blog", href: "/blog" },
       { label: "How it works", href: "/#how-it-works" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
   {
@@ -166,26 +164,18 @@ export const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
         external: true,
       },
       {
-        label: `Contact: ${CONTACT_EMAIL}`,
+        label: "Contact us",
         href: `mailto:${CONTACT_EMAIL}`,
         track: "contact_email_click",
       },
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms & Conditions", href: "/terms" },
-      {
-        label: "Book a demo",
-        href: DEMO_URL,
-        external: true,
-        track: "book_demo_click",
-      },
-      {
-        label: "Log in",
-        href: APP_LOGIN_URL,
-        external: true,
-        track: "login_click",
-      },
     ],
   },
+];
+
+/** Legal pages, shown in the footer's bottom bar. */
+export const LEGAL_LINKS = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms & Conditions", href: "/terms" },
 ];
 
 /** True when `href` is the current route or (for sections) one of its pages. */

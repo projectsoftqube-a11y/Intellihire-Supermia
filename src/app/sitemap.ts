@@ -1,11 +1,9 @@
 import type { MetadataRoute } from "next";
 import { MARKETING_PAGES } from "@/content";
 import {
-  BLOG_CATEGORIES,
   BLOG_POSTS,
   INDEX_THRESHOLD,
   postPath,
-  postsInCategory,
 } from "@/content/blog";
 import { absoluteUrl } from "@/lib/seo";
 
@@ -14,7 +12,7 @@ const RELEASED = "2026-10-27";
 
 /**
  * Live, indexable pages only (launch kit rule): noindex pages such as a blog
- * hub or category with fewer than three posts stay out until they qualify.
+ * hub stay out until they qualify.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const entry = (
@@ -30,13 +28,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/", RELEASED, "weekly", 1),
     entry("/pricing", RELEASED, "weekly", 0.9),
     entry("/faq", RELEASED, "monthly", 0.8),
+    entry("/book-a-demo", "2026-10-28", "monthly", 0.7),
     ...MARKETING_PAGES.map((page) =>
       entry(page.path, page.dateModified, "monthly", page.kind === "about" ? 0.5 : 0.8),
     ),
     ...(blogIndexed ? [entry("/blog", RELEASED, "weekly", 0.7)] : []),
-    ...BLOG_CATEGORIES.filter(
-      (category) => postsInCategory(category.slug).length >= INDEX_THRESHOLD,
-    ).map((category) => entry(category.path, RELEASED, "weekly", 0.5)),
     ...BLOG_POSTS.map((post) => entry(postPath(post), post.dateModified, "monthly", 0.6)),
     entry("/privacy", RELEASED, "yearly", 0.3),
     entry("/terms", RELEASED, "yearly", 0.3),

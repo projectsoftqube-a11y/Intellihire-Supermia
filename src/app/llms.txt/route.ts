@@ -19,7 +19,7 @@ export function GET() {
     `- [Pricing](${absoluteUrl("/pricing")}): IntelliHire plans and what each one includes.`,
     `- [FAQ](${absoluteUrl("/faq")}): screening, AI interviews, oversight, candidate data and pricing.`,
     `- [Log in](${APP_LOGIN_URL}): the IntelliHire web app.`,
-    `- [Book a demo](${DEMO_URL})`,
+    `- [Book a demo](${absoluteUrl(DEMO_URL)}): pick a time for a live IntelliHire walkthrough.`,
     "",
     "## Platform",
     "",

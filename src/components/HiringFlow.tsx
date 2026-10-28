@@ -362,8 +362,6 @@ export default function HiringFlow() {
           <a
             className="group inline-flex min-h-[58px] shrink-0 items-center gap-4 rounded-full bg-[#071a3d] py-2 pr-2 pl-8 text-[15px] font-semibold text-[#ffffff] shadow-[0_8px_24px_rgba(7,26,61,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5]"
             href={DEMO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
             data-track="book_demo_click"
           >
             <span>Book a demo</span>

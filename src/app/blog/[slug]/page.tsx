@@ -14,7 +14,6 @@ import {
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import AnswerBlock from "@/components/AnswerBlock";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/Reveal";
 import FaqAccordion from "@/components/FaqAccordion";
 import CtaBand from "@/components/CtaBand";
@@ -73,7 +72,6 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
   const crumbs: Crumb[] = [
     { name: "Home", path: "/" },
     { name: "Blog", path: "/blog" },
-    { name: category.name, path: category.path },
     { name: post.h1, path },
   ];
   const toc = post.blocks.filter((block) => block.type === "h2");
@@ -123,25 +121,21 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
         <article>
           <header className="relative px-4 pt-24 sm:px-5 sm:pt-28 md:px-10">
             <div className="mx-auto max-w-[1920px]">
-              <div className="px-1">
-                <Breadcrumbs crumbs={crumbs} />
-              </div>
-
-              <div className="mx-auto mt-10 max-w-[980px] text-center md:mt-14">
-                <Link
-                  href={category.path}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#087ef5]/25 bg-[#087ef5]/[0.08] px-4 py-2 text-[12px] font-semibold tracking-[0.12em] uppercase text-[#087ef5] transition-colors duration-200 hover:bg-[#087ef5] hover:text-[#ffffff]"
-                >
+              {/* Split hero across the full 1920px container, like the other
+                  page heroes: title and meta left, image right. */}
+              <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+                <div className="lg:col-span-7">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#087ef5]/25 bg-[#087ef5]/[0.08] px-4 py-2 text-[12px] font-semibold tracking-[0.12em] uppercase text-[#087ef5]">
                   <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
                   {category.name}
-                </Link>
-                <h1 className="m-0 mt-7 font-display text-[clamp(30px,4.4vw,64px)] leading-[1.06] font-normal tracking-[-0.02em] text-[#071a3d]">
+                </span>
+                <h1 className="m-0 mt-6 font-display text-[clamp(30px,3.4vw,58px)] leading-[1.06] font-normal tracking-[-0.02em] text-[#071a3d]">
                   {post.h1}
                 </h1>
-                <p className="mx-auto m-0 mt-6 max-w-[720px] text-[clamp(16px,1.3vw,19px)] leading-[1.7] text-[#5b6575]">
+                <p className="m-0 mt-5 max-w-[760px] text-[clamp(16px,1.3vw,19px)] leading-[1.7] text-[#5b6575]">
                   {post.excerpt}
                 </p>
-                <p className="m-0 mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[13.5px] font-medium text-[#5b6575]">
+                <p className="m-0 mt-7 flex flex-wrap items-center justify-start gap-x-5 gap-y-2 text-[13.5px] font-medium text-[#5b6575]">
                   <span className="inline-flex items-center gap-2">
                     <span className="grid h-7 w-7 place-items-center rounded-full bg-[#071a3d] text-[#ffffff]">
                       <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
@@ -166,24 +160,25 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                     {readingMinutes(post)} min read
                   </span>
                 </p>
-              </div>
+                </div>
 
-              <div className="ih-rise relative mx-auto mt-10 aspect-[16/9] max-w-[1280px] overflow-hidden rounded-[24px] bg-[#071a3d] sm:rounded-[30px] md:mt-14">
+                <div className="ih-rise relative aspect-[16/10] overflow-hidden rounded-[24px] bg-[#071a3d] sm:rounded-[30px] lg:col-span-5">
                 <Image
                   src={post.image.src}
                   alt={post.image.alt}
                   fill
                   priority
-                  sizes="(max-width: 1280px) 100vw, 1280px"
+                  sizes="(max-width: 1024px) 100vw, 42vw"
                   className="object-cover"
                 />
+                </div>
               </div>
             </div>
           </header>
 
           <Reveal>
-            <div className="px-4 pt-14 pb-10 sm:px-5 md:px-10 md:pt-20">
-              <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-12">
+            <div className="px-4 pt-10 pb-8 sm:px-5 md:px-10 md:pt-12">
+              <div className="mx-auto grid max-w-[1920px] grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10 xl:gap-16">
                 <aside className="lg:col-span-3">
                   <div className="lg:sticky lg:top-28">
                     <details className="faq group rounded-[20px] border border-[#e5eaf0] bg-[#ffffff] p-5 lg:hidden">
@@ -256,7 +251,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                     ))}
                   </div>
 
-                  <div className="ih-takeaways my-10 rounded-[22px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-7">
+                  <div className="ih-takeaways my-8 rounded-[22px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-7">
                     <p className="m-0 flex items-center gap-3 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#087ef5]">
                       <span className="h-px w-8 bg-[#ff6b00]" aria-hidden="true" />
                       Key takeaways
@@ -274,7 +269,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                   <ArticleBody blocks={post.blocks} />
 
                   {post.faqs && post.faqs.length > 0 && (
-                    <section id="faqs" className="mt-14 scroll-mt-28">
+                    <section id="faqs" className="mt-10 scroll-mt-28">
                       <h2 className="m-0 font-display text-[clamp(25px,2.4vw,34px)] leading-[1.18] font-normal tracking-[-0.015em] text-[#071a3d]">
                         Frequently asked questions
                       </h2>
@@ -285,7 +280,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                   )}
 
                   {post.sources && post.sources.length > 0 && (
-                    <section id="sources" className="mt-14 scroll-mt-28 rounded-[22px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-7">
+                    <section id="sources" className="mt-10 scroll-mt-28 rounded-[22px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-7">
                       <h2 className="m-0 text-[18px] font-semibold text-[#071a3d]">Sources</h2>
                       <ol className="m-0 mt-5 flex list-none flex-col gap-4 p-0">
                         {post.sources.map((source, n) => (
@@ -361,7 +356,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
 
         <Reveal>
             {related.length > 0 && (
-              <section className="px-4 py-16 sm:px-5 md:px-10 md:py-20">
+              <section className="px-4 py-10 sm:px-5 md:px-10 md:py-14">
                 <div className="mx-auto max-w-[1920px]">
                   <div data-reveal>
                     <Eyebrow>Keep reading</Eyebrow>
@@ -369,7 +364,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                       More hiring guides
                     </h2>
                   </div>
-                  <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                  <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                     {related.map((item) => (
                       <PostCard key={item.slug} post={item} />
                     ))}

@@ -88,7 +88,7 @@ const post: BlogPost = {
     { type: "h3", text: "Ask about their own work" },
     {
       type: "p",
-      text: "Questions that depend on personal context are hard to outsource. Ask the candidate to walk you through a project on their resume: what they owned, which tools they used, what went wrong and what they would change. Our guide to [structured interview questions](/blog/structured-interview-questions) has examples by role, and you can find more in [Interview Guides](/blog/category/interviews).",
+      text: "Questions that depend on personal context are hard to outsource. Ask the candidate to walk you through a project on their resume: what they owned, which tools they used, what went wrong and what they would change. Our guide to [structured interview questions](/blog/structured-interview-questions) has examples by role, and our [interview scoring rubric guide](/blog/interview-scoring-rubric) shows how to score the answers.",
     },
     { type: "h3", text: "Probe two or three layers deep" },
     {

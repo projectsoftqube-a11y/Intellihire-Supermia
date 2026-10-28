@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import PostCard from "@/components/blog/PostCard";
-import CategoryChips from "@/components/blog/CategoryChips";
 import Pagination, { pageFromParam, pageHref } from "@/components/blog/Pagination";
-import { Eyebrow, JsonLd } from "@/components/ui";
+import { Eyebrow, JsonLd, PillButton } from "@/components/ui";
 import {
   BLOG_POSTS,
   INDEX_THRESHOLD,
@@ -44,30 +43,9 @@ export async function generateMetadata({ searchParams }: PageProps<"/blog">): Pr
   });
 }
 
-/** Hero intro, mentioning only topics that have a published guide. */
-function heroIntro(): string {
-  const has = (slug: string) => BLOG_POSTS.some((post) => post.slug === slug);
-  const learn = [
-    has("interview-scoring-rubric") && "build a scoring rubric",
-    has("structured-interview-questions") && "write structured interview questions",
-    has("prevent-cheating-in-online-interviews") && "check integrity in remote interviews",
-  ].filter(Boolean) as string[];
-  const also = [
-    has("ai-hiring-laws") && "what AI hiring laws cover",
-    has("recruitment-metrics") && "which metrics show where your pipeline stalls",
-  ].filter(Boolean) as string[];
-
-  const join = (items: string[]) =>
-    items.length <= 1 ? items.join("") : `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
-
-  return [
-    "AI recruiting tips for in-house HR and talent teams, recruitment agencies and small businesses hiring without a full recruiting team.",
-    learn.length ? `Learn how to ${join(learn)}.` : "",
-    also.length ? `You'll also find ${join(also)}.` : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-}
+/** Hero intro: one sentence naming who the guides are for and what they cover. */
+const HERO_INTRO =
+  "Practical AI recruiting guides for HR teams, recruitment agencies and small businesses, from scoring rubrics and structured interviews to hiring laws and time to hire.";
 
 export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) {
   const page = pageFromParam((await searchParams).page);
@@ -77,6 +55,7 @@ export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) 
   const pagePosts = posts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
   const [lead, ...rest] = pagePosts;
   const categories = liveCategories();
+  const latest = posts[0];
 
   const graph = [
     webPageNode({
@@ -110,18 +89,51 @@ export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) 
       <SiteHeader />
       <main id="main" className="bg-brand-surface">
         <PageHero
-          crumbs={CRUMBS}
           eyebrow="IntelliHire Blog"
           title="IntelliHire Blog: AI Recruiting, Interviews and Hiring Analytics"
-          lead={[heroIntro()]}
-        >
-          <div className="mt-9">
-            <CategoryChips active="all" />
-          </div>
-        </PageHero>
+          lead={[HERO_INTRO]}
+          actions={latest && <PillButton href={postPath(latest)}>Read the latest guide</PillButton>}
+          aside={
+            page === 1 && categories.length > 0 ? (
+              <nav
+                aria-label="Guide topics"
+                className="rounded-[24px] border border-[#ffffff]/12 bg-[#ffffff]/[0.05] p-6 backdrop-blur sm:p-7"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <p className="m-0 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#ffffff]/45">
+                    Browse by topic
+                  </p>
+                  <p className="m-0 text-[12px] text-[#ffffff]/45">{posts.length} guides</p>
+                </div>
+                <ul className="m-0 mt-4 flex list-none flex-col divide-y divide-[#ffffff]/10 p-0">
+                  {categories.map((category) => {
+                    const count = postsInCategory(category.slug).length;
+                    return (
+                      <li key={category.slug}>
+                        <a
+                          href={`#topic-${category.slug}`}
+                          className="group flex items-center justify-between gap-4 py-4 text-[#ffffff] transition-colors duration-200 hover:text-[#087ef5]"
+                        >
+                          <span className="text-[17px] font-semibold">{category.name}</span>
+                          <span className="flex shrink-0 items-center gap-2 text-[13px] text-[#ffffff]/50 transition-colors duration-200 group-hover:text-[#087ef5]">
+                            {count === 1 ? "1 guide" : `${count} guides`}
+                            <ArrowDown
+                              className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            ) : undefined
+          }
+        />
 
         <Reveal>
-          <section id="latest" className="relative scroll-mt-24 px-4 py-20 sm:px-5 md:px-10 md:py-28">
+          <section id="latest" className="relative scroll-mt-24 px-4 py-12 sm:px-5 md:px-10 md:py-16">
             <div className="mx-auto max-w-[1920px]">
               <div data-reveal className="flex flex-wrap items-end justify-between gap-6">
                 <div>
@@ -136,7 +148,7 @@ export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) 
               </div>
 
               {lead && (
-                <div className="mt-12 md:mt-14">
+                <div className="mt-8 md:mt-10">
                   <PostCard post={lead} featured priority />
                 </div>
               )}
@@ -154,7 +166,7 @@ export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) 
           </section>
 
           {page === 1 && categories.length > 0 && (
-            <section id="topics" className="relative px-4 pb-8 sm:px-5 md:px-10">
+            <section id="topics" className="relative scroll-mt-24 px-4 pb-8 sm:px-5 md:px-10">
               <div className="mx-auto grid max-w-[1920px] grid-cols-1 gap-5 lg:grid-cols-3">
                 {categories.map((category, i) => {
                   const inCategory = postsInCategory(category.slug);
@@ -174,7 +186,7 @@ export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) 
                       </span>
                       <h2
                         id={`topic-${category.slug}`}
-                        className="relative m-0 mt-5 font-display text-[clamp(24px,2.2vw,34px)] leading-[1.1] font-normal text-[#ffffff]"
+                        className="relative m-0 mt-5 scroll-mt-32 font-display text-[clamp(24px,2.2vw,34px)] leading-[1.1] font-normal text-[#ffffff]"
                       >
                         {category.name}
                       </h2>
@@ -197,13 +209,6 @@ export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) 
                           </li>
                         ))}
                       </ul>
-                      <Link
-                        href={category.path}
-                        className="relative mt-auto inline-flex items-center gap-2 pt-7 text-[14px] font-semibold text-[#ffffff] transition-colors duration-200 hover:text-[#087ef5]"
-                      >
-                        {category.browseLabel}
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </Link>
                     </section>
                   );
                 })}

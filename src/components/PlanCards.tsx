@@ -23,10 +23,13 @@ const ctaDefaultClass =
 export default function PlanCards({
   plans,
   headingLevel = "p",
+  className = "mt-12 pt-4 md:mt-16 xl:pt-8",
 }: {
   plans: PricingPlan[];
-  /** /pricing renders plan names as H3s under its "Plans" H2. */
-  headingLevel?: "p" | "h3";
+  /** /pricing opens with the cards, so it renders plan names as H2s. */
+  headingLevel?: "p" | "h2" | "h3";
+  /** Spacing around the grid. */
+  className?: string;
 }) {
   // Plan whose "Contact Sales" button opened the dialog, or null when closed.
   const [salesPlanId, setSalesPlanId] = useState<string | null>(null);
@@ -36,7 +39,7 @@ export default function PlanCards({
 
   return (
     <>
-      <div className="mt-12 grid grid-cols-1 items-stretch gap-5 pt-4 md:mt-16 md:grid-cols-2 xl:grid-cols-4 xl:pt-8">
+      <div className={`grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4 ${className}`}>
         {plans.map(
           ({ id, name, blurb, price, cadence, points, featured, isCustom, cta }) => {
             const notify = cta.href.startsWith("mailto:");
@@ -45,7 +48,7 @@ export default function PlanCards({
                 data-pr-anim
                 data-reveal
                 key={id}
-                className={`group/card relative flex h-full flex-col rounded-[26px] border p-7 transition-all duration-300 md:p-8 ${
+                className={`group/card relative flex h-full flex-col rounded-[26px] border p-6 transition-all duration-300 sm:p-7 md:p-8 ${
                   featured
                     ? "border-brand-light-blue bg-brand-dark-blue shadow-[0_18px_50px_-12px_rgba(7,26,61,0.45)] xl:-translate-y-2"
                     : "border-brand-border bg-brand-surface hover:border-brand-light-blue/40 hover:shadow-[0_14px_40px_-16px_rgba(7,26,61,0.25)]"
@@ -78,7 +81,7 @@ export default function PlanCards({
                 </div>
 
                 <div
-                  className={`mt-6 flex items-baseline gap-2 border-t pt-6 ${
+                  className={`mt-6 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-t pt-6 ${
                     featured ? "border-brand-white/15" : "border-brand-border"
                   }`}
                 >

@@ -165,7 +165,6 @@ export default function TermsPage() {
       <JsonLd nodes={GRAPH} />
       <SiteHeader />
       <LegalPage
-        crumbs={CRUMBS}
         eyebrow="Legal"
         title="Terms & Conditions"
         intro="The terms governing use of the IntelliHire platform, covering customer responsibilities, acceptable use, AI outputs and the limits of our service commitments."

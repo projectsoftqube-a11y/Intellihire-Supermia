@@ -28,16 +28,6 @@ export const ABOUT_PAGE: MarketingPage = {
     height: 1149,
     alt: "Product team sketching together around a long table in a sunlit studio office",
   },
-  heroPanel: {
-    title: "How IntelliHire works",
-    caption: "No candidate is ever rejected by a machine",
-    rows: [
-      { label: "Reads", detail: "Every application, against your rubric", tone: "blue" },
-      { label: "Interviews", detail: "First rounds, around the clock", tone: "orange" },
-      { label: "Cites", detail: "Transcript evidence in each scorecard", tone: "green" },
-      { label: "Decides", detail: "Your team, every time", tone: "slate" },
-    ],
-  },
   highlights: [
     "Built by SuperMIA",
     "Office in Grapevine, Texas",
@@ -133,6 +123,12 @@ export const ABOUT_PAGE: MarketingPage = {
     },
   ],
   faqHeading: "About IntelliHire: Quick Answers",
+  faqImage: {
+    src: "/images/sections/faq-about.webp",
+    width: 1122,
+    height: 1402,
+    alt: "Team member explaining at a blank whiteboard while a colleague listens",
+  },
   faqs: [
     {
       question: "Who makes IntelliHire?",

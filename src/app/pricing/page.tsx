@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Check, FileSearch, Lock, Scale } from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import PageHero from "@/components/PageHero";
+import AnswerBlock from "@/components/AnswerBlock";
 import PlanCards from "@/components/PlanCards";
 import Reveal from "@/components/Reveal";
 import FaqSection from "@/components/FaqSection";
@@ -92,85 +92,67 @@ export default async function PricingPage() {
       <JsonLd nodes={graph} />
       <SiteHeader />
       <main id="main" className="bg-brand-surface">
-        <PageHero
-          crumbs={CRUMBS}
-          eyebrow="Pricing"
-          title={pricingH1(plans)}
-          answer={pricingAnswer(plans)}
-          lead={[
-            pricingLead(plans),
-            "Comparing AI recruitment software pricing? Start with how many roles you hire for at once. Every plan includes resume screening, AI interviews and evidence-backed scorecards. Want to see it work first? Book a demo and bring a role you are hiring for now.",
-          ]}
-          actions={
-            <>
-              <PillButton href={DEMO_URL}>Book a demo</PillButton>
-              <ArrowLink href="#plans" tone="light">
-                Compare the plans
-              </ArrowLink>
-            </>
-          }
-          footnote="No candidate is ever rejected by a machine, on any plan."
-          aside={
-            <div className="rounded-[24px] border border-[#ffffff]/12 bg-[#ffffff]/[0.05] p-5 backdrop-blur sm:p-6">
-              <p className="m-0 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#ffffff]/45">
-                Plans at a glance
-              </p>
-              <ul className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
-                {plans.map((plan) => (
-                  <li
-                    key={plan.id}
-                    className={`flex items-center justify-between gap-4 rounded-2xl px-4 py-3.5 ${
-                      plan.featured
-                        ? "bg-[#ffffff] text-[#071a3d] shadow-[0_18px_40px_-18px_rgba(8,126,245,0.8)]"
-                        : "bg-[#ffffff]/[0.06] text-[#ffffff]"
-                    }`}
-                  >
-                    <span className="flex min-w-0 items-center gap-2.5">
-                      <span
-                        className={`h-2 w-2 shrink-0 rounded-full ${
-                          plan.featured ? "bg-[#ff6b00]" : plan.isCustom ? "bg-[#ffffff]/40" : "bg-[#087ef5]"
-                        }`}
-                        aria-hidden="true"
-                      />
-                      <span className="truncate text-[15px] font-semibold">{plan.name}</span>
-                      {plan.featured && (
-                        <span className="hidden rounded-full bg-[#ff6b00]/12 px-2 py-0.5 text-[10px] font-semibold tracking-[0.1em] uppercase text-[#d45a00] min-[380px]:inline">
-                          Popular
-                        </span>
-                      )}
-                    </span>
-                    <span className="flex shrink-0 items-baseline gap-1.5">
-                      <span className="font-display text-[20px] leading-none">{plan.price}</span>
-                      {plan.cadence && (
-                        <span className={`text-[12px] ${plan.featured ? "text-[#5b6575]" : "text-[#ffffff]/50"}`}>
-                          {plan.cadence}
-                        </span>
-                      )}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="m-0 mt-5 flex items-start gap-2.5 border-t border-[#ffffff]/10 pt-4 text-[13px] leading-[1.6] text-[#ffffff]/60">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#087ef5]" aria-hidden="true" />
-                Every plan includes resume screening, AI interviews and evidence-backed scorecards.
-              </p>
-            </div>
-          }
-        />
+        {/* Plans first: the heading and short answer sit directly above the
+            cards, so prices are the first thing on the page. */}
+        <section id="plans" className="relative scroll-mt-24 px-4 pt-24 sm:px-5 sm:pt-28 md:px-10">
+          <div className="mx-auto max-w-[1920px]">
+            <div className="relative overflow-hidden rounded-[28px] border border-[#e5eaf0] bg-[#ffffff] px-3 pt-12 pb-8 shadow-[0_30px_80px_-60px_rgba(7,26,61,0.5)] sm:rounded-[34px] sm:px-8 md:px-12 md:pt-16 md:pb-12 xl:px-14">
+              <span
+                className="pointer-events-none absolute -top-48 left-1/2 h-[480px] w-[900px] -translate-x-1/2 rounded-full bg-[#087ef5]/10 blur-[140px]"
+                aria-hidden="true"
+              />
+              <span
+                className="pointer-events-none absolute inset-x-0 top-0 h-[420px] opacity-[0.5] [background-image:linear-gradient(#e5eaf0_1px,transparent_1px),linear-gradient(90deg,#e5eaf0_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_50%_0%,black,transparent_70%)]"
+                aria-hidden="true"
+              />
 
-        <Reveal>
-          <section id="plans" className="relative scroll-mt-24 px-4 pt-20 sm:px-5 md:px-10 md:pt-28">
-            <div className="mx-auto max-w-[1920px]">
-              <div data-reveal className="max-w-[760px]">
-                <Eyebrow>Plans</Eyebrow>
-                <h2 className="mt-7 font-display text-[clamp(30px,3.6vw,56px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#071a3d]">
-                  Plans
-                </h2>
-                <p className="m-0 mt-5 max-w-[620px] text-[clamp(15px,1.2vw,18px)] leading-[1.7] text-[#5b6575]">
-                  {plansIntro(plans)}
+              <div className="relative mx-auto flex max-w-[860px] flex-col items-center px-2 text-center sm:px-0">
+                <Eyebrow>Pricing</Eyebrow>
+                <h1 className="mt-6 font-display text-[clamp(30px,4vw,60px)] leading-[1.05] font-normal tracking-[-0.02em] text-[#071a3d]">
+                  {pricingH1(plans)}
+                </h1>
+                <div className="mt-6 [&>p]:mx-auto [&>p]:max-w-[720px]">
+                  <AnswerBlock text={pricingAnswer(plans)} tone="onLight" plain />
+                </div>
+              </div>
+
+              <PlanCards plans={plans} headingLevel="h2" className="relative mt-12 pt-4 md:mt-14 xl:pt-6" />
+
+              <div className="relative mt-10 flex flex-col items-center gap-4 border-t border-[#e5eaf0] px-2 pt-8 text-center sm:px-0 md:flex-row md:justify-between md:text-left">
+                <p className="m-0 max-w-[620px] text-[14.5px] leading-[1.65] text-[#5b6575]">{plansIntro(plans)}</p>
+                <p className="m-0 flex items-center gap-2.5 text-[13.5px] font-medium text-[#071a3d]">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#ff6b00]" aria-hidden="true" />
+                  No candidate is ever rejected by a machine, on any plan.
                 </p>
               </div>
-              <PlanCards plans={plans} headingLevel="h3" />
+            </div>
+          </div>
+        </section>
+
+        <Reveal>
+          {/* The explanation follows the plans. */}
+          <section id="choosing" className="relative px-4 pt-20 sm:px-5 md:px-10 md:pt-28">
+            <div className="mx-auto grid max-w-[1920px] grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-16">
+              <div data-reveal className="lg:col-span-5">
+                <Eyebrow>Choosing a plan</Eyebrow>
+                <h2 className="mt-7 font-display text-[clamp(28px,3.2vw,50px)] leading-[1.06] font-normal tracking-[-0.02em] text-[#071a3d]">
+                  How to Choose an IntelliHire Plan
+                </h2>
+              </div>
+              <div data-reveal className="flex flex-col gap-5 lg:col-span-7 lg:border-l lg:border-[#e5eaf0] lg:pl-16">
+                <p className="m-0 text-[clamp(16px,1.25vw,19px)] leading-[1.7] text-[#071a3d]">
+                  {pricingLead(plans)}
+                </p>
+                <p className="m-0 text-[clamp(15px,1.15vw,17px)] leading-[1.75] text-[#5b6575]">
+                  Comparing AI recruitment software pricing? Start with how many roles you hire for at once. Every plan includes resume screening, AI interviews and evidence-backed scorecards. Want to see it work first? Book a demo and bring a role you are hiring for now.
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-x-7 gap-y-4">
+                  <PillButton href={DEMO_URL} tone="dark">
+                    Book a demo
+                  </PillButton>
+                  <ArrowLink href="#compare">Compare the plans</ArrowLink>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -287,7 +269,7 @@ export default async function PricingPage() {
                     <li
                       data-reveal
                       key={title}
-                      className="flex items-start gap-5 rounded-[20px] border border-[#ffffff]/10 bg-[#ffffff]/[0.04] p-6"
+                      className="flex flex-col items-start gap-4 rounded-[20px] border border-[#ffffff]/10 bg-[#ffffff]/[0.04] p-5 sm:flex-row sm:gap-5 sm:p-6"
                     >
                       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#087ef5] text-[#ffffff]">
                         <Icon className="h-5 w-5" aria-hidden="true" />
@@ -310,6 +292,12 @@ export default async function PricingPage() {
             intro="More answers are on the [IntelliHire FAQ page](/faq). To see what candidates go through in the AI voice interviews included on every plan, read [how AI interviews work](/platform/ai-interviews)."
             items={faqs}
             link={null}
+            image={{
+              src: "/images/sections/faq-pricing.webp",
+              width: 1122,
+              height: 1402,
+              alt: "Two colleagues reading one printed page together, one pointing to a section",
+            }}
           />
 
           <CtaBand

@@ -1,15 +1,12 @@
 import type { ReactNode } from "react";
 import AnswerBlock from "@/components/AnswerBlock";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import { Eyebrow, RichText } from "@/components/ui";
-import type { Crumb } from "@/lib/seo";
 
 /**
  * Hero for text-led inner pages (pricing, FAQ, blog). Same navy card and
  * type scale as the homepage hero, with an optional aside panel.
  */
 export default function PageHero({
-  crumbs,
   eyebrow,
   title,
   answer,
@@ -19,7 +16,6 @@ export default function PageHero({
   aside,
   children,
 }: {
-  crumbs: Crumb[];
   eyebrow: string;
   title: ReactNode;
   /** Answer-first block, 40-60 words, rendered directly under the H1. */
@@ -33,10 +29,6 @@ export default function PageHero({
   return (
     <section className="relative bg-brand-surface px-4 pt-24 sm:px-5 sm:pt-28 md:px-10">
       <div className="mx-auto max-w-[1920px]">
-        <div className="mb-5 px-1 md:mb-6">
-          <Breadcrumbs crumbs={crumbs} />
-        </div>
-
         <div className="relative overflow-hidden rounded-[28px] bg-[#071a3d] sm:rounded-[34px]">
           <span
             className="pointer-events-none absolute -top-40 left-[-10%] h-[520px] w-[520px] rounded-full bg-[#087ef5]/20 blur-[140px]"

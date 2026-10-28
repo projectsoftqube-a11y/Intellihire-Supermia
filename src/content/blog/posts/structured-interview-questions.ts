@@ -260,7 +260,7 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "For more on scoring and interview design, browse [Interview Guides](/blog/category/interviews) or [all posts on the blog](/blog).",
+      text: "For more on scoring and interview design, read our guide to building an [interview scoring rubric](/blog/interview-scoring-rubric) or browse [all posts on the blog](/blog).",
     },
   ],
   faqs: [

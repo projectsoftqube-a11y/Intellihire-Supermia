@@ -102,8 +102,6 @@ export default function Hero() {
               <a
                 className="group inline-flex min-h-[58px] items-center gap-4 rounded-full bg-[#ffffff] py-2 pr-2 pl-8 text-[15px] font-semibold text-[#071a3d] shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:text-[#ffffff] hover:shadow-[0_14px_32px_rgba(8,126,245,0.45)]"
                 href={DEMO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
                 data-track="book_demo_click"
               >
                 <span className="text-[#071a3d] group-hover:text-[#ffffff]">

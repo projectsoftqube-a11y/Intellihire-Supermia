@@ -35,16 +35,6 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "A dozen candidates seated along a bench in a bright glazed waiting area",
     },
-    heroPanel: {
-      title: "Customer Support Associate · Round 1",
-      caption: "Your team decides who moves forward",
-      rows: [
-        { label: "Applications", detail: "All read against your rubric", tone: "blue" },
-        { label: "Shortlist", detail: "Ranked, reasons shown", tone: "green" },
-        { label: "First-round interviews", detail: "Running around the clock", tone: "orange" },
-        { label: "Next step", detail: "Recruiter review", tone: "slate" },
-      ],
-    },
     highlights: [
       "Every application read against your rubric",
       "First-round voice interviews around the clock",
@@ -56,6 +46,12 @@ export const USE_CASE_PAGES: MarketingPage[] = [
         eyebrow: "The problem",
         heading: "Why High-Volume Hiring Stalls at the First Pass",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-high-volume-hiring.webp",
+          width: 1672,
+          height: 941,
+          alt: "Hand resting on the first folder in a row of folders on a sunlit desk",
+        },
         body: [
           "Volume is not the hard part. Good people apply. The trouble starts when a few recruiters have to read, sort and call every one of them before anyone gets a first conversation. By the time interviews are booked, some of the people you wanted may have accepted other offers.",
         ],
@@ -175,6 +171,12 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "High-Volume Hiring FAQs",
+    faqImage: {
+      src: "/images/sections/faq-high-volume-hiring.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Hand lifting the top folder from a tall stack on a sunlit desk",
+    },
     faqs: [
       {
         question: "Can IntelliHire handle hundreds of applications for one role?",
@@ -240,16 +242,6 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       width: 1369,
       height: 1149,
       alt: "Agency recruiter on a headset call beside separated folders for several clients",
-    },
-    heroPanel: {
-      title: "Open roles this week",
-      caption: "Your recruiters decide who goes to the client",
-      rows: [
-        { label: "Account Manager", detail: "First-round interviews running", tone: "orange" },
-        { label: "Site Supervisor", detail: "Shortlist ready for review", tone: "green" },
-        { label: "Payroll Specialist", detail: "Applications being read", tone: "blue" },
-        { label: "Scorecards", detail: "Each one cites the transcript", tone: "slate" },
-      ],
     },
     highlights: [
       "First rounds for several client roles at once",
@@ -366,6 +358,12 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Recruitment Agency FAQs",
+    faqImage: {
+      src: "/images/sections/faq-recruitment-agencies.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Recruiter on a phone call by a window at sunset, notebook in hand",
+    },
     faqs: [
       {
         question: "Can IntelliHire run first rounds for several client roles at once?",
@@ -432,16 +430,6 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Two HR colleagues in conversation on low seating in an informal office nook",
     },
-    heroPanel: {
-      title: "Scorecard · Operations Analyst",
-      caption: "Your team makes the final call",
-      rows: [
-        { label: "Rubric match", detail: "4 of 5 criteria met", tone: "green" },
-        { label: "Evidence", detail: "Cites transcript answers", tone: "blue" },
-        { label: "Interview", detail: "Completed, transcript ready", tone: "slate" },
-        { label: "Decision", detail: "With the hiring manager", tone: "orange" },
-      ],
-    },
     highlights: [
       "Same rubric from screening to scorecard",
       "Scorecards that cite the transcript",
@@ -453,6 +441,12 @@ export const USE_CASE_PAGES: MarketingPage[] = [
         eyebrow: "The problem",
         heading: "Why In-House Hiring Slows Down Before the First Interview",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-hr-teams.webp",
+          width: 1672,
+          height: 941,
+          alt: "Empty interview room with one printed sheet and a pen on the table",
+        },
         body: [
           "Most HR teams are not short of applicants. They are short of hours. First-pass screening and interview scheduling land on the same few people who run onboarding and answer employee questions, and every hiring manager wants their role filled first.",
         ],
@@ -568,6 +562,12 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "HR and Talent Team FAQs",
+    faqImage: {
+      src: "/images/sections/faq-hr-teams.webp",
+      width: 1122,
+      height: 1402,
+      alt: "HR lead showing a colleague a printed sheet at a shared desk",
+    },
     faqs: [
       {
         question: "How does IntelliHire keep first-round interviews consistent?",
@@ -634,16 +634,6 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Founder reading a sheet of paper while two colleagues listen in a startup space",
     },
-    heroPanel: {
-      title: "New role · Customer Success Lead",
-      caption: "AI does the reading. You make the call.",
-      rows: [
-        { label: "Job description and rubric", detail: "Drafted, ready to review", tone: "blue" },
-        { label: "Applicants", detail: "Ranked against your rubric", tone: "green" },
-        { label: "First-round interviews", detail: "Taken at any hour", tone: "orange" },
-        { label: "Your shortlist", detail: "Waiting for your decision", tone: "slate" },
-      ],
-    },
     highlights: [
       "Job description and rubric drafted for you",
       "First-round interviews at any hour",
@@ -655,6 +645,12 @@ export const USE_CASE_PAGES: MarketingPage[] = [
         eyebrow: "The problem",
         heading: "Why Hiring Without a Recruiting Team Is So Hard",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-startups.webp",
+          width: 1672,
+          height: 941,
+          alt: "Man in thought looking at a tablet at a sunlit desk",
+        },
         body: [
           "When nobody's job is recruiting, hiring happens in the gaps. Applications arrive while you are building the product or serving customers, and the role stays open longer than anyone planned.",
         ],
@@ -770,6 +766,12 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Startup and Small Business Hiring FAQs",
+    faqImage: {
+      src: "/images/sections/faq-startups.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Founder writing in a notebook at a sunlit cafe table",
+    },
     faqs: [
       {
         question: "Do I need a recruiter to use IntelliHire?",

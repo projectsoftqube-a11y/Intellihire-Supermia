@@ -17,21 +17,25 @@ export default function PostCard({
 }) {
   const Heading = headingLevel;
   const category = getCategory(post.category);
+  // The featured card previews the guide's own section headings, so its text
+  // column carries real content instead of floating in empty space.
+  const sections = featured
+    ? post.blocks.flatMap((block) => (block.type === "h2" ? [block.text] : [])).slice(0, 4)
+    : [];
 
   return (
     <article
       data-reveal
       className={`group relative flex h-full flex-col overflow-hidden rounded-[26px] border border-[#e5eaf0] bg-[#ffffff] transition-all duration-300 hover:-translate-y-1 hover:border-[#087ef5]/40 hover:shadow-[0_26px_60px_-28px_rgba(7,26,61,0.35)] ${
-        featured ? "lg:flex-row" : ""
+        featured ? "lg:h-[460px] lg:flex-row" : ""
       }`}
     >
-      {/* The featured card keeps a real aspect ratio on desktop rather than
-          stretching to the text column's height, which left a wide, shallow
-          letterbox when the copy was short. */}
+      {/* On desktop the featured card has a fixed height and the image fills
+          it, so the card no longer grows and shrinks with the screen width. */}
       <div
         className={`relative overflow-hidden bg-[#071a3d] ${
           featured
-            ? "aspect-[16/10] lg:aspect-[4/3] lg:w-[46%] lg:shrink-0"
+            ? "aspect-[16/10] lg:aspect-auto lg:h-full lg:w-[44%] lg:shrink-0"
             : "aspect-[16/10]"
         }`}
       >
@@ -54,7 +58,13 @@ export default function PostCard({
         )}
       </div>
 
-      <div className={`flex flex-1 flex-col p-6 sm:p-7 ${featured ? "lg:justify-center lg:p-10 xl:p-12" : ""}`}>
+      <div className={`flex min-w-0 flex-1 flex-col p-6 sm:p-7 ${featured ? "lg:justify-center lg:px-10 lg:py-9 xl:px-12" : ""}`}>
+        {featured && (
+          <p className="m-0 mb-4 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#087ef5]">
+            <span className="h-px w-6 bg-[#ff6b00]" aria-hidden="true" />
+            Latest guide
+          </p>
+        )}
         <p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px] font-medium text-[#5b6575]">
           <time dateTime={post.datePublished}>{formatDate(post.datePublished)}</time>
           <span aria-hidden="true">·</span>
@@ -62,16 +72,35 @@ export default function PostCard({
         </p>
         <Heading
           className={`m-0 mt-3 font-display leading-[1.2] font-normal tracking-[-0.01em] text-[#071a3d] transition-colors duration-300 group-hover:text-[#087ef5] ${
-            featured ? "text-[clamp(24px,2.4vw,36px)]" : "text-[clamp(19px,1.55vw,23px)]"
+            featured ? "text-[clamp(24px,2.2vw,32px)] lg:line-clamp-2" : "text-[clamp(19px,1.55vw,23px)]"
           }`}
         >
           <Link href={postPath(post)} className="after:absolute after:inset-0 after:content-['']">
             {post.h1}
           </Link>
         </Heading>
-        <p className={`m-0 mt-3 text-[14.5px] leading-[1.65] text-[#5b6575] ${featured ? "md:text-[16px]" : ""}`}>
+        <p
+          className={`m-0 mt-3 text-[14.5px] leading-[1.65] text-[#5b6575] ${
+            featured ? "md:text-[15.5px] lg:line-clamp-2" : ""
+          }`}
+        >
           {post.excerpt}
         </p>
+        {sections.length > 0 && (
+          <div className="mt-6 hidden border-t border-[#e5eaf0] pt-5 lg:block">
+            <p className="m-0 text-[11px] font-semibold tracking-[0.14em] uppercase text-[#071a3d]/45">
+              Inside this guide
+            </p>
+            <ul className="m-0 mt-3 grid list-none grid-cols-1 gap-x-8 gap-y-2 p-0 xl:grid-cols-2">
+              {sections.map((section) => (
+                <li key={section} className="flex min-w-0 items-center gap-2.5 text-[14px] text-[#3c4656]">
+                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#087ef5]" aria-hidden="true" />
+                  <span className="truncate">{section}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         {/* In the grid the link sits at the card's foot so every card lines
             up; on the featured card the column is already centred, so it
             follows the copy instead of being pushed down. */}

@@ -146,8 +146,6 @@ export default function FinalCta() {
               data-track="book_demo_click"
               className="group inline-flex min-h-[64px] items-center gap-5 rounded-full bg-[#ffffff] py-2.5 pr-2.5 pl-9 text-[16px] font-semibold text-[#071a3d] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(255,255,255,0.18)]"
               href={DEMO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <span className="text-[#071a3d]">Book a demo</span>
               <span className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-full bg-[#071a3d] transition-transform duration-300 group-hover:rotate-45">

@@ -1,91 +1,73 @@
 import Image from "next/image";
-import { Check, ShieldCheck } from "lucide-react";
+import { Check } from "lucide-react";
 import AnswerBlock from "@/components/AnswerBlock";
 import { formatDate } from "@/content/blog";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import { ArrowLink, Eyebrow, PillButton, RichText } from "@/components/ui";
-import type { HeroPanelRow, MarketingPage } from "@/content/types";
-import type { Crumb } from "@/lib/seo";
+import { ArrowLink, Eyebrow, PillButton } from "@/components/ui";
+import type { MarketingPage } from "@/content/types";
 import { DEMO_URL } from "@/lib/site";
 
-const TONE: Record<HeroPanelRow["tone"], string> = {
-  blue: "bg-[#087ef5]",
-  orange: "bg-[#ff6b00]",
-  green: "bg-[#17b26a]",
-  slate: "bg-[#94a3b8]",
-};
-
-const TONE_TEXT: Record<HeroPanelRow["tone"], string> = {
-  blue: "text-[#087ef5] bg-[#087ef5]/10",
-  orange: "text-[#d45a00] bg-[#ff6b00]/10",
-  green: "text-[#0f8a52] bg-[#17b26a]/10",
-  slate: "text-[#475569] bg-[#94a3b8]/15",
-};
-
+/**
+ * Hero for platform, use-case and company pages.
+ *
+ * Kept deliberately short: eyebrow, H1, the answer-first paragraph (which
+ * opens with the page's primary keyword), the calls to action and three
+ * proof points, with no product mock-up. The longer lead copy renders below the hero in
+ * `MarketingIntro`. The photo fills the right half of the card at full height and
+ * fades into the navy on an eased curve; the copy takes the left half, rather than sitting in a framed box.
+ */
 export default function MarketingHero({
   page,
-  crumbs,
   secondary,
 }: {
   page: MarketingPage;
-  crumbs: Crumb[];
   secondary: { label: string; href: string };
 }) {
-  const { eyebrow, h1, answer, lead, heroImage, heroPanel, highlights } = page;
+  const { eyebrow, h1, answer, heroImage, highlights } = page;
 
   return (
     <section className="relative bg-brand-surface px-4 pt-24 sm:px-5 sm:pt-28 md:px-10">
       <div className="mx-auto max-w-[1920px]">
-        <div className="mb-5 px-1 md:mb-6">
-          <Breadcrumbs crumbs={crumbs} />
-        </div>
-
         <div className="relative overflow-hidden rounded-[28px] bg-[#071a3d] sm:rounded-[34px]">
+          {/* Photo: full width on top for small screens, fading downward; on
+              desktop it fills the right of the card and fades leftward. */}
+          <div className="relative aspect-[16/10] w-full [mask-image:linear-gradient(to_bottom,black_45%,rgba(0,0,0,0.85)_58%,rgba(0,0,0,0.55)_70%,rgba(0,0,0,0.25)_82%,transparent_96%)] sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:aspect-auto lg:w-1/2 lg:[mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.04)_8%,rgba(0,0,0,0.15)_16%,rgba(0,0,0,0.33)_24%,rgba(0,0,0,0.55)_32%,rgba(0,0,0,0.76)_40%,rgba(0,0,0,0.92)_48%,black_56%)]">
+            <Image
+              src={heroImage.src}
+              alt={heroImage.alt}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+            <span
+              className="pointer-events-none absolute inset-y-0 left-0 hidden w-2/3 bg-gradient-to-r from-[#071a3d] via-[#071a3d]/45 to-transparent lg:block"
+              aria-hidden="true"
+            />
+            <span
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#071a3d]/50 to-transparent"
+              aria-hidden="true"
+            />
+          </div>
           <span
             className="pointer-events-none absolute -top-40 left-[-10%] h-[520px] w-[520px] rounded-full bg-[#087ef5]/20 blur-[140px]"
             aria-hidden="true"
           />
-          <span
-            className="pointer-events-none absolute right-[-8%] bottom-[-30%] h-[420px] w-[420px] rounded-full bg-[#ff6b00]/10 blur-[130px]"
-            aria-hidden="true"
-          />
-          <span
-            className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(#ffffff_1px,transparent_1px),linear-gradient(90deg,#ffffff_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_30%_20%,black,transparent_70%)]"
-            aria-hidden="true"
-          />
 
-          <div className="relative grid grid-cols-1 items-center gap-12 px-6 py-12 sm:px-8 sm:py-14 md:px-12 md:py-16 lg:grid-cols-12 lg:gap-12 lg:px-16 lg:py-20 xl:gap-16">
-            <div className="min-w-0 lg:col-span-7">
+          <div className="relative -mt-16 grid grid-cols-1 gap-10 px-6 pb-12 sm:-mt-24 sm:px-8 sm:pb-14 md:px-12 lg:mt-0 lg:min-h-[620px] lg:grid-cols-12 lg:items-center lg:px-16 lg:py-20 xl:min-h-[660px]">
+            <div className="min-w-0 lg:col-span-6">
               <Eyebrow tone="onDark">{eyebrow}</Eyebrow>
 
-              <h1 className="mt-7 font-display text-[clamp(31px,4.3vw,66px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#ffffff]">
+              <h1 className="mt-6 font-display text-[clamp(31px,3.9vw,62px)] leading-[1.05] font-normal tracking-[-0.02em] text-[#ffffff]">
                 {h1}
               </h1>
 
-              {/* Answer-first block: the passage an answer engine lifts. */}
-              <div className="mt-7">
-                <AnswerBlock text={answer} />
+              {/* Answer-first block: opens with the primary keyword and is
+                  the passage answer engines lift. */}
+              <div className="mt-6">
+                <AnswerBlock text={answer} plain />
               </div>
 
-              <div className="mt-7 flex max-w-[640px] flex-col gap-4">
-                {lead.map((paragraph, i) => (
-                  <p
-                    key={paragraph.slice(0, 40)}
-                    className={`m-0 leading-[1.7] ${
-                      i === 0
-                        ? "text-[clamp(16px,1.3vw,19px)] text-[#ffffff]/80"
-                        : "text-[clamp(15px,1.15vw,17px)] text-[#ffffff]/60"
-                    }`}
-                  >
-                    <RichText
-                      text={paragraph}
-                      linkClassName="font-semibold text-[#ffffff] underline decoration-[#087ef5] underline-offset-4 hover:text-[#087ef5]"
-                    />
-                  </p>
-                ))}
-              </div>
-
-              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-5">
+              <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-5">
                 <PillButton href={DEMO_URL} tone="light">
                   Book a demo
                 </PillButton>
@@ -94,86 +76,22 @@ export default function MarketingHero({
                 </ArrowLink>
               </div>
 
-              {/* Freshness signal, visible as well as in schema: AI engines
-                  systematically prefer recently-updated sources. */}
-              <p className="m-0 mt-8 text-[13px] text-[#ffffff]/50">
-                Last updated{" "}
-                <time dateTime={page.dateModified}>{formatDate(page.dateModified)}</time>
-              </p>
-
-              <ul className="m-0 mt-7 flex list-none flex-wrap gap-2.5 border-t border-[#ffffff]/12 p-0 pt-7">
-                {highlights.map((item) => (
-                  <li
-                    key={item}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#ffffff]/12 bg-[#ffffff]/[0.05] px-3.5 py-2 text-[13px] leading-tight font-medium text-[#ffffff]/80"
-                  >
-                    <Check className="h-3.5 w-3.5 shrink-0 text-[#087ef5]" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="relative min-w-0 lg:col-span-5">
-              <div className="ih-rise relative mx-auto max-w-[560px] lg:max-w-none">
-                <div className="relative aspect-[1370/1148] overflow-hidden rounded-[22px] bg-[#0d2754] shadow-[0_40px_90px_-30px_rgba(0,0,0,0.7)] ring-1 ring-[#ffffff]/10 sm:rounded-[26px] lg:aspect-[6/7] xl:aspect-[1/1]">
-                  <Image
-                    src={heroImage.src}
-                    alt={heroImage.alt}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 42vw"
-                    className="object-cover"
-                  />
-                  <span
-                    className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#071a3d]/70 to-transparent"
-                    aria-hidden="true"
-                  />
-                </div>
-
-                {/* Illustrative product panel (demo data). */}
-                <div
-                  className="ih-rise relative z-10 mx-3 -mt-20 rounded-[20px] border border-[#e5eaf0] bg-[#ffffff]/95 p-4 shadow-[0_30px_70px_-25px_rgba(7,26,61,0.55)] backdrop-blur sm:mx-6 sm:-mt-24 sm:p-5 lg:absolute lg:-bottom-10 lg:-left-10 lg:mx-0 lg:mt-0 lg:w-[78%] xl:-left-14 xl:w-[72%]"
-                  style={{ animationDelay: "0.25s" }}
-                  aria-hidden="true"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="m-0 min-w-0 text-[12.5px] leading-snug font-semibold text-[#071a3d] sm:text-[13.5px]">
-                      {heroPanel.title}
-                    </p>
-                    <span className="flex shrink-0 gap-1" aria-hidden="true">
-                      <span className="h-2 w-2 rounded-full bg-[#e5eaf0]" />
-                      <span className="h-2 w-2 rounded-full bg-[#e5eaf0]" />
-                      <span className="h-2 w-2 rounded-full bg-[#087ef5]" />
-                    </span>
-                  </div>
-                  <ul className="m-0 mt-3.5 flex list-none flex-col gap-2 p-0">
-                    {heroPanel.rows.map((row) => (
-                      <li
-                        key={row.label}
-                        className="flex flex-col items-start gap-1.5 rounded-xl bg-[#f2f8fd] px-3 py-2.5 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between min-[420px]:gap-3"
-                      >
-                        <span className="flex min-w-0 items-center gap-2.5">
-                          <span className={`h-2 w-2 shrink-0 rounded-full ${TONE[row.tone]}`} />
-                          <span className="text-[12.5px] leading-snug font-medium text-[#071a3d] min-[420px]:truncate sm:text-[13px]">
-                            {row.label}
-                          </span>
-                        </span>
-                        <span
-                          className={`ml-[18px] max-w-full rounded-full px-2.5 py-1 text-[11px] leading-snug font-semibold min-[420px]:ml-0 min-[420px]:max-w-[55%] min-[420px]:shrink-0 min-[420px]:truncate sm:text-[11.5px] ${TONE_TEXT[row.tone]}`}
-                        >
-                          {row.detail}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="m-0 mt-3.5 flex items-center gap-2 border-t border-[#e5eaf0] pt-3 text-[12px] font-semibold text-[#5b6575]">
-                    <ShieldCheck className="h-4 w-4 shrink-0 text-[#ff6b00]" />
-                    {heroPanel.caption}
-                  </p>
-                </div>
+              <div className="mt-10 flex max-w-[640px] flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-[#ffffff]/10 pt-6">
+                <ul className="m-0 flex list-none flex-wrap gap-x-6 gap-y-2.5 p-0">
+                  {highlights.map((item) => (
+                    <li key={item} className="inline-flex items-center gap-2 text-[14px] font-medium text-[#ffffff]/80">
+                      <Check className="h-4 w-4 shrink-0 text-[#087ef5]" aria-hidden="true" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                {/* Freshness signal, visible as well as in schema. */}
+                <p className="m-0 text-[12.5px] text-[#ffffff]/45">
+                  Updated <time dateTime={page.dateModified}>{formatDate(page.dateModified)}</time>
+                </p>
               </div>
             </div>
+
           </div>
         </div>
       </div>

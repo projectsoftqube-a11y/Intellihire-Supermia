@@ -159,7 +159,6 @@ export default function PrivacyPolicyPage() {
       <JsonLd nodes={GRAPH} />
       <SiteHeader />
       <LegalPage
-        crumbs={CRUMBS}
         eyebrow="Legal"
         title="Privacy Policy"
         intro="How IntelliHire collects, uses and protects personal information across the recruitment platform, for both hiring teams and the candidates they evaluate."

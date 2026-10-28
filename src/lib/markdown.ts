@@ -8,7 +8,7 @@
  */
 
 import type { BlogPost, MarketingPage, PageSection } from "@/content/types";
-import { BLOG_CATEGORIES, postPath, postsInCategory, sortedPosts } from "@/content/blog";
+import { postPath, sortedPosts } from "@/content/blog";
 import { MARKETING_PAGES } from "@/content";
 import { absoluteUrl, plainText } from "@/lib/seo";
 import { ADDRESS_LINE, CONTACT_EMAIL, LEGAL_NAME, SITE_DESCRIPTION } from "@/lib/site";
@@ -145,14 +145,6 @@ export function llmsFullMarkdown(): string {
     ...byKind("about").map(marketingMarkdown),
 
     "# Guides",
-    ...BLOG_CATEGORIES.filter((category) => postsInCategory(category.slug).length > 0).map(
-      (category) =>
-        join([
-          `## ${category.name}`,
-          `URL: ${absoluteUrl(category.path)}`,
-          ...category.intro,
-        ]),
-    ),
     ...sortedPosts().map(blogMarkdown),
   ])}\n`;
 }

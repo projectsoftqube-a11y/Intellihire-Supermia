@@ -19,8 +19,8 @@ export const OG_IMAGE_ALT =
 
 export const TWITTER_HANDLE = "@supermia_ai";
 
-/** Primary CTA destination: the SuperMIA demo scheduler. */
-export const DEMO_URL = "https://supermia.ai/schedule-demo/";
+/** Primary CTA destination: the on-site booking page with the Calendly scheduler. */
+export const DEMO_URL = "/book-a-demo";
 
 // Login lives in the separate app. Configurable so staging can point
 // elsewhere, and always https since credentials are entered there.

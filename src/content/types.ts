@@ -61,12 +61,11 @@ export type PageSection = {
   };
   /** Optional small print under the section. */
   note?: Inline;
-};
-
-export type HeroPanelRow = {
-  label: string;
-  detail: string;
-  tone: "blue" | "orange" | "green" | "slate";
+  /**
+   * Photo behind the feature card of a "cards" section, under a navy overlay.
+   * Each photo is used once across the site.
+   */
+  image?: ImageRef;
 };
 
 /** A platform, use-case or company page. */
@@ -95,20 +94,13 @@ export type MarketingPage = {
    */
   answer: Inline;
   heroImage: ImageRef;
-  /**
-   * Illustrative product panel layered over the hero photo. Demo data only:
-   * no statistics, customer names or claims.
-   */
-  heroPanel: {
-    title: string;
-    caption: string;
-    rows: HeroPanelRow[];
-  };
   /** Three short proof points shown under the hero buttons. */
   highlights: string[];
   sections: PageSection[];
   /** H2 above the FAQ list, e.g. "Resume Screening FAQs". */
   faqHeading: string;
+  /** Photo behind the FAQ panel's heading, under a navy overlay. Used once. */
+  faqImage?: ImageRef;
   faqs: FaqItem[];
   cta: { heading: string; body: Inline };
   /** Paths of 2–3 related pages for the "Keep exploring" cards. */

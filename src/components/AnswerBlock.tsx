@@ -13,16 +13,21 @@ import { RichText } from "@/components/ui";
 export default function AnswerBlock({
   text,
   tone = "onDark",
+  plain = false,
 }: {
   text: string;
   tone?: "onDark" | "onLight";
+  /** No left rule: for heroes where the paragraph is the main supporting text. */
+  plain?: boolean;
 }) {
   const dark = tone === "onDark";
   return (
     <p
-      className={`ih-answer m-0 max-w-[680px] border-l-2 pl-5 text-[clamp(16px,1.3vw,19px)] leading-[1.7] ${
-        dark ? "border-[#087ef5] text-[#ffffff]/85" : "border-[#087ef5] text-[#071a3d]"
-      }`}
+      className={`ih-answer m-0 leading-[1.7] ${
+        plain
+          ? "max-w-[600px] text-[clamp(16px,1.15vw,18px)]"
+          : "max-w-[680px] border-l-2 border-[#087ef5] pl-5 text-[clamp(16px,1.3vw,19px)]"
+      } ${dark ? (plain ? "text-[#ffffff]/75" : "text-[#ffffff]/85") : "text-[#071a3d]"}`}
       data-answer
     >
       <RichText text={text} />

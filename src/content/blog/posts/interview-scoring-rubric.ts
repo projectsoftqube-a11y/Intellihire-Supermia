@@ -292,7 +292,7 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "A rubric does the most work when the same criteria run from the job description to the final scorecard. Our guide to [structured interview questions](/blog/structured-interview-questions) shows how to write one question per competency. Find related guides in [Interview Guides](/blog/category/interviews) or browse [all posts on the blog](/blog).",
+      text: "A rubric does the most work when the same criteria run from the job description to the final scorecard. Our guide to [structured interview questions](/blog/structured-interview-questions) shows how to write one question per competency. For remote rounds, see [how to prevent cheating in online interviews](/blog/prevent-cheating-in-online-interviews), or browse [all posts on the blog](/blog).",
     },
     {
       type: "p",

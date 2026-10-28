@@ -191,7 +191,7 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "That supports the steps above, but no tool makes an employer compliant on its own, and IntelliHire does not claim compliance with or certification under any of these laws. See how [human oversight works in IntelliHire](/platform/human-oversight), or browse [AI in recruiting guides](/blog/category/ai-recruiting) and the [IntelliHire blog](/blog).",
+      text: "That supports the steps above, but no tool makes an employer compliant on its own, and IntelliHire does not claim compliance with or certification under any of these laws. See how [human oversight works in IntelliHire](/platform/human-oversight), read how to [check interview integrity without treating candidates as suspects](/blog/prevent-cheating-in-online-interviews), or browse the [IntelliHire blog](/blog).",
     },
   ],
   faqs: [

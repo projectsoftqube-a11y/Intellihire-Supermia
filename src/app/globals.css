@@ -138,6 +138,81 @@ body {
   scrollbar-width: thin;
 }
 
+/* Section effects driven by SectionMotion. Each rule reads correctly with
+   no JavaScript; the classes and custom properties only add states. */
+
+/* Pointer-following glow, painted between a card's background and content. */
+.fx-spot {
+  isolation: isolate;
+}
+.fx-spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    var(--spot, rgba(8, 126, 245, 0.12)),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.fx-spot:hover::before {
+  opacity: 1;
+}
+.fx-spot-dark {
+  --spot: rgba(8, 126, 245, 0.3);
+}
+
+/* Outlined index numbers that fill when their row is active. */
+.fx-num {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(7, 26, 61, 0.22);
+  transition:
+    color 0.5s ease,
+    -webkit-text-stroke-color 0.5s ease;
+}
+.fx-row.is-active .fx-num,
+.fx-row:hover .fx-num {
+  color: #087ef5;
+  -webkit-text-stroke-color: #087ef5;
+}
+.fx-row-bar {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fx-row.is-active .fx-row-bar,
+.fx-row:hover .fx-row-bar {
+  transform: scaleX(1);
+}
+
+/* Process rails: line fills are drawn by GSAP from the start edge. */
+.fx-line-x {
+  transform-origin: left;
+}
+.fx-line-y {
+  transform-origin: top;
+}
+.fx-node {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+.fx-node.is-on {
+  background-color: #087ef5;
+  border-color: #087ef5;
+  color: #ffffff;
+  box-shadow:
+    0 0 0 6px #ffffff,
+    0 12px 26px -10px rgba(8, 126, 245, 0.7);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

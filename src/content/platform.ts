@@ -36,16 +36,6 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Recruiter at a standing desk lifting one page from rows of printed resumes",
     },
-    heroPanel: {
-      title: "Screening · Operations Coordinator",
-      caption: "No candidate is ever rejected by a machine",
-      rows: [
-        { label: "Resume parsed", detail: "Skills and experience structured", tone: "blue" },
-        { label: "Rubric match", detail: "4 of 5 criteria met", tone: "green" },
-        { label: "Ranking reason", detail: "Shown for every candidate", tone: "slate" },
-        { label: "Shortlist", detail: "Your team decides", tone: "orange" },
-      ],
-    },
     highlights: ["Every application read", "Context, not keywords", "Your team decides"],
     sections: [
       {
@@ -101,6 +91,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
         eyebrow: "Context",
         heading: "Context, Not Keyword Matching",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-ai-resume-screening.webp",
+          width: 1672,
+          height: 941,
+          alt: "Man reading a single printed page at a sunlit cafe table",
+        },
         body: [
           "Keyword filters are blunt. A resume that says \"client success\" can drop out of an \"account management\" search, and a career changer with the right experience can miss every term on the list. That is how great candidates get missed.",
           "IntelliHire surfaces relevant skills and experience without losing the context behind each person. Your reviewer sees what someone has actually done, not a count of matching words, and decides whether it fits the role.",
@@ -150,6 +146,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Resume Screening FAQs",
+    faqImage: {
+      src: "/images/sections/faq-ai-resume-screening.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Hand turning the top page of a printed stack on a sunlit wooden desk",
+    },
     faqs: [
       {
         question: "Does AI resume screening reject candidates automatically?",
@@ -216,16 +218,6 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Two colleagues arranging coloured notes into a ranked column on a glass wall",
     },
-    heroPanel: {
-      title: "Ranked against your rubric",
-      caption: "Your team decides who moves forward",
-      rows: [
-        { label: "Demo candidate A", detail: "Rank 1 · reasons shown", tone: "green" },
-        { label: "Demo candidate B", detail: "Rank 2 · reasons shown", tone: "blue" },
-        { label: "Rubric", detail: "Drafted in JD and Rubric Studio", tone: "slate" },
-        { label: "Signals that matter", detail: "Your team decides", tone: "orange" },
-      ],
-    },
     highlights: ["Ranked against your rubric", "Reasoning shown", "You decide what matters"],
     sections: [
       {
@@ -257,6 +249,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
         eyebrow: "Explainable ranking",
         heading: "AI Candidate Matching With Reasons You Can Read",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-candidate-matching.webp",
+          width: 1672,
+          height: 941,
+          alt: "Hand pinning a card into a grid of blank cards on a corkboard",
+        },
         body: [
           "Most hiring managers have seen a ranked list they could not explain. A score without reasoning tends to get ignored or, worse, trusted without question.",
           "IntelliHire's candidate ranking comes with explainable reasoning against your rubric. Your team can see why each person is where they are on the list, and push back when the reasoning does not hold.",
@@ -330,6 +328,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Candidate Matching FAQs",
+    faqImage: {
+      src: "/images/sections/faq-candidate-matching.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Man at a desk comparing two printed sheets held side by side",
+    },
     faqs: [
       {
         question: "Is AI candidate matching a black box?",
@@ -396,16 +400,6 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Candidate in headphones speaking at a home desk in evening lamplight",
     },
-    heroPanel: {
-      title: "First-round voice interview",
-      caption: "People decide who advances",
-      rows: [
-        { label: "Device check", detail: "Passed in the candidate portal", tone: "green" },
-        { label: "Voice interview", detail: "Completed at 9:40 pm", tone: "blue" },
-        { label: "Transcript", detail: "Ready for review", tone: "slate" },
-        { label: "Candidate update", detail: "Sent by email and WhatsApp", tone: "green" },
-      ],
-    },
     highlights: ["First rounds, any hour", "Natural turn-taking", "People decide who advances"],
     sections: [
       {
@@ -465,6 +459,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
         eyebrow: "Scheduling",
         heading: "Interview Scheduling Software That Keeps Candidates Moving",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-ai-interviews.webp",
+          width: 1672,
+          height: 941,
+          alt: "Interviewer gesturing during a video call with a candidate on a laptop",
+        },
         body: [
           "Momentum disappears between calendars and follow-ups. Every day spent arranging a conversation is a day a strong candidate can walk away.",
           "IntelliHire coordinates interview scheduling so candidates are not left waiting between rounds, and the first round does not need anyone's calendar at all.",
@@ -514,6 +514,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "AI Interview FAQs",
+    faqImage: {
+      src: "/images/sections/faq-ai-interviews.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Headphones resting on a closed laptop beside a notebook at dusk",
+    },
     faqs: [
       {
         question: "What is an AI voice interview?",
@@ -579,16 +585,6 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       width: 1369,
       height: 1149,
       alt: "Reviewer studying a tablet in a daylit office beside an empty meeting room",
-    },
-    heroPanel: {
-      title: "Integrity review · Demo interview",
-      caption: "A flag is a prompt to look, never a rejection",
-      rows: [
-        { label: "Device check", detail: "Completed before the start", tone: "green" },
-        { label: "Tab focus changed", detail: "Flagged for review", tone: "orange" },
-        { label: "Device event", detail: "Flagged for review", tone: "orange" },
-        { label: "Next step", detail: "A person reviews the context", tone: "slate" },
-      ],
     },
     highlights: ["Flags for human review", "Tab focus and device events", "Never an automatic rejection"],
     sections: [
@@ -706,6 +702,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Interview Proctoring FAQs",
+    faqImage: {
+      src: "/images/sections/faq-interview-proctoring.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Reviewer leaning back in a chair reading a tablet in a bright office",
+    },
     faqs: [
       {
         question: "Does a proctoring flag mean the candidate cheated?",
@@ -772,16 +774,6 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Hiring manager tracing a line on a printed document while writing a note",
     },
-    heroPanel: {
-      title: "Scorecard · Demo candidate",
-      caption: "Read the answer before you rely on the rating",
-      rows: [
-        { label: "Stakeholder communication", detail: "Rated · transcript excerpt cited", tone: "blue" },
-        { label: "Problem solving", detail: "Rated · transcript excerpt cited", tone: "green" },
-        { label: "Role knowledge", detail: "Rated · transcript excerpt cited", tone: "blue" },
-        { label: "Decision", detail: "With your hiring team", tone: "slate" },
-      ],
-    },
     highlights: ["Cites the transcript", "Rated against your rubric", "Your team weighs evidence"],
     sections: [
       {
@@ -789,6 +781,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
         eyebrow: "Inside a scorecard",
         heading: "What an IntelliHire Scorecard Includes",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-interview-scorecards.webp",
+          width: 1672,
+          height: 941,
+          alt: "Two colleagues writing on printed grid sheets at a shared desk",
+        },
         body: [
           "A scorecard should answer two questions quickly: how did this candidate do against what the role needs, and how do we know? After each AI voice interview, IntelliHire drafts a scorecard that answers both.",
           "The criteria come from the same rubric used for [candidate matching](/platform/candidate-matching), so the scorecard measures what the job description set out.",
@@ -890,6 +888,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Interview Scorecard FAQs",
+    faqImage: {
+      src: "/images/sections/faq-interview-scorecards.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Hand underlining a line on a printed document with a black pen",
+    },
     faqs: [
       {
         question: "How are IntelliHire scorecards created?",
@@ -956,16 +960,6 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Three colleagues discussing a wall display, one pointing at its lower edge",
     },
-    heroPanel: {
-      title: "Pipeline · Demo roles",
-      caption: "See where hiring slows, then decide what to change",
-      rows: [
-        { label: "Time-to-hire", detail: "Tracked for every role", tone: "blue" },
-        { label: "Screen → Interview", detail: "Candidates waiting", tone: "orange" },
-        { label: "Interview → Offer", detail: "Moving", tone: "green" },
-        { label: "Pipeline", detail: "Every candidate, one view", tone: "slate" },
-      ],
-    },
     highlights: ["Time-to-hire tracked", "Funnel conversion", "Where candidates stall"],
     sections: [
       {
@@ -973,6 +967,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
         eyebrow: "Core metrics",
         heading: "Recruitment Analytics Software for Time-to-Hire and Funnel Conversion",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-recruitment-analytics.webp",
+          width: 1672,
+          height: 941,
+          alt: "Hand placing a card at the end of a row of blank cards on a desk",
+        },
         body: [
           "Two measures tell you a lot about a hiring round. Time-to-hire shows how long hiring takes. Funnel conversion shows how many candidates make it from one stage to the next. Read together, they help you tell a volume problem from a process problem.",
           "IntelliHire shows both, so time to hire tracking does not have to live in a spreadsheet someone updates at the end of the quarter. For formulas and what to do when a number moves, read our guide to [recruitment metrics that matter](/blog/recruitment-metrics).",
@@ -1082,6 +1082,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Recruitment Analytics FAQs",
+    faqImage: {
+      src: "/images/sections/faq-recruitment-analytics.webp",
+      width: 1122,
+      height: 1402,
+      alt: "Two colleagues talking across a small round table over coffee",
+    },
     faqs: [
       {
         question: "What does IntelliHire's recruitment analytics show?",
@@ -1148,16 +1154,6 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       height: 1149,
       alt: "Hiring lead alone at a sunlit desk, pen poised above a single sheet of paper",
     },
-    heroPanel: {
-      title: "Who decides",
-      caption: "No candidate is ever rejected by a machine",
-      rows: [
-        { label: "Ranking", detail: "AI, with reasons shown", tone: "blue" },
-        { label: "Integrity flag", detail: "AI flags, a person reviews", tone: "orange" },
-        { label: "Who moves forward", detail: "Your team", tone: "green" },
-        { label: "Candidate records", detail: "Role-based, logged access", tone: "slate" },
-      ],
-    },
     highlights: ["No machine rejections", "Encrypted in transit, at rest", "Role-based, logged access"],
     sections: [
       {
@@ -1186,6 +1182,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
         eyebrow: "Our rule",
         heading: "No Candidate Is Rejected by a Machine",
         layout: "cards",
+        image: {
+          src: "/images/sections/section-human-oversight.webp",
+          width: 1672,
+          height: 941,
+          alt: "Colleague pointing at a document while a teammate writes notes",
+        },
         body: [
           "This is a stated rule, and the terms back it up: AI outputs must not be the sole basis for rejecting a candidate. Everything IntelliHire produces is decision support, designed to be checked by a person. For a candidate, that means the person who decides on their application can see the reasoning behind a ranking and the transcript behind a rating.",
           "The same rule runs through every feature, from ranking to [interview scorecards](/platform/interview-scorecards) and integrity flags.",
@@ -1264,6 +1266,12 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       },
     ],
     faqHeading: "Human Oversight and Security FAQs",
+    faqImage: {
+      src: "/images/sections/faq-human-oversight.webp",
+      width: 1672,
+      height: 941,
+      alt: "Hand drawing a bound volume from a shelf of matching reference books",
+    },
     faqs: [
       {
         question: "Is IntelliHire compliant with AI hiring laws?",

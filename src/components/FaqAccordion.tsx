@@ -7,17 +7,25 @@ type Item = { question: string; answer: string };
  * CSS-only accordion built on <details>. Every answer is in the server HTML on
  * first load (the FAQ handoffs require it); browsers that support animating
  * `::details-content` get a smooth open, others open instantly.
+ *
+ * Only one answer is open at a time: every <details> shares a `name`, which
+ * makes the browser close the others natively, with no JavaScript. Lists on
+ * the same page share the default name, so the rule holds page-wide (the
+ * /faq page's topic groups included). The first item starts open.
  */
 export default function FaqAccordion({
   items,
   tone = "onLight",
-  openFirst = false,
+  openFirst = true,
   headingLevel = "h3",
+  name = "faq",
 }: {
   items: Item[];
   tone?: "onLight" | "onDark";
   openFirst?: boolean;
   headingLevel?: "h3" | "h4";
+  /** Exclusive group: opening one item closes any other with the same name. */
+  name?: string;
 }) {
   const Heading = headingLevel;
   const dark = tone === "onDark";
@@ -29,7 +37,7 @@ export default function FaqAccordion({
       }`}
     >
       {items.map(({ question, answer }, i) => (
-        <details key={question} className="faq group" open={openFirst && i === 0}>
+        <details key={question} name={name} className="faq group" open={openFirst && i === 0}>
           <summary className="flex list-none items-start justify-between gap-5 py-6 outline-none select-none focus-visible:rounded-xl focus-visible:ring-2 focus-visible:ring-[#087ef5] focus-visible:ring-offset-4 md:py-7 [&::-webkit-details-marker]:hidden">
             <Heading
               className={`m-0 text-[clamp(16px,1.35vw,20px)] leading-[1.4] font-semibold transition-colors duration-200 ${

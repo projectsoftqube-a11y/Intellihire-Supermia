@@ -83,7 +83,7 @@ export function PillButton({
 
   const inner = (
     <>
-      <span className="min-w-0 truncate">{children}</span>
+      <span className="min-w-0 leading-snug">{children}</span>
       <span
         className={`grid h-[40px] w-[40px] shrink-0 place-items-center rounded-full transition-all duration-300 ${
           external ? "" : "group-hover:rotate-45"
