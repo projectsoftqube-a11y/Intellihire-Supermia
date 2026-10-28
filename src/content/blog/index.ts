@@ -6,6 +6,10 @@ import aiHiringLaws from "./posts/ai-hiring-laws";
 import recruitmentMetrics from "./posts/recruitment-metrics";
 import bestAiRecruitingSoftware from "./posts/best-ai-recruiting-software";
 import reduceTimeToHire from "./posts/reduce-time-to-hire";
+import hirevueAlternatives from "./posts/hirevue-alternatives";
+import aiInterviewSoftwarePricing from "./posts/ai-interview-software-pricing";
+import ribbonAlternatives from "./posts/ribbon-alternatives";
+import paradoxAlternatives from "./posts/paradox-alternatives";
 
 /** Publishing order from the blog briefs (newest last). */
 export const BLOG_POSTS: BlogPost[] = [
@@ -16,6 +20,10 @@ export const BLOG_POSTS: BlogPost[] = [
   recruitmentMetrics,
   bestAiRecruitingSoftware,
   reduceTimeToHire,
+  hirevueAlternatives,
+  aiInterviewSoftwarePricing,
+  ribbonAlternatives,
+  paradoxAlternatives,
 ];
 
 /**

@@ -1,17 +1,24 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** Dispatched on window to ask for a smooth scroll back to the top. */
+export const SCROLL_TOP_EVENT = "ih:scroll-top";
+
 export default function SmoothScrollProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -22,6 +29,7 @@ export default function SmoothScrollProvider({
       touchMultiplier: 1.6,
     });
 
+    lenisRef.current = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     const tick = (time: number) => lenis.raf(time * 1000);
@@ -52,15 +60,28 @@ export default function SmoothScrollProvider({
 
     document.addEventListener("click", onAnchorClick);
 
+    const onScrollTop = () => lenis.scrollTo(0, { duration: 1.2 });
+    window.addEventListener(SCROLL_TOP_EVENT, onScrollTop);
+
     const refresh = () => ScrollTrigger.refresh();
     document.fonts?.ready.then(refresh);
 
     return () => {
       document.removeEventListener("click", onAnchorClick);
+      window.removeEventListener(SCROLL_TOP_EVENT, onScrollTop);
       gsap.ticker.remove(tick);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  // Lenis keeps its own scroll position, so a client-side navigation would
+  // open the next page part-way down. Start each new page at the top unless
+  // the link points at a section on it.
+  useEffect(() => {
+    if (window.location.hash) return;
+    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+  }, [pathname]);
 
   return <>{children}</>;
 }

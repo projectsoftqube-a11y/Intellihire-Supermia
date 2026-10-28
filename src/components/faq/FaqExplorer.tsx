@@ -303,7 +303,7 @@ export default function FaqExplorer({
                       <Icon className="h-6 w-6" aria-hidden="true" />
                     </span>
                     <div className="relative min-w-0">
-                      <p className="m-0 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#ff6b00]">
+                      <p className="m-0 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#c2410c]">
                         Topic {num(g)} · {group.items.length} questions
                       </p>
                       <h2 className="m-0 mt-2 font-display text-[clamp(24px,2.3vw,36px)] leading-[1.12] font-normal tracking-[-0.015em] text-[#071a3d]">

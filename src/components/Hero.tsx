@@ -28,9 +28,12 @@ export default function Hero() {
           { yPercent: 110, stagger: 0.12, duration: 0.8 },
           "-=0.85",
         )
+        // Slide only: the support paragraph is the page's largest text block
+        // (its LCP element), so it must stay visible from the first paint
+        // rather than wait for JavaScript to fade it in.
         .from(
           "[data-hero-support], [data-hero-actions]",
-          { y: 24, opacity: 0, stagger: 0.1, duration: 0.55 },
+          { y: 24, stagger: 0.1, duration: 0.55 },
           "-=0.45",
         );
     },

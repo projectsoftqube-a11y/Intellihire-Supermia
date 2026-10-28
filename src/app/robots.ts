@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site";
+import { IS_PREVIEW, SITE_URL } from "@/lib/site";
 
 /**
  * Crawlers that read the site to answer questions or to ground a model.
@@ -20,6 +20,7 @@ const AI_CRAWLERS = [
   "PerplexityBot",
   "Perplexity-User",
   "Google-Extended",
+  "Applebot",
   "Applebot-Extended",
   "Bingbot",
   "CCBot",
@@ -32,6 +33,7 @@ const AI_CRAWLERS = [
 // (app.intellihire.supermia.ai) sends X-Robots-Tag: noindex itself rather
 // than being blocked here.
 export default function robots(): MetadataRoute.Robots {
+  if (IS_PREVIEW) return { rules: [{ userAgent: "*", disallow: "/" }] };
   return {
     rules: [
       { userAgent: "*", allow: "/" },

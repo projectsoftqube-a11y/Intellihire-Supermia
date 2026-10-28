@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { withAttribution } from "@/lib/attribution";
 
 const CALENDLY_SCRIPT = "https://assets.calendly.com/assets/external/widget.js";
 
@@ -32,19 +34,25 @@ function isCalendlyEvent(e: MessageEvent): e is MessageEvent<{ event: string }> 
  *
  * A completed booking fires the `demo_booked` GA4 event, alongside the
  * `book_demo_click` events `TrackClicks` already sends for the links here.
+ * The session's lead source is added to the Calendly URL as UTM parameters,
+ * so each booking records where the visitor came from.
  */
 export default function CalendlyEmbed({
   url,
   className = "",
   onEventScheduled,
+  redirectTo,
 }: {
   /** Full Calendly scheduling URL. */
   url: string;
   className?: string;
   /** Fired once the invitee completes a booking. */
   onEventScheduled?: () => void;
+  /** Page to open once the booking is complete. */
+  redirectTo?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   // Keep the latest callback without re-subscribing the message listener.
   const onScheduledRef = useRef(onEventScheduled);
@@ -59,10 +67,11 @@ export default function CalendlyEmbed({
       if (typeof window.gtag === "function") window.gtag("event", "demo_booked", params);
       else if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: "demo_booked", ...params });
       onScheduledRef.current?.();
+      if (redirectTo) router.push(redirectTo);
     };
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, []);
+  }, [redirectTo, router]);
 
   useEffect(() => {
     let cancelled = false;
@@ -70,7 +79,7 @@ export default function CalendlyEmbed({
     const init = () => {
       if (cancelled || !containerRef.current || !window.Calendly) return;
       containerRef.current.innerHTML = "";
-      window.Calendly.initInlineWidget({ url, parentElement: containerRef.current });
+      window.Calendly.initInlineWidget({ url: withAttribution(url), parentElement: containerRef.current });
     };
 
     if (window.Calendly) {

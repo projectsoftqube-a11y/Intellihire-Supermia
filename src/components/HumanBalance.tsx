@@ -108,7 +108,7 @@ export default function HumanBalance() {
 
         <div className="mt-16 flex flex-col md:mt-20">
           <div className="hidden grid-cols-[1fr_auto_1fr] items-center gap-8 pb-5 lg:grid">
-            <p className="m-0 text-[12px] font-semibold tracking-[0.18em] uppercase text-[#087ef5]">
+            <p className="m-0 text-[12px] font-semibold tracking-[0.18em] uppercase text-[#5aa9ff]">
               IntelliHire does
             </p>
             <span className="w-12" aria-hidden="true" />

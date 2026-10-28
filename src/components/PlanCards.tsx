@@ -55,7 +55,7 @@ export default function PlanCards({
                 }`}
               >
                 {featured && (
-                  <span className="absolute -top-3 left-7 rounded-full bg-brand-orange px-3 py-1 text-[10px] font-semibold tracking-[0.12em] uppercase text-brand-white shadow-[0_6px_16px_-4px_rgba(255,107,0,0.6)] md:left-8">
+                  <span className="absolute -top-3 left-7 rounded-full bg-brand-orange px-3 py-1 text-[10px] font-semibold tracking-[0.12em] uppercase text-brand-dark-blue shadow-[0_6px_16px_-4px_rgba(255,107,0,0.6)] md:left-8">
                     Most Popular
                   </span>
                 )}

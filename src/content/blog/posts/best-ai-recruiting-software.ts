@@ -10,7 +10,7 @@ const post: BlogPost = {
   excerpt:
     "How to choose AI recruiting software, plus a sourced look at seven tools: what each focuses on, who it suits and where it may fall short.",
   datePublished: "2026-10-27",
-  dateModified: "2026-10-27",
+  dateModified: "2026-10-28",
   image: {
     src: "/images/blog/blog-best-ai-software.webp",
     width: 1672,
@@ -112,11 +112,15 @@ const post: BlogPost = {
         [
           "Ribbon",
           "Frontline hiring at multi-site and industrial employers, and staffing agencies",
-          "Yes, voice by phone; pricing page also lists video",
+          "Yes, two-way voice interviews",
           "Yes",
-          "Plans priced by interview volume; 7-day free trial",
+          "Growth plan from $499/month, billed annually",
         ],
       ],
+    },
+    {
+      type: "p",
+      text: "Replacing a specific tool? Our head-to-head guides compare [HireVue alternatives](/blog/hirevue-alternatives), [Ribbon AI alternatives](/blog/ribbon-alternatives) and [Paradox alternatives](/blog/paradox-alternatives), and the guide to [AI interview software pricing](/blog/ai-interview-software-pricing) explains how vendors charge.",
     },
     { type: "h2", id: "tool-profiles", text: "The Tools, One by One" },
     {
@@ -188,7 +192,7 @@ const post: BlogPost = {
     },
     {
       type: "p",
-      text: "**Pricing:** published plans at $499, $999 and $1,999 a month, billed annually and set by interview volume, plus custom Enterprise pricing and a 7-day free trial. **Suits** multi-site and industrial employers, care providers and staffing agencies. **May fall short:** annual billing from $499 a month is a larger commitment for teams that hire occasionally.",
+      text: "**Pricing:** Ribbon states that its Growth plan starts at $499 a month, billed annually; its separate pricing page was unavailable when we re-checked on October 28, 2026. **Suits** multi-site and industrial employers, care providers and staffing agencies. **May fall short:** annual billing from $499 a month is a larger commitment for teams that hire occasionally.",
     },
     { type: "h2", id: "questions-for-every-demo", text: "Questions to Ask in Every Demo" },
     {
@@ -334,10 +338,10 @@ const post: BlogPost = {
       accessed: "2026-10-27",
     },
     {
-      title: "Pricing",
+      title: "Ribbon vs HireVue",
       publisher: "Ribbon",
-      url: "https://www.ribbon.ai/pricing",
-      accessed: "2026-10-27",
+      url: "https://ribbon.ai/vs-hirevue",
+      accessed: "2026-10-28",
     },
   ],
   supports: "/",

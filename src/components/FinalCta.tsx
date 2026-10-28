@@ -177,7 +177,7 @@ export default function FinalCta() {
         <div data-cta-marquee className="flex shrink-0 items-center gap-10 pr-10">
           {[...MARQUEE, ...MARQUEE].map((word, i) => (
             <span key={`${word}-${i}`} className="flex items-center gap-10">
-              <span className="font-display text-[clamp(26px,3vw,46px)] leading-none whitespace-nowrap text-[#ffffff]/25">
+              <span className="font-display text-[clamp(26px,3vw,46px)] leading-none whitespace-nowrap text-[#ffffff]/35">
                 {word}
               </span>
               <span className="h-2 w-2 shrink-0 rounded-full bg-[#ff6b00]" />

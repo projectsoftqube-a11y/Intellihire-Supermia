@@ -171,7 +171,7 @@ export default function FeatureSuite() {
     >
       <div className="mx-auto max-w-[1920px]">
         <div data-fs-head className="max-w-[820px]">
-          <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]">
+          <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#066bd4]">
             <span
               className="h-px w-10 shrink-0 bg-[#ff6b00]"
               aria-hidden="true"
@@ -218,7 +218,7 @@ export default function FeatureSuite() {
                 >
                   <p
                     data-fs-anim
-                    className="m-0 flex items-center gap-4 text-[12px] leading-none font-semibold tracking-[0.18em] uppercase text-[#087ef5]"
+                    className="m-0 flex items-center gap-4 text-[12px] leading-none font-semibold tracking-[0.18em] uppercase text-[#5aa9ff]"
                   >
                     <span className="font-display text-[15px] tracking-normal text-[#071a3d]/25">
                       {number}

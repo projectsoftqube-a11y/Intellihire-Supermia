@@ -98,7 +98,7 @@ export default function BookDemoPage() {
                 </ul>
 
                 <div className="mt-8 rounded-[22px] border border-[#e5eaf0] bg-[#f7fafd] p-6">
-                  <h2 className="m-0 text-[13px] font-semibold tracking-[0.14em] uppercase text-[#071a3d]/55">
+                  <h2 className="m-0 text-[13px] font-semibold tracking-[0.14em] uppercase text-[#071a3d]/70">
                     What you will see
                   </h2>
                   <ul className="m-0 mt-4 flex list-none flex-col gap-3 p-0">
@@ -131,7 +131,11 @@ export default function BookDemoPage() {
               {/* Scheduler */}
               <div className="min-w-0 lg:col-span-7">
                 <div className="overflow-hidden rounded-[24px] border border-[#e5eaf0] bg-[#ffffff] shadow-[0_24px_60px_-36px_rgba(7,26,61,0.35)]">
-                  <CalendlyEmbed url={CALENDLY_URL} className="h-[820px] sm:h-[760px] lg:h-[700px]" />
+                  <CalendlyEmbed
+                    url={CALENDLY_URL}
+                    redirectTo="/book-a-demo/booked"
+                    className="h-[820px] sm:h-[760px] lg:h-[700px]"
+                  />
                 </div>
                 <noscript>
                   <p className="m-0 mt-4 text-[14px] text-[#5b6575]">

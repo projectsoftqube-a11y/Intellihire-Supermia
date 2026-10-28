@@ -60,7 +60,7 @@ export default function PostCard({
 
       <div className={`flex min-w-0 flex-1 flex-col p-6 sm:p-7 ${featured ? "lg:justify-center lg:px-10 lg:py-9 xl:px-12" : ""}`}>
         {featured && (
-          <p className="m-0 mb-4 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#087ef5]">
+          <p className="m-0 mb-4 inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#066bd4]">
             <span className="h-px w-6 bg-[#ff6b00]" aria-hidden="true" />
             Latest guide
           </p>

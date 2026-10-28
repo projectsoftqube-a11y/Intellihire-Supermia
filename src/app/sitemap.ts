@@ -29,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/pricing", RELEASED, "weekly", 0.9),
     entry("/faq", RELEASED, "monthly", 0.8),
     entry("/book-a-demo", "2026-10-28", "monthly", 0.7),
+    entry("/tools/ai-interview-cost-calculator", "2026-10-28", "monthly", 0.7),
     ...MARKETING_PAGES.map((page) =>
       entry(page.path, page.dateModified, "monthly", page.kind === "about" ? 0.5 : 0.8),
     ),

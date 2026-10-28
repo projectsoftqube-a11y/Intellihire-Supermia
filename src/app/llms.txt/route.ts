@@ -20,6 +20,7 @@ export function GET() {
     `- [FAQ](${absoluteUrl("/faq")}): screening, AI interviews, oversight, candidate data and pricing.`,
     `- [Log in](${APP_LOGIN_URL}): the IntelliHire web app.`,
     `- [Book a demo](${absoluteUrl(DEMO_URL)}): pick a time for a live IntelliHire walkthrough.`,
+    `- [AI interview cost calculator](${absoluteUrl("/tools/ai-interview-cost-calculator")}): cost per AI interview on the current plans.`,
     "",
     "## Platform",
     "",

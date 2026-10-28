@@ -15,8 +15,10 @@ import {
 import { SITEWIDE_GRAPH } from "@/lib/seo";
 import "./globals.css";
 
+// Both fonts are subset to Latin (Google's latin ranges plus arrows) with
+// fontTools; the full files were 344 KB and 180 KB and delayed the hero text.
 const questrial = localFont({
-  src: "../fonts/Questrial-Regular.ttf",
+  src: "../fonts/Questrial-Regular.woff2",
   variable: "--font-questrial",
   weight: "400",
   display: "swap",

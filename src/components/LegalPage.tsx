@@ -76,7 +76,7 @@ export default function LegalPage({
       <section className="px-4 pt-24 pb-10 sm:px-5 sm:pt-28 md:px-10 md:pt-32 md:pb-12">
         <div className="mx-auto max-w-[1920px]">
           <div data-lp-anim className="max-w-[760px]">
-            <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]">
+            <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#066bd4]">
               <span
                 className="h-px w-10 shrink-0 bg-[#ff6b00]"
                 aria-hidden="true"
@@ -99,7 +99,7 @@ export default function LegalPage({
         <div className="mx-auto grid max-w-[1920px] grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <aside className="lg:col-span-3">
             <div className="lg:sticky lg:top-28">
-              <p className="m-0 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#071a3d]/40">
+              <p className="m-0 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#071a3d]/65">
                 On this page
               </p>
 
@@ -120,8 +120,8 @@ export default function LegalPage({
                           <span
                             className={
                               isActive
-                                ? "font-display text-[12px] text-[#087ef5]"
-                                : "font-display text-[12px] text-[#071a3d]/30"
+                                ? "font-display text-[12px] text-[#066bd4]"
+                                : "font-display text-[12px] text-[#071a3d]/65"
                             }
                           >
                             {String(i + 1).padStart(2, "0")}
@@ -145,7 +145,7 @@ export default function LegalPage({
                   className="scroll-mt-28 border-t border-[#e5eaf0] pt-10 first:border-t-0 first:pt-0 [&+section]:mt-10"
                 >
                   <div className="flex items-baseline gap-4">
-                    <span className="font-display text-[14px] text-[#087ef5]">
+                    <span className="font-display text-[14px] text-[#066bd4]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h2 className="m-0 font-display text-[clamp(22px,2.2vw,32px)] leading-[1.25] font-normal text-[#071a3d]">

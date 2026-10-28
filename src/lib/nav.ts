@@ -150,6 +150,7 @@ export const FOOTER_COLUMNS: { heading: string; links: FooterLink[] }[] = [
     links: [
       { label: "How it works", href: "/#how-it-works" },
       { label: "Pricing", href: "/pricing" },
+      { label: "Cost calculator", href: "/tools/ai-interview-cost-calculator" },
       { label: "Blog", href: "/blog" },
       { label: "FAQ", href: "/faq" },
     ],

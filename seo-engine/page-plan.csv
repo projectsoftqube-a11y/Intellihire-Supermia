@@ -1,0 +1,31 @@
+url,status,page_type,primary_keyword,secondary_keywords,intent,stage,score,hub,cta,schema,priority,blockers
+/,keep,home,ai recruitment software,intellihire by supermia; ai recruiting software,commercial,BOFU,125,,book demo,WebPage+SoftwareApplication+FAQPage,keep,
+/pricing,improve,pricing,intellihire pricing,ai recruiting software pricing; ai interview software free trial; affordable ai recruiting software,transactional,BOFU,100,,start trial / book demo,WebPage+OfferCatalog+FAQPage,done (plans first),
+/book-a-demo,keep,demo,intellihire demo,book ai interview demo,transactional,BOFU,,,calendly,WebPage,done,14
+/book-a-demo/booked,new,thank-you,,,,,,,,noindex,done,
+/platform/ai-interviews,improve,product,ai interview software,ai voice interview software; ai screening interview; ai first round interview; ai voice interviewer,commercial,BOFU,80,platform,book demo,WebPage+FAQPage,batch 3,3
+/platform/ai-resume-screening,keep,product,ai resume screening software,candidate screening software,commercial,BOFU,,platform,book demo,WebPage+FAQPage,keep,
+/platform/candidate-matching,keep,product,ai candidate matching,candidate ranking software,commercial,BOFU,60,platform,book demo,WebPage+FAQPage,keep,
+/platform/interview-scorecards,keep,product,interview scorecard software,ai interview scorecard,commercial,BOFU,75,platform,book demo,WebPage+FAQPage,keep,
+/platform/interview-proctoring,keep,product,interview proctoring software,,commercial,BOFU,,platform,book demo,WebPage+FAQPage,keep,
+/platform/recruitment-analytics,keep,product,recruitment analytics software,,commercial,MOFU,,platform,book demo,WebPage+FAQPage,keep,
+/platform/human-oversight,keep,trust,human oversight ai hiring,ai hiring security,commercial,MOFU,,platform,book demo,WebPage+FAQPage,keep,6;7
+/use-cases/high-volume-hiring,keep,use-case,high volume hiring software,ai interviews for hourly hiring,commercial,BOFU,,use-cases,book demo,WebPage+FAQPage,keep,
+/use-cases/recruitment-agencies,keep,use-case,ai recruitment software for agencies,ai recruiting software for staffing agencies; ai tools for recruitment agencies,commercial,BOFU,75,use-cases,book demo,WebPage+FAQPage,keep,
+/use-cases/hr-teams,keep,use-case,ai recruiting software for hr teams,,commercial,BOFU,,use-cases,book demo,WebPage+FAQPage,keep,
+/use-cases/startups,keep,use-case,recruiting software for small business,ai recruiting tools for small business; ai interview software for startups,commercial,BOFU,60,use-cases,start trial,WebPage+FAQPage,keep,
+/about,keep,about,about intellihire,,navigational,,,,book demo,AboutPage,keep,10;11
+/faq,keep,faq hub,intellihire faq,,informational,MOFU,,,book demo,FAQPage,done (redesign),
+/blog,keep,blog hub,ai recruiting blog,,informational,TOFU,,blog,read guide,CollectionPage,keep,
+/blog/hirevue-alternatives,new,comparison roundup,hirevue alternatives,hirevue competitors; cheaper alternative to hirevue; hirevue alternatives for small business; hirevue pricing,commercial,BOFU,75,blog (ai-recruiting),start trial / book demo,BlogPosting+ItemList+FAQPage,batch 1,
+/blog/ai-interview-software-pricing,new,guide,ai interview software pricing,how much does ai interview software cost; ai recruiting software pricing,commercial,BOFU,100,blog (ai-recruiting),calculator / start trial,BlogPosting+FAQPage,batch 1,12
+/tools/ai-interview-cost-calculator,new,free tool,ai interview cost calculator,cost per screened candidate,commercial,MOFU,,tools,start trial / book demo,WebApplication,batch 1,12
+/blog/best-ai-recruiting-software,improve,roundup,best ai recruiting software,best ai interview software,commercial,MOFU,60,blog (ai-recruiting),book demo,BlogPosting+FAQPage,batch 1 (re-source Ribbon price),
+/blog/ribbon-alternatives,new,comparison roundup,ribbon ai alternatives,ribbon ai pricing,commercial,BOFU,100,blog (ai-recruiting),start trial,BlogPosting+ItemList+FAQPage,batch 2,
+/blog/paradox-alternatives,new,comparison roundup,paradox alternatives,paradox olivia alternatives; paradox ai pricing,commercial,BOFU,80,blog (ai-recruiting),start trial,BlogPosting+ItemList+FAQPage,batch 2,
+/blog/one-way-video-vs-ai-voice-interviews,new,guide,one-way video interview alternatives,spark hire alternatives; ai interview vs one-way video interview,commercial,MOFU,80,blog (interviews),book demo,BlogPosting+FAQPage,batch 2,
+/blog/what-to-expect-ai-interview,new,candidate guide,what is an ai interview like,are ai interviews legit,informational,TOFU,,blog (interviews),share with candidates,BlogPosting+FAQPage,batch 3,3;5
+/platform/ai-phone-screening,not built,product,automated phone screen software,ai phone screening,commercial,BOFU,80,platform,,,blocked,3
+/integrations/*,not built,integration,[ats] ai interview integration,,commercial,BOFU,,,,,blocked,4
+/industries/*,not built,industry,ai interview software for [industry],,commercial,BOFU,,,,,not built: no industry-specific facts or customers (doorway risk),9
+/case-studies/*,not built,case study,,,commercial,BOFU,,,,,blocked,9

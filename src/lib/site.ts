@@ -1,6 +1,12 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://intellihire.supermia.ai";
 
+/**
+ * Vercel preview deployments must never be indexed: they carry production
+ * canonicals and would compete with the live site.
+ */
+export const IS_PREVIEW = process.env.VERCEL_ENV === "preview";
+
 export const SITE_NAME = "IntelliHire";
 
 /** Full brand, used where "IntelliHire" alone collides with intellihire.com. */

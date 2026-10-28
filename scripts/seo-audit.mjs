@@ -16,6 +16,7 @@ const flag = (name, fallback) => {
 };
 const BASE = flag("base", "http://localhost:3000").replace(/\/$/, "");
 const JSON_OUT = args.includes("--json");
+const MD_OUT = args.includes("--md");
 
 /**
  * Origin the pages themselves emit in canonicals and og:url. A local `next
@@ -145,6 +146,26 @@ const TITLE_MAX = 65;
 const DESC_MIN = 70;
 const DESC_MAX = 165;
 const THIN_WORDS = 300;
+
+/** The page every buyer-facing route must offer as its next step. */
+const CTA_HREFS = ["/book-a-demo", "/pricing"];
+
+/** Filler phrases that read as machine-written; flagged for a human to review. */
+const BANNED_PHRASES = [
+  "in today's fast-paced",
+  "in the digital age",
+  "unlock",
+  "elevate",
+  "delve",
+  "game-changer",
+  "game changer",
+  "seamless",
+  "revolutionize",
+  "cutting-edge",
+  "leverage",
+  "robust",
+  "tapestry",
+];
 
 /** Page-level schema types that satisfy "this page has a primary type". */
 const PAGE_TYPES = [
@@ -321,6 +342,17 @@ async function auditRoute(route) {
   if (!noindex && !graphJson.includes("SpeakableSpecification"))
     warn(route, "no speakable specification");
 
+  /* -- Conversion path -- */
+  const links = internalLinks(html);
+  const mainText = text.toLowerCase();
+  const hasCta = links.some((href) => CTA_HREFS.includes(href));
+  if (!hasCta && !noindex) fail(route, "no call to action (no link to /book-a-demo or /pricing)");
+
+  /* -- Copy review flags -- */
+  for (const phrase of BANNED_PHRASES) {
+    if (new RegExp(`\\b${phrase}`, "i").test(mainText)) warn(route, `filler phrase in copy: "${phrase}"`);
+  }
+
   /* -- Images -- */
   for (const img of html.matchAll(/<img\b[^>]*>/gi)) {
     const tag = img[0];
@@ -344,7 +376,9 @@ async function auditRoute(route) {
     renderedFaqs: renderedQuestions.length,
     schemaFaqs: questions.length,
     answerBlock,
-    links: internalLinks(html),
+    hasCta,
+    ogImage: Boolean(meta(html, "og:image")),
+    links,
     bytes: html.length,
   };
 }
@@ -467,7 +501,23 @@ for (const r of rows) {
   }
 }
 
-if (JSON_OUT) {
+const outbound = (r) => new Set(r.links.filter((href) => href !== r.route)).size;
+
+if (MD_OUT) {
+  // Baseline table for seo-engine/stack-and-baseline.md.
+  console.log("| route | title (len) | desc (len) | canonical | OG image | H1 | JSON-LD types | FAQ s/r | words | links in / out | CTA | answer block |");
+  console.log("|---|---|---|---|---|---|---|---|---|---|---|---|");
+  for (const r of rows) {
+    const canOk = r.canonical?.replace(/\/$/, "") === `${SITE_ORIGIN}${r.route === "/" ? "" : r.route}`;
+    console.log(
+      `| ${r.route}${r.noindex ? " (noindex)" : ""} | ${r.titleLen} | ${r.descLen} | ${canOk ? "self" : "CHECK"} | ${r.ogImage ? "yes" : "no"} | ${r.h1Count} | ${r.jsonLdTypes.join(", ")} | ${r.schemaFaqs}/${r.renderedFaqs} | ${r.words} | ${inbound.get(r.route)} / ${outbound(r)} | ${r.hasCta ? "yes" : "NO"} | ${r.answerBlock ? "yes" : "no"} |`,
+    );
+  }
+  console.log(`
+${failures.length} failure(s), ${warnings.length} warning(s).`);
+  for (const f of failures) console.log(`- FAIL ${f}`);
+  for (const w of warnings) console.log(`- warn ${w}`);
+} else if (JSON_OUT) {
   console.log(JSON.stringify({ base: BASE, rows, files, failures, warnings }, null, 2));
 } else {
   const pad = (s, n) => String(s ?? "").padEnd(n).slice(0, n);

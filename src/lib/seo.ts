@@ -3,6 +3,7 @@ import {
   ADDRESS,
   BRAND_NAME,
   CONTACT_EMAIL,
+  IS_PREVIEW,
   LEGAL_NAME,
   OG_IMAGE_ALT,
   ORG_ID,
@@ -51,7 +52,7 @@ export function buildMetadata({
     title: { absolute: title },
     description,
     alternates: { canonical: url },
-    robots: noindex
+    robots: noindex || IS_PREVIEW
       ? { index: false, follow: true }
       : {
           index: true,
@@ -98,7 +99,11 @@ export function buildMetadata({
 
 export type JsonLdNode = Record<string, unknown>;
 
-/** Breadcrumb trail shared by the visible breadcrumb and BreadcrumbList. */
+/**
+ * Breadcrumb trail for BreadcrumbList. The visible trail was removed at the
+ * owner's request; the markup stays because Google uses it for the URL line
+ * in results.
+ */
 export type Crumb = { name: string; path: string };
 
 export const ORGANIZATION_NODE: JsonLdNode = {
@@ -120,8 +125,11 @@ export const ORGANIZATION_NODE: JsonLdNode = {
     postalCode: ADDRESS.postalCode,
     addressCountry: ADDRESS.country,
   },
+  // Only profiles confirmed to belong to SuperMIA (seo-engine/research/
+  // brand-presence.md). The old LinkedIn showcase now redirects to a dental
+  // product page, so the company page replaces it.
   sameAs: [
-    "https://www.linkedin.com/showcase/mia-my-intelligent-assistant",
+    "https://www.linkedin.com/company/supermia",
     "https://www.youtube.com/@MIAMyIntelligentAssistant",
     "https://twitter.com/supermia_ai",
   ],

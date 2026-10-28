@@ -38,7 +38,7 @@ export function Eyebrow({
   return (
     <p
       className={`m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase ${
-        tone === "onDark" ? "text-[#ffffff]/90" : "text-[#087ef5]"
+        tone === "onDark" ? "text-[#ffffff]/90" : "text-[#066bd4]"
       } ${className}`}
     >
       <span className="h-px w-10 shrink-0 bg-[#ff6b00]" aria-hidden="true" />
@@ -185,7 +185,7 @@ export function ArrowLink({
 /** Renders `[text](href)` links and `**bold**` inside a content string. */
 export function RichText({
   text,
-  linkClassName = "font-semibold text-[#087ef5] underline decoration-[#087ef5]/30 underline-offset-4 transition-colors duration-200 hover:decoration-[#087ef5]",
+  linkClassName = "font-semibold text-[#066bd4] underline decoration-[#087ef5]/30 underline-offset-4 transition-colors duration-200 hover:decoration-[#087ef5]",
 }: {
   text: string;
   linkClassName?: string;

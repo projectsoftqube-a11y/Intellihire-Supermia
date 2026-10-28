@@ -35,7 +35,7 @@ const company = column("Company");
 
 function ColumnHeading({ children }: { children: string }) {
   return (
-    <p className="m-0 flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#ffffff]/45">
+    <p className="m-0 flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] uppercase text-[#ffffff]/60">
       <span className="h-px w-4 bg-[#ff6b00]" aria-hidden="true" />
       {children}
     </p>
@@ -130,7 +130,7 @@ export default function SiteFooter() {
       <div className="mx-auto max-w-[1920px]">
         <p
           data-ft-anim
-          className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]"
+          className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#066bd4]"
         >
           <span className="h-px w-10 shrink-0 bg-[#ff6b00]" aria-hidden="true" />
           Where this goes next
@@ -153,7 +153,7 @@ export default function SiteFooter() {
 
                 <span className="mt-5 flex items-start justify-between gap-4">
                   <span>
-                    <span className="block font-display text-[13px] text-[#071a3d]/35">
+                    <span className="block font-display text-[13px] text-[#071a3d]/65">
                       {stage}
                     </span>
                     <span className="mt-2 block font-display text-[clamp(22px,2.2vw,32px)] leading-[1.2] text-[#071a3d] transition-colors duration-300 group-hover:text-[#087ef5]">

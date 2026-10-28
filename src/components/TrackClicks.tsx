@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { captureAttribution } from "@/lib/attribution";
 
 type Gtag = (command: "event", name: string, params: Record<string, string>) => void;
 
@@ -19,8 +20,25 @@ declare global {
  * One delegated listener keeps the links themselves as plain server-rendered
  * <a href> elements. It is a no-op until GA4 (gtag) or GTM (dataLayer) is
  * installed on the page.
+ *
+ * It also records the session's first-touch lead source (UTM tags, an AI
+ * assistant or another referrer) and sends `ai_referral` when the visit came
+ * from an AI assistant, so AI-sourced visits and leads can be segmented.
  */
+function send(name: string, params: Record<string, string>) {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", name, params);
+  } else if (Array.isArray(window.dataLayer)) {
+    window.dataLayer.push({ event: name, ...params });
+  }
+}
+
 export default function TrackClicks() {
+  useEffect(() => {
+    const ai = captureAttribution();
+    if (ai) send("ai_referral", { ai_source: ai, page_path: window.location.pathname });
+  }, []);
+
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       const link = (event.target as Element | null)?.closest?.("[data-track]");
@@ -35,11 +53,7 @@ export default function TrackClicks() {
         page_path: window.location.pathname,
       };
 
-      if (typeof window.gtag === "function") {
-        window.gtag("event", name, params);
-      } else if (Array.isArray(window.dataLayer)) {
-        window.dataLayer.push({ event: name, ...params });
-      }
+      send(name, params);
     };
 
     document.addEventListener("click", onClick);

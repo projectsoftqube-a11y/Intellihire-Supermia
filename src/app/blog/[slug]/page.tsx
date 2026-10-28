@@ -125,7 +125,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                   page heroes: title and meta left, image right. */}
               <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12 xl:gap-16">
                 <div className="lg:col-span-7">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[#087ef5]/25 bg-[#087ef5]/[0.08] px-4 py-2 text-[12px] font-semibold tracking-[0.12em] uppercase text-[#087ef5]">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[#087ef5]/25 bg-[#087ef5]/[0.08] px-4 py-2 text-[12px] font-semibold tracking-[0.12em] uppercase text-[#0559b3]">
                   <BookOpen className="h-3.5 w-3.5" aria-hidden="true" />
                   {category.name}
                 </span>
@@ -252,7 +252,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                   </div>
 
                   <div className="ih-takeaways my-8 rounded-[22px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-7">
-                    <p className="m-0 flex items-center gap-3 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#087ef5]">
+                    <p className="m-0 flex items-center gap-3 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#066bd4]">
                       <span className="h-px w-8 bg-[#ff6b00]" aria-hidden="true" />
                       Key takeaways
                     </p>
@@ -285,7 +285,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                       <ol className="m-0 mt-5 flex list-none flex-col gap-4 p-0">
                         {post.sources.map((source, n) => (
                           <li key={source.url} className="flex gap-3 text-[14px] leading-[1.6] text-[#5b6575]">
-                            <span className="font-display text-[13px] text-[#087ef5]">{n + 1}.</span>
+                            <span className="font-display text-[13px] text-[#066bd4]">{n + 1}.</span>
                             <span className="min-w-0">
                               <a
                                 href={source.url}
@@ -318,7 +318,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                           className="pointer-events-none absolute -top-16 -right-16 h-48 w-48 rounded-full bg-[#087ef5]/30 blur-[60px]"
                           aria-hidden="true"
                         />
-                        <span className="relative block text-[11px] font-semibold tracking-[0.16em] uppercase text-[#087ef5]">
+                        <span className="relative block text-[11px] font-semibold tracking-[0.16em] uppercase text-[#5aa9ff]">
                           In IntelliHire
                         </span>
                         <span className="relative mt-4 block font-display text-[21px] leading-[1.25] text-[#ffffff]">

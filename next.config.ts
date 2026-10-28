@@ -5,6 +5,20 @@ const nextConfig: NextConfig = {
     // Serve the large PNG artwork as AVIF/WebP (SEO audit, image section).
     formats: ["image/avif", "image/webp"],
   },
+  // Baseline security headers. HSTS is already sent by Vercel.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       // Category pages were removed; posts live at /blog/<slug>. The old

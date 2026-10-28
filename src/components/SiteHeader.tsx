@@ -18,6 +18,7 @@ import {
   type NavLink,
 } from "@/lib/nav";
 import { APP_LOGIN_URL, BRAND_NAME, CONTACT_EMAIL, DEMO_URL } from "@/lib/site";
+import { SCROLL_TOP_EVENT } from "@/components/SmoothScrollProvider";
 
 gsap.registerPlugin(useGSAP);
 
@@ -251,7 +252,19 @@ export default function SiteHeader() {
         href="/"
         aria-label={`${BRAND_NAME}, home`}
         aria-current={pathname === "/" ? "page" : undefined}
-        onClick={closeAll}
+        onClick={(e) => {
+          closeAll();
+          // Already home: a same-page link does nothing visible, so scroll
+          // back to the top instead (smoothly, via Lenis, unless reduced
+          // motion is requested).
+          if (pathname !== "/") return;
+          e.preventDefault();
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            window.scrollTo({ top: 0 });
+          } else {
+            window.dispatchEvent(new Event(SCROLL_TOP_EVENT));
+          }
+        }}
         className="relative z-[60] shrink-0 transition-transform duration-300 hover:scale-[1.03]"
       >
         <Image

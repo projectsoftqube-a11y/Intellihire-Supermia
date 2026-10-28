@@ -151,6 +151,7 @@ export default async function PricingPage() {
                     Book a demo
                   </PillButton>
                   <ArrowLink href="#compare">Compare the plans</ArrowLink>
+                  <ArrowLink href="/tools/ai-interview-cost-calculator">Work out cost per interview</ArrowLink>
                 </div>
               </div>
             </div>
@@ -195,7 +196,7 @@ export default async function PricingPage() {
                               {plan.name}
                             </span>
                             {i === featuredIndex && (
-                              <span className="mt-1.5 inline-block rounded-full bg-[#ff6b00] px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.1em] uppercase text-[#ffffff]">
+                              <span className="mt-1.5 inline-block rounded-full bg-[#ff6b00] px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.1em] uppercase text-[#071a3d]">
                                 Most popular
                               </span>
                             )}

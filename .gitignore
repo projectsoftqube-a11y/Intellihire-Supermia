@@ -43,3 +43,10 @@ next-env.d.ts
 
 # Unused image generations kept for reference, never shipped.
 .image-alternates/
+
+# Markdown working notes (SEO research, briefs, image prompts) stay local.
+# The project's own instruction and readme files remain tracked.
+*.md
+!/README.md
+!/AGENTS.md
+!/CLAUDE.md

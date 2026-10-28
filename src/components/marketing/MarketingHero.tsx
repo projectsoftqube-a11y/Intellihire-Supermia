@@ -86,7 +86,7 @@ export default function MarketingHero({
                   ))}
                 </ul>
                 {/* Freshness signal, visible as well as in schema. */}
-                <p className="m-0 text-[12.5px] text-[#ffffff]/45">
+                <p className="m-0 text-[12.5px] text-[#ffffff]/60">
                   Updated <time dateTime={page.dateModified}>{formatDate(page.dateModified)}</time>
                 </p>
               </div>

@@ -126,7 +126,7 @@ export default function HiringFlow() {
     >
       <div className="mx-auto max-w-[1920px] px-4 pt-20 pb-12 sm:px-5 md:px-10 md:pt-28 md:pb-16">
         <div data-flow-heading className="max-w-[760px]">
-          <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]">
+          <p className="m-0 flex items-center gap-3 text-[12px] leading-none font-semibold tracking-[0.2em] uppercase text-[#066bd4]">
             <span
               className="h-px w-10 shrink-0 bg-[#ff6b00]"
               aria-hidden="true"
@@ -177,7 +177,7 @@ export default function HiringFlow() {
                 </span>
               </div>
 
-              <p className="m-0 mt-7 flex items-center gap-3 text-[11px] leading-none font-semibold tracking-[0.18em] uppercase text-[#087ef5]">
+              <p className="m-0 mt-7 flex items-center gap-3 text-[11px] leading-none font-semibold tracking-[0.18em] uppercase text-[#066bd4]">
                 <span className="h-px w-7 shrink-0 bg-[#ff6b00]" aria-hidden="true" />
                 Stage {index} of 05
               </p>
@@ -246,7 +246,7 @@ export default function HiringFlow() {
 
             <div className="flex flex-col justify-between gap-10 py-2 lg:col-span-6 lg:h-full lg:py-10">
               <div>
-                <p className="m-0 flex items-center gap-3 text-[11px] leading-none font-semibold tracking-[0.2em] uppercase text-[#087ef5]">
+                <p className="m-0 flex items-center gap-3 text-[11px] leading-none font-semibold tracking-[0.2em] uppercase text-[#5aa9ff]">
                   <span
                     className="h-px w-8 shrink-0 bg-[#ff6b00]"
                     aria-hidden="true"

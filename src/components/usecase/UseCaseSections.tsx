@@ -76,13 +76,15 @@ function Challenges({ section }: { section: PageSection }) {
                 aria-hidden="true"
               />
               <div className="flex items-center justify-between gap-4">
-                <span className="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#ff6b00]">
+                <span className="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#c2410c]">
                   <span className="h-px w-6 bg-[#ff6b00]" aria-hidden="true" />
                   Challenge {index(i)}
                 </span>
-                <span className="font-display text-[clamp(40px,3.6vw,64px)] leading-none text-[#071a3d]/10" aria-hidden="true">
-                  {index(i)}
-                </span>
+                <span
+                  data-watermark={index(i)}
+                  className="ih-watermark font-display text-[clamp(40px,3.6vw,64px)] leading-none text-[#071a3d]/10"
+                  aria-hidden="true"
+                />
               </div>
               <h3 className="m-0 mt-6 font-display text-[clamp(22px,2vw,32px)] leading-[1.15] font-normal text-[#071a3d]">
                 {item.title}
@@ -256,12 +258,14 @@ function Journey({ section }: { section: PageSection }) {
                 className="relative flex flex-col rounded-[24px] border border-[#ffffff]/10 bg-[#ffffff]/[0.04] p-7 md:p-8 lg:min-h-[300px] lg:w-[400px] xl:w-[440px]"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="text-[12px] font-semibold tracking-[0.16em] uppercase text-[#087ef5]">
+                  <span className="text-[12px] font-semibold tracking-[0.16em] uppercase text-[#5aa9ff]">
                     Step {i + 1}
                   </span>
-                  <span className="font-display text-[clamp(52px,4.6vw,84px)] leading-none text-[#ffffff]/[0.07]" aria-hidden="true">
-                    {index(i)}
-                  </span>
+                  <span
+                    data-watermark={index(i)}
+                    className="ih-watermark font-display text-[clamp(52px,4.6vw,84px)] leading-none text-[#ffffff]/[0.07]"
+                    aria-hidden="true"
+                  />
                 </div>
                 <h3 className="m-0 mt-auto pt-8 text-[clamp(19px,1.5vw,23px)] leading-snug font-semibold text-[#ffffff]">
                   {item.title}
