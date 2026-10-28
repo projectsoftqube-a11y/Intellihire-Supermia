@@ -26,6 +26,7 @@ const GRAPH = [
     name: TITLE,
     description: DESCRIPTION,
     dateModified: "2026-10-27",
+    speakableSelectors: null,
   }),
   breadcrumbNode(PATH, CRUMBS),
 ];

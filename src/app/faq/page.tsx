@@ -97,6 +97,7 @@ export default async function FaqPage() {
           crumbs={CRUMBS}
           eyebrow="FAQ"
           title="IntelliHire FAQ: Screening, AI Interviews, Pricing, Privacy and Oversight"
+          answer="IntelliHire is AI recruitment software from SuperMIA that parses resumes, ranks candidates against the rubric a hiring team sets, runs first-round AI voice interviews and writes scorecards citing the interview transcript. People make every hiring decision: no candidate is ever rejected by a machine."
           lead={[
             "IntelliHire is AI recruitment software from SuperMIA. AI does the reading, ranking and first-round interviews, and your team makes every hiring decision. Here are straight answers on screening, interviews, pricing and candidate data.",
           ]}

@@ -14,13 +14,21 @@ import {
   hasPublishedPrices,
   offersNode,
   plansIntro,
+  pricingAnswer,
   pricingFaqs,
   pricingH1,
   pricingLead,
   pricingMetaDescription,
   pricingMetaTitle,
 } from "@/lib/pricing";
-import { breadcrumbNode, buildMetadata, webPageNode, type Crumb } from "@/lib/seo";
+import {
+  absoluteUrl,
+  breadcrumbNode,
+  buildMetadata,
+  faqPageNode,
+  webPageNode,
+  type Crumb,
+} from "@/lib/seo";
 import { DEMO_URL, PRICING_NOTIFY_MAILTO } from "@/lib/site";
 
 // Prices come from the billing API on every request, like the homepage.
@@ -73,9 +81,10 @@ export default async function PricingPage() {
       description: pricingMetaDescription(plans),
       dateModified: "2026-10-27",
       aboutSoftware: true,
+      extra: { mainEntityOfPage: { "@id": `${absoluteUrl(PATH)}#faq` } },
     }),
     breadcrumbNode(PATH, CRUMBS),
-    ...[offersNode(plans)].filter((node) => node !== null),
+    ...[offersNode(plans), faqPageNode(PATH, faqs)].filter((node) => node !== null),
   ];
 
   return (
@@ -87,6 +96,7 @@ export default async function PricingPage() {
           crumbs={CRUMBS}
           eyebrow="Pricing"
           title={pricingH1(plans)}
+          answer={pricingAnswer(plans)}
           lead={[
             pricingLead(plans),
             "Comparing AI recruitment software pricing? Start with how many roles you hire for at once. Every plan includes resume screening, AI interviews and evidence-backed scorecards. Want to see it work first? Book a demo and bring a role you are hiring for now.",

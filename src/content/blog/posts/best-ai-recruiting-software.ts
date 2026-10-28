@@ -12,10 +12,10 @@ const post: BlogPost = {
   datePublished: "2026-10-27",
   dateModified: "2026-10-27",
   image: {
-    src: "/images/feature-sourcing.png",
-    width: 1371,
-    height: 1148,
-    alt: "Recruiter pointing at the top matched candidates in IntelliHire, sorted by match score",
+    src: "/images/blog/blog-best-ai-software.webp",
+    width: 1672,
+    height: 941,
+    alt: "Two colleagues comparing blank printed sheets spread across a sunlit table",
   },
   disclosure:
     "IntelliHire is our product. We have included it alongside other tools and kept every competitor fact to what each vendor states on its own website, checked on the dates shown in the sources.",
@@ -23,6 +23,8 @@ const post: BlogPost = {
     "The best AI recruiting software for your team depends on the job you need done: reading applications, running first-round interviews, coordinating schedules or taking notes in the interviews your team runs. This comparison starts with how to choose, then profiles seven tools, including our own, using only what each vendor says on its website as of October 2026.",
     "We have not used third-party ratings or claims we could not check. Tools are listed alphabetically, and the order is not a ranking.",
   ],
+  answer:
+    "The best AI recruiting software depends on the job you need done: reading applications, running first-round interviews, coordinating schedules or taking notes in interviews your team runs. Compare tools on which of those they actually do, whether they show the reasoning behind a ranking, and whether a person makes the final hiring decision.",
   takeaways: [
     "Start from the job you need done, such as screening, AI interviews, scheduling or interview notes, before comparing features.",
     "Ask every vendor where a person reviews and can overrule AI outputs before they affect a candidate.",

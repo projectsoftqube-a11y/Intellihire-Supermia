@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Check, ShieldCheck } from "lucide-react";
+import AnswerBlock from "@/components/AnswerBlock";
+import { formatDate } from "@/content/blog";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { ArrowLink, Eyebrow, PillButton, RichText } from "@/components/ui";
 import type { HeroPanelRow, MarketingPage } from "@/content/types";
@@ -29,7 +31,7 @@ export default function MarketingHero({
   crumbs: Crumb[];
   secondary: { label: string; href: string };
 }) {
-  const { eyebrow, h1, lead, heroImage, heroPanel, highlights } = page;
+  const { eyebrow, h1, answer, lead, heroImage, heroPanel, highlights } = page;
 
   return (
     <section className="relative bg-brand-surface px-4 pt-24 sm:px-5 sm:pt-28 md:px-10">
@@ -60,6 +62,11 @@ export default function MarketingHero({
                 {h1}
               </h1>
 
+              {/* Answer-first block: the passage an answer engine lifts. */}
+              <div className="mt-7">
+                <AnswerBlock text={answer} />
+              </div>
+
               <div className="mt-7 flex max-w-[640px] flex-col gap-4">
                 {lead.map((paragraph, i) => (
                   <p
@@ -87,7 +94,14 @@ export default function MarketingHero({
                 </ArrowLink>
               </div>
 
-              <ul className="m-0 mt-10 flex list-none flex-wrap gap-2.5 border-t border-[#ffffff]/12 p-0 pt-7">
+              {/* Freshness signal, visible as well as in schema: AI engines
+                  systematically prefer recently-updated sources. */}
+              <p className="m-0 mt-8 text-[13px] text-[#ffffff]/50">
+                Last updated{" "}
+                <time dateTime={page.dateModified}>{formatDate(page.dateModified)}</time>
+              </p>
+
+              <ul className="m-0 mt-7 flex list-none flex-wrap gap-2.5 border-t border-[#ffffff]/12 p-0 pt-7">
                 {highlights.map((item) => (
                   <li
                     key={item}

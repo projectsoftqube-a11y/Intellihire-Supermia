@@ -85,6 +85,7 @@ export default async function BlogHubPage({ searchParams }: PageProps<"/blog">) 
       name: TITLE,
       description: DESCRIPTION,
       dateModified: "2026-10-27",
+      speakableSelectors: null,
       extra:
         posts.length >= INDEX_THRESHOLD
           ? {

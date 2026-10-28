@@ -28,11 +28,13 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       "When a role draws hundreds of applications, the first pass is where good people get lost. IntelliHire's AI resume screening reads every application, at any volume, and structures each person's skills and experience so they can be reviewed against the rubric you set. The strongest applicant is no longer the one nobody had time to open.",
       "Your recruiters start from organized profiles and a ranked list with the reasoning shown, not a folder of raw documents. They still build the shortlist themselves. No candidate is ever rejected by a machine.",
     ],
+    answer:
+      "AI resume screening is software that reads and structures every job application automatically, instead of a recruiter opening each file by hand. IntelliHire parses each resume at any volume, organizes skills and experience, and ranks applicants against the rubric your team set, with the reasoning shown. Recruiters build the shortlist themselves.",
     heroImage: {
-      src: "/images/flow-screen.png",
-      width: 1371,
-      height: 1148,
-      alt: "Recruiter reviewing a ranked candidate list with match scores in IntelliHire",
+      src: "/images/heroes/hero-resume-screening.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Recruiter at a standing desk lifting one page from rows of printed resumes",
     },
     heroPanel: {
       title: "Screening · Operations Coordinator",
@@ -206,11 +208,13 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       "A ranked list is only useful if someone can explain it. IntelliHire's AI candidate matching ranks every applicant against the rubric your team set for the role and shows the reasoning behind each position, so a hiring manager can see why one person sits above another.",
       "You decide which signals carry weight. The ranking organizes the field; your team reads the reasons, builds the shortlist and decides who moves forward.",
     ],
+    answer:
+      "AI candidate matching is software that ranks applicants against the requirements a hiring team defines for a role. IntelliHire ranks every applicant against the rubric your team set and shows the reasoning behind each position, so a hiring manager can see why one person sits above another. Your team decides which signals carry weight.",
     heroImage: {
-      src: "/images/feature-sourcing.png",
-      width: 1371,
-      height: 1148,
-      alt: "Recruiter pointing at the top matched candidates in IntelliHire, sorted by match score",
+      src: "/images/heroes/hero-candidate-matching.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Two colleagues arranging coloured notes into a ranked column on a glass wall",
     },
     heroPanel: {
       title: "Ranked against your rubric",
@@ -384,11 +388,13 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       "The slowest part of most hiring rounds is getting the first conversation on the calendar. IntelliHire's AI interview software takes that wait out. Candidates take a first-round voice interview with natural turn-taking at whatever hour suits them, and your team reviews the transcript-backed scorecard on its own schedule.",
       "On selected plans, AI can also join your team's own live interviews, and scheduling keeps candidates moving between rounds. People decide who advances.",
     ],
+    answer:
+      "AI interview software runs a structured first-round interview without a human interviewer present. IntelliHire interviews candidates by voice with natural turn-taking, at whatever hour suits them, then produces a scorecard your team reviews against the transcript. On selected plans AI can also join your team's own live interviews. People decide who advances.",
     heroImage: {
-      src: "/images/feature-interviewing.png",
-      width: 1370,
-      height: 1148,
-      alt: "Candidate wearing headphones during an IntelliHire AI interview with a live transcript panel",
+      src: "/images/heroes/hero-ai-interviews.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Candidate in headphones speaking at a home desk in evening lamplight",
     },
     heroPanel: {
       title: "First-round voice interview",
@@ -566,11 +572,13 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       "Remote interviews raise a fair question: was that answer the candidate's own? IntelliHire's interview proctoring software monitors interview integrity and flags possible concerns for a person on your team to review. It does not accuse anyone, and it never rejects anyone.",
       "Proctoring and integrity scoring are available on selected plans. The signals are the ones listed in the privacy policy, such as tab focus and device events, and every flag ends with a human decision.",
     ],
+    answer:
+      "Interview proctoring software monitors a remote interview for signs that the answers may not be the candidate's own. IntelliHire tracks the signals listed in its privacy policy, such as tab focus and device events, and flags possible concerns for a person on your team to review. It never accuses or rejects anyone.",
     heroImage: {
-      src: "/images/feature-interviewing.png",
-      width: 1370,
-      height: 1148,
-      alt: "Candidate wearing headphones during an IntelliHire AI interview with a live transcript panel",
+      src: "/images/heroes/hero-interview-proctoring.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Reviewer studying a tablet in a daylit office beside an empty meeting room",
     },
     heroPanel: {
       title: "Integrity review · Demo interview",
@@ -756,11 +764,13 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       "Most hiring debriefs run on memory: three interviewers, three sets of notes and a lot of \"I had a good feeling.\" IntelliHire's interview scorecard software works differently. Every scorecard rates the candidate against your rubric and cites the part of the interview transcript each rating came from.",
       "Before anyone relies on a rating, they can read the answer behind it. Your team decides what the evidence means.",
     ],
+    answer:
+      "An interview scorecard is a structured rating of a candidate against the criteria set for a role. IntelliHire rates each candidate against your rubric and cites the part of the interview transcript every rating came from, so a reviewer can read the answer behind a score before relying on it. Your team decides what the evidence means.",
     heroImage: {
-      src: "/images/flow-assess.png",
-      width: 1370,
-      height: 1148,
-      alt: "Two colleagues comparing candidate cards on a glass planning wall",
+      src: "/images/heroes/hero-interview-scorecards.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Hiring manager tracing a line on a printed document while writing a note",
     },
     heroPanel: {
       title: "Scorecard · Demo candidate",
@@ -938,11 +948,13 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       "Most talent leaders know hiring is slow. Fewer can say exactly where. IntelliHire's recruitment analytics software shows time-to-hire, funnel conversion and the stages where candidates stall, and tracks every candidate across the pipeline, so you can see the bottleneck instead of guessing at it.",
       "Recruitment analytics and pipeline management are available on selected plans. The numbers show where hiring slows; your team decides what to change.",
     ],
+    answer:
+      "Recruitment analytics is the measurement of how a hiring process performs, stage by stage. IntelliHire reports time-to-hire, funnel conversion and the stages where candidates stall, and tracks every candidate across one pipeline view, so a talent leader can see the bottleneck rather than guess at it. Available on selected plans.",
     heroImage: {
-      src: "/images/feature-analytics.png",
-      width: 1370,
-      height: 1148,
-      alt: "Hiring team reviewing an IntelliHire dashboard with a hiring funnel and time-to-hire chart",
+      src: "/images/heroes/hero-recruitment-analytics.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Three colleagues discussing a wall display, one pointing at its lower edge",
     },
     heroPanel: {
       title: "Pipeline · Demo roles",
@@ -1128,11 +1140,13 @@ export const PLATFORM_PAGES: MarketingPage[] = [
       "If you are reviewing an AI hiring tool for your legal, IT or people team, two questions come first: who makes the decisions, and what happens to candidate data. IntelliHire is built for human in the loop hiring. The AI reads, ranks, runs first-round interviews and flags concerns. People decide.",
       "This page sets out where that line sits, how the privacy policy protects candidate data and what your organization remains responsible for.",
     ],
+    answer:
+      "Human in the loop hiring means a person, not software, makes every hiring decision. In IntelliHire the AI reads applications, ranks candidates, runs first-round interviews and flags integrity concerns; people decide who advances and who is hired. Candidate data is encrypted in transit and at rest, access is role-based, and personal information is not sold.",
     heroImage: {
-      src: "/images/feature-platform.png",
-      width: 1371,
-      height: 1148,
-      alt: "Engineer reviewing IntelliHire access control and system architecture screens",
+      src: "/images/heroes/hero-human-oversight.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Hiring lead alone at a sunlit desk, pen poised above a single sheet of paper",
     },
     heroPanel: {
       title: "Who decides",

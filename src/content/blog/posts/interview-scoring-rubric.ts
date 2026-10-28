@@ -12,15 +12,17 @@ const post: BlogPost = {
   datePublished: "2026-10-27",
   dateModified: "2026-10-27",
   image: {
-    src: "/images/flow-assess.png",
-    width: 1370,
-    height: 1148,
-    alt: "Two colleagues comparing candidate cards on a glass planning wall",
+    src: "/images/blog/blog-scoring-rubric.webp",
+    width: 1672,
+    height: 941,
+    alt: "Hands holding a pen above a blank printed scoring grid in hard morning sun",
   },
   intro: [
     "An interview scoring rubric is a one-page guide that lists the competencies a role needs, describes what a weak, solid and strong answer sounds like for each one, and asks interviewers to write down evidence before they pick a score. Built well, it means two interviewers who hear the same answer give it roughly the same rating, and anyone reading the scores later can see why.",
     "This guide shows how to build one: choosing competencies, writing behavioral anchors, agreeing how scores become a recommendation and calibrating your interviewers. At the end there is a free template to copy and a worked example for a customer support role.",
   ],
+  answer:
+    "An interview scoring rubric is a one-page guide listing the competencies a role needs, describing what a weak, solid and strong answer sounds like for each, and requiring interviewers to record evidence before choosing a score. Built well, two interviewers who hear the same answer give it close to the same rating, which makes candidates genuinely comparable.",
   takeaways: [
     "Pick four to six competencies from the actual work of the role, written as behavior you can observe.",
     "Use one 1 to 5 scale for every competency, with written anchors for at least levels 1, 3 and 5.",

@@ -9,14 +9,14 @@ import Differentiators from "@/components/home/Differentiators";
 import SecurityControls from "@/components/home/SecurityControls";
 import Audiences from "@/components/home/Audiences";
 import Pricing from "@/components/Pricing";
-import HomeFaq from "@/components/home/HomeFaq";
+import HomeFaq, { HOME_FAQS } from "@/components/home/HomeFaq";
 import FinalCta from "@/components/FinalCta";
 import SiteFooter from "@/components/SiteFooter";
 import Reveal from "@/components/Reveal";
 import { JsonLd } from "@/components/ui";
 import { getBillingPlans } from "@/lib/billing";
 import { homePricingIntro } from "@/lib/pricing";
-import { buildMetadata, webPageNode } from "@/lib/seo";
+import { buildMetadata, faqPageNode, webPageNode } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, SOFTWARE_ID } from "@/lib/site";
 
 // Render on every request so pricing always reflects the billing API. Without
@@ -40,6 +40,7 @@ const PAGE_GRAPH = [
     hasBreadcrumb: false,
     extra: {
       mainEntity: { "@id": SOFTWARE_ID },
+      mainEntityOfPage: { "@id": `${SITE_URL}/#faq` },
       primaryImageOfPage: {
         "@type": "ImageObject",
         url: `${SITE_URL}/opengraph-image`,
@@ -48,6 +49,8 @@ const PAGE_GRAPH = [
       },
     },
   }),
+  // The homepage FAQ preview, eligible for People Also Ask in its own right.
+  faqPageNode("/", HOME_FAQS)!,
 ];
 
 export default async function Home() {

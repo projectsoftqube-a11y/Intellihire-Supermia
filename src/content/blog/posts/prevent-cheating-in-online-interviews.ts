@@ -12,15 +12,17 @@ const post: BlogPost = {
   datePublished: "2026-10-27",
   dateModified: "2026-10-27",
   image: {
-    src: "/images/feature-interviewing.png",
-    width: 1370,
-    height: 1148,
-    alt: "Candidate wearing headphones during an IntelliHire AI interview with a live transcript panel",
+    src: "/images/blog/blog-prevent-cheating.webp",
+    width: 1672,
+    height: 941,
+    alt: "Candidate speaking openly during a video call at a bright, tidy home desk",
   },
   intro: [
     "If you are working out how to prevent cheating in online interviews, start with interview design rather than surveillance. Ask about the candidate's own work, follow every answer with specific probes, tell candidates the rules up front and have a person review any integrity signal before anything is decided. Outside help then becomes slow to use and adds little.",
     "Proctoring tools can help, but they produce signals, not proof. This guide covers the common forms of remote interview cheating, the design choices that reduce the payoff, what proctoring can and cannot detect, and a review process that stays fair to candidates who have done nothing wrong.",
   ],
+  answer:
+    "Preventing cheating in online interviews starts with interview design, not surveillance. Ask about the candidate's own work, follow each answer with specific probes, state the rules up front, and have a person review any integrity signal before it affects an outcome. Detection tools flag concerns for review; they should never reject anyone automatically.",
   takeaways: [
     "Interview design does more than monitoring: personal, work-specific questions with follow-up probes are hard to answer with outside help.",
     "Proctoring signals, such as an interview window losing focus, are prompts for a person to review, never proof of cheating.",

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import AnswerBlock from "@/components/AnswerBlock";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Eyebrow, RichText } from "@/components/ui";
 import type { Crumb } from "@/lib/seo";
@@ -11,6 +12,7 @@ export default function PageHero({
   crumbs,
   eyebrow,
   title,
+  answer,
   lead,
   actions,
   footnote,
@@ -20,6 +22,8 @@ export default function PageHero({
   crumbs: Crumb[];
   eyebrow: string;
   title: ReactNode;
+  /** Answer-first block, 40-60 words, rendered directly under the H1. */
+  answer?: string;
   lead: string[];
   actions?: ReactNode;
   footnote?: string;
@@ -54,6 +58,12 @@ export default function PageHero({
               <h1 className="mt-7 font-display text-[clamp(31px,4.3vw,66px)] leading-[1.04] font-normal tracking-[-0.02em] text-[#ffffff]">
                 {title}
               </h1>
+
+              {answer && (
+                <div className="mt-7">
+                  <AnswerBlock text={answer} />
+                </div>
+              )}
 
               <div className="mt-7 flex max-w-[680px] flex-col gap-4">
                 {lead.map((paragraph, i) => (

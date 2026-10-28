@@ -12,15 +12,17 @@ const post: BlogPost = {
   datePublished: "2026-10-27",
   dateModified: "2026-10-27",
   image: {
-    src: "/images/flow-interview.png",
-    width: 1370,
-    height: 1148,
-    alt: "Hiring manager listening closely to a candidate during an interview",
+    src: "/images/blog/blog-structured-questions.webp",
+    width: 1672,
+    height: 941,
+    alt: "Interviewer holding a prepared question sheet while a candidate answers",
   },
   intro: [
     "Structured interview questions are a fixed set of job-related questions that every candidate for a role answers in the same order, with each answer rated on the same scale. Because everyone gets the same prompts, you compare candidates on the evidence in their answers rather than on how well a conversation happened to flow.",
     "This guide covers how to write them, which question types work best, how to plan follow-up probes, and example questions for sales, support, engineering and operations roles, each paired with what a strong answer shows.",
   ],
+  answer:
+    "Structured interview questions are a fixed set of job-related questions that every candidate for a role answers in the same order, each rated on the same scale. Because everyone gets the same prompts, you compare candidates on the evidence in their answers rather than on how well a conversation happened to flow.",
   takeaways: [
     "Write one main question for each competency on your scoring rubric.",
     "Use behavioral questions about past work and situational questions built from real scenarios in the role.",

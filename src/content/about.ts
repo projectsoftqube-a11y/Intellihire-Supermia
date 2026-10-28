@@ -20,11 +20,13 @@ export const ABOUT_PAGE: MarketingPage = {
     "IntelliHire is AI recruitment software from SuperMIA. It reads and ranks applications against your rubric, runs first-round AI voice interviews around the clock and writes scorecards that cite the interview transcript. This page is about IntelliHire: why we built it, who builds it and how to reach us.",
     "Everything in the product follows one rule: AI does the reading, and people make the hiring decision.",
   ],
+  answer:
+    "IntelliHire is AI recruitment software built by SuperMIA, with Botfinity Inc. credited on the site and an office in Grapevine, Texas. It reads and ranks applications against your rubric, runs first-round AI voice interviews and writes scorecards citing the transcript. It follows one rule: AI does the reading, and people make the hiring decision.",
   heroImage: {
-    src: "/images/hero-candidate.jpg",
-    width: 1600,
-    height: 1200,
-    alt: "Recruitment leader in a blue blazer standing with arms folded in a modern office",
+    src: "/images/heroes/hero-about-intellihire.webp",
+    width: 1369,
+    height: 1149,
+    alt: "Product team sketching together around a long table in a sunlit studio office",
   },
   heroPanel: {
     title: "How IntelliHire works",

@@ -19,10 +19,10 @@ export default function CtaBand({
   footnote?: string | null;
 }) {
   return (
-    <section className="relative px-4 pt-12 pb-20 sm:px-5 md:px-10 md:pt-16 md:pb-28">
+    <section className="relative px-4 pt-12 pb-12 sm:px-5 md:px-10 md:pt-16 md:pb-16">
       <div
         data-reveal
-        className="relative mx-auto max-w-[1920px] overflow-hidden rounded-[28px] bg-[#071a3d] px-6 py-14 sm:rounded-[34px] sm:px-8 md:px-14 md:py-20"
+        className="relative mx-auto max-w-[1920px] overflow-hidden rounded-[28px] bg-[#071a3d] px-6 py-12 sm:rounded-[34px] sm:px-8 md:px-14 md:py-14"
       >
         <span
           className="pointer-events-none absolute top-[-30%] left-[10%] h-[520px] w-[520px] rounded-full bg-[#087ef5]/20 blur-[150px]"
@@ -37,7 +37,9 @@ export default function CtaBand({
           aria-hidden="true"
         />
 
-        <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end lg:gap-16">
+        {/* `items-end` on a two-column grid left a tall gap under the shorter
+            CTA column; centring the rows closes it. */}
+        <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
           <div className="lg:col-span-7">
             <Eyebrow tone="onDark">{eyebrow}</Eyebrow>
             <h2 className="mt-7 font-display text-[clamp(30px,4.2vw,64px)] leading-[1.02] font-normal tracking-[-0.025em] text-[#ffffff]">

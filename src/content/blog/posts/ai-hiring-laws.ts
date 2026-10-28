@@ -12,15 +12,17 @@ const post: BlogPost = {
   datePublished: "2026-10-27",
   dateModified: "2026-10-27",
   image: {
-    src: "/images/feature-platform.png",
-    width: 1371,
-    height: 1148,
-    alt: "Engineer reviewing IntelliHire access control and system architecture screens",
+    src: "/images/blog/blog-ai-hiring-laws.webp",
+    width: 1672,
+    height: 941,
+    alt: "Hand turning a page of a bound document beside reading glasses and a pen",
   },
   intro: [
     "AI hiring laws now reach most of the places where software touches a candidate: sorting resumes, ranking applicants, running interviews and helping decide who moves forward. This overview covers the rules we could verify on official government sources as of October 2026, in plain English, with the dates that matter.",
     "It is written for HR, talent and legal teams using or buying AI recruiting tools. How each rule applies depends on where you hire and how you use each tool, so confirm the details with counsel.",
   ],
+  answer:
+    "AI hiring laws govern software that sorts resumes, ranks applicants, runs interviews or helps decide who advances. Requirements commonly include candidate notice, bias auditing, human review of automated decisions and records showing how a tool was used. Rules differ by jurisdiction, so employers should confirm what applies where they hire. This is not legal advice.",
   takeaways: [
     "NYC Local Law 144 requires an independent bias audit, a public summary of results and candidate notice 10 business days before use.",
     "The EU AI Act treats recruitment AI as high-risk. Since the 2026 Digital Omnibus, those rules apply from December 2, 2027.",

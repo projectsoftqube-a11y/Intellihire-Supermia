@@ -87,6 +87,13 @@ export type MarketingPage = {
   h1: string;
   /** Opening paragraphs. The primary keyword appears in the first 100 words. */
   lead: Inline[];
+  /**
+   * Answer-first block: 40–60 words answering the page's core question, read
+   * aloud by assistants and lifted by answer engines. Must stand alone, so it
+   * opens by naming the subject ("AI resume screening is …") and carries no
+   * pronoun or phrase that depends on surrounding copy.
+   */
+  answer: Inline;
   heroImage: ImageRef;
   /**
    * Illustrative product panel layered over the hero photo. Demo data only:
@@ -150,6 +157,12 @@ export type BlogPost = {
   dateModified: string;
   image: ImageRef;
   intro: Inline[];
+  /**
+   * Answer-first block: 40-60 words answering the post's core question, placed
+   * above the intro. Must stand alone, so it opens by naming the subject and
+   * depends on no surrounding copy.
+   */
+  answer: Inline;
   takeaways: string[];
   blocks: BlogBlock[];
   faqs?: FaqItem[];

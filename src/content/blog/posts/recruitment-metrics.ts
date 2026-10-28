@@ -12,15 +12,17 @@ const post: BlogPost = {
   datePublished: "2026-10-27",
   dateModified: "2026-10-27",
   image: {
-    src: "/images/feature-analytics.png",
-    width: 1370,
-    height: 1148,
-    alt: "Hiring team reviewing an IntelliHire dashboard with a hiring funnel and time-to-hire chart",
+    src: "/images/blog/blog-recruitment-metrics.webp",
+    width: 1672,
+    height: 941,
+    alt: "Hand sketching a descending stepped shape in a notebook beside a closed laptop",
   },
   intro: [
     "Most teams track more recruitment metrics than they use. The ones that matter answer three questions: how long hiring takes, where candidates fall out of the process, and whether the people you hire work out. This guide covers those metrics, with formulas, how to read each one and what to do when a number moves.",
     "There are no industry benchmarks here, on purpose. Published averages mix roles, regions and definitions, so your own trend, measured the same way every month, is the number to watch.",
   ],
+  answer:
+    "The recruitment metrics that matter answer three questions: how long hiring takes, where candidates fall out of the process, and whether the people you hire work out. That means time to hire, stage-by-stage funnel conversion and drop-off, plus a quality-of-hire measure. Tracking more than you act on adds reporting work without improving hiring.",
   takeaways: [
     "Time to hire runs from a candidate entering your process to accepting an offer; time to fill runs from the role opening to an accepted offer.",
     "Stage conversion and drop-off show where candidates leave, which is usually the first place to act.",

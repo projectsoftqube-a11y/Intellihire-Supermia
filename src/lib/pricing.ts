@@ -147,6 +147,37 @@ function plural(n: number, one: string, many: string) {
   return `${n.toLocaleString("en-US")} ${n === 1 ? one : many}`;
 }
 
+/**
+ * Answer-first block for /pricing: a standalone 40-60 word answer to "how
+ * much does IntelliHire cost?", built from the live plans so it can never
+ * contradict the cards below it or the FAQ answer beside it.
+ */
+export function pricingAnswer(plans: PricingPlan[]): string {
+  if (!hasPublishedPrices(plans)) {
+    return `IntelliHire is AI recruitment software priced per month and per plan. Prices are being finalized ahead of launch, so the ${count(
+      plans.length,
+    )} plans, ${listNames(
+      plans.map((p) => p.name),
+    )}, are listed with what each includes rather than a figure. Every plan includes resume screening, AI interviews and evidence-backed scorecards.`;
+  }
+
+  const trial = trialPlan(plans);
+  const cheapest = plans
+    .filter((p) => !p.isCustom && p.monthlyCost !== null && p.monthlyCost > 0)
+    .sort((a, b) => a.monthlyCost! - b.monthlyCost!)[0];
+  const custom = plans.find((p) => p.isCustom);
+
+  const opening = trial
+    ? `IntelliHire pricing starts with a free ${trial.trialDays}-day trial`
+    : "IntelliHire is priced per month and per plan";
+  const paid = cheapest ? `, then ${cheapest.price} per month for ${cheapest.name}` : "";
+  const top = custom ? `, up to ${custom.name}, priced to your hiring volume` : "";
+
+  return `${opening}${paid}${top}. There are ${count(
+    plans.length,
+  )} plans in total, differing in active job posts, candidate profiles, interview minutes and users. Every plan includes resume screening, AI interviews and evidence-backed scorecards.`;
+}
+
 /** "Which plan fits our team?" on /pricing. */
 export function planFitAnswer(plans: PricingPlan[]): string {
   const custom = plans.find((p) => p.isCustom);

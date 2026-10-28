@@ -62,6 +62,7 @@ export default async function BlogCategoryPage({
       name: category.metaTitle,
       description: category.metaDescription,
       dateModified: "2026-10-27",
+      speakableSelectors: null,
       extra:
         posts.length >= INDEX_THRESHOLD
           ? {

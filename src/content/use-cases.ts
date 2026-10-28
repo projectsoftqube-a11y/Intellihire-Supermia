@@ -27,11 +27,13 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       "When one role draws hundreds of applicants, the first pass becomes the bottleneck. IntelliHire is high-volume hiring software that reads every application against the rubric you set, ranks candidates with the reasoning shown and runs first-round AI voice interviews around the clock.",
       "Your recruiters stop spending their week on first-pass review and start from a ranked shortlist and scorecards that cite the transcript. Your team still decides who moves forward. No candidate is ever rejected by a machine.",
     ],
+    answer:
+      "High-volume hiring is recruiting for roles that draw hundreds of applicants at once, where first-pass review becomes the bottleneck. IntelliHire reads every application against the rubric you set, ranks candidates with the reasoning shown and runs first-round AI voice interviews around the clock. Your recruiters start from a ranked shortlist and decide who moves forward.",
     heroImage: {
-      src: "/images/flow-screen.png",
-      width: 1371,
-      height: 1148,
-      alt: "Recruiter reviewing a ranked candidate list with match scores in IntelliHire",
+      src: "/images/heroes/hero-high-volume-hiring.webp",
+      width: 1369,
+      height: 1149,
+      alt: "A dozen candidates seated along a bench in a bright glazed waiting area",
     },
     heroPanel: {
       title: "Customer Support Associate · Round 1",
@@ -231,11 +233,13 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       "Agency recruiters win placements on speed and judgment, yet much of the week goes on first-pass reading and chasing calendars. IntelliHire is AI recruitment software for agencies: it reads every application against a rubric built from your client's brief, runs first-round AI voice interviews around the clock and writes scorecards that cite the transcript.",
       "Your recruiters can run first rounds for several client roles at once and present each shortlist with the evidence behind it. They still decide who goes forward to the client, and no candidate is ever rejected by a machine.",
     ],
+    answer:
+      "AI recruitment software for agencies handles first-pass screening and first-round interviews across several client roles at once. IntelliHire reads every application against a rubric built from your client's brief, runs AI voice interviews around the clock and writes scorecards citing the transcript. Recruiters decide who goes forward to the client.",
     heroImage: {
-      src: "/images/flow-interview.png",
-      width: 1370,
-      height: 1148,
-      alt: "Hiring manager listening closely to a candidate during an interview",
+      src: "/images/heroes/hero-recruitment-agencies.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Agency recruiter on a headset call beside separated folders for several clients",
     },
     heroPanel: {
       title: "Open roles this week",
@@ -420,11 +424,13 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       "In-house HR and talent teams hire for every department, often alongside onboarding, policy work and employee questions. IntelliHire is AI recruiting software for HR teams that reads every application against the rubric you set, runs consistent first-round AI voice interviews around the clock and writes scorecards that cite the transcript.",
       "Your team can take back the hours spent on first-pass screening and scheduling, and hiring managers get evidence they can check. People make every decision: no candidate is ever rejected by a machine.",
     ],
+    answer:
+      "AI recruiting software for HR teams takes over first-pass screening and interview scheduling for an in-house team hiring across departments. IntelliHire reads every application against the rubric you set, runs consistent first-round AI voice interviews around the clock and writes scorecards hiring managers can check against the transcript. People make every decision.",
     heroImage: {
-      src: "/images/flow-hire.png",
-      width: 1371,
-      height: 1148,
-      alt: "Hiring team welcoming a new colleague with a handshake",
+      src: "/images/heroes/hero-hr-teams.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Two HR colleagues in conversation on low seating in an informal office nook",
     },
     heroPanel: {
       title: "Scorecard · Operations Analyst",
@@ -620,11 +626,13 @@ export const USE_CASE_PAGES: MarketingPage[] = [
       "At a startup or small business, hiring usually lands on a founder or manager who already has a full-time job. IntelliHire is recruiting software for small business teams hiring without a full recruiting team: it reads every application against your rubric, runs first-round AI voice interviews around the clock and gives you a ranked shortlist with evidence.",
       "You spend your time on the candidates worth meeting, not the pile of resumes. You still make every hiring decision, and no candidate is ever rejected by a machine.",
     ],
+    answer:
+      "Recruiting software for small business suits a founder or manager hiring without a full recruiting team. IntelliHire reads every application against your rubric, runs first-round AI voice interviews around the clock and hands you a ranked shortlist with the evidence behind it, so your time goes to the candidates worth meeting. You make every hiring decision.",
     heroImage: {
-      src: "/images/flow-attract.png",
-      width: 1370,
-      height: 1148,
-      alt: "Recruiter holding a tablet in a bright office overlooking the city",
+      src: "/images/heroes/hero-startups.webp",
+      width: 1369,
+      height: 1149,
+      alt: "Founder reading a sheet of paper while two colleagues listen in a startup space",
     },
     heroPanel: {
       title: "New role · Customer Success Lead",

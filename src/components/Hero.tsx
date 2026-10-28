@@ -81,9 +81,14 @@ export default function Hero() {
               </span>
             </h1>
 
+            {/* Already an answer-first passage: it names the subject, stands
+                alone and runs to ~55 words, so it carries the `ih-answer`
+                selector that `speakable` points at rather than being
+                duplicated by a second block. */}
             <p
               data-hero-support
-              className="mt-7 max-w-[640px] text-[clamp(16px,1.35vw,20px)] leading-[1.65] text-brand-white/75"
+              data-answer
+              className="ih-answer mt-7 max-w-[640px] text-[clamp(16px,1.35vw,20px)] leading-[1.65] text-brand-white/75"
             >
               IntelliHire by SuperMIA is AI recruitment software for HR teams,
               recruitment agencies and high-volume hiring. It reads every

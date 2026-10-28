@@ -25,9 +25,14 @@ export default function PostCard({
         featured ? "lg:flex-row" : ""
       }`}
     >
+      {/* The featured card keeps a real aspect ratio on desktop rather than
+          stretching to the text column's height, which left a wide, shallow
+          letterbox when the copy was short. */}
       <div
         className={`relative overflow-hidden bg-[#071a3d] ${
-          featured ? "aspect-[16/10] lg:aspect-auto lg:w-[52%] lg:shrink-0" : "aspect-[16/10]"
+          featured
+            ? "aspect-[16/10] lg:aspect-[4/3] lg:w-[46%] lg:shrink-0"
+            : "aspect-[16/10]"
         }`}
       >
         <Image
@@ -67,7 +72,14 @@ export default function PostCard({
         <p className={`m-0 mt-3 text-[14.5px] leading-[1.65] text-[#5b6575] ${featured ? "md:text-[16px]" : ""}`}>
           {post.excerpt}
         </p>
-        <span className="mt-auto inline-flex items-center gap-2 pt-6 text-[14px] font-semibold text-[#071a3d] transition-colors duration-300 group-hover:text-[#087ef5]">
+        {/* In the grid the link sits at the card's foot so every card lines
+            up; on the featured card the column is already centred, so it
+            follows the copy instead of being pushed down. */}
+        <span
+          className={`inline-flex items-center gap-2 text-[14px] font-semibold text-[#071a3d] transition-colors duration-300 group-hover:text-[#087ef5] ${
+            featured ? "mt-6" : "mt-auto pt-6"
+          }`}
+        >
           Read the guide
           <ArrowUpRight
             className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

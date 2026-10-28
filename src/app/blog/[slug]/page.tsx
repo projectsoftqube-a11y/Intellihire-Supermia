@@ -2,9 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight, BookOpen, CalendarDays, Clock, ExternalLink, Sparkles } from "lucide-react";
+import {
+  ArrowUpRight,
+  BookOpen,
+  CalendarDays,
+  Clock,
+  ExternalLink,
+  RefreshCw,
+  Sparkles,
+} from "lucide-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import AnswerBlock from "@/components/AnswerBlock";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Reveal from "@/components/Reveal";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -23,7 +32,14 @@ import {
   wordCount,
 } from "@/content/blog";
 import { linkSummary } from "@/content";
-import { absoluteUrl, breadcrumbNode, buildMetadata, type Crumb } from "@/lib/seo";
+import {
+  absoluteUrl,
+  breadcrumbNode,
+  buildMetadata,
+  faqPageNode,
+  speakable,
+  type Crumb,
+} from "@/lib/seo";
 import { BRAND_NAME, DEMO_URL, ORG_ID, SITE_URL, WEBSITE_ID } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -92,8 +108,11 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
       publisher: { "@id": ORG_ID },
       isPartOf: { "@id": WEBSITE_ID },
       breadcrumb: { "@id": `${url}#breadcrumb` },
+      speakable: speakable([".ih-takeaways", ".ih-answer"]),
     },
     breadcrumbNode(path, crumbs),
+    // The post's visible Q&A, so it is eligible for People Also Ask.
+    ...[faqPageNode(path, post.faqs ?? [], "article")].filter((node) => node !== null),
   ];
 
   return (
@@ -133,6 +152,15 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                     <CalendarDays className="h-4 w-4 text-[#087ef5]" aria-hidden="true" />
                     <time dateTime={post.datePublished}>{formatDate(post.datePublished)}</time>
                   </span>
+                  {/* Freshness signal: recency weighs heavily in AI retrieval,
+                      so the real dateModified is visible, not only in schema. */}
+                  {post.dateModified !== post.datePublished && (
+                    <span className="inline-flex items-center gap-1.5">
+                      <RefreshCw className="h-4 w-4 text-[#087ef5]" aria-hidden="true" />
+                      Last updated{" "}
+                      <time dateTime={post.dateModified}>{formatDate(post.dateModified)}</time>
+                    </span>
+                  )}
                   <span className="inline-flex items-center gap-1.5">
                     <Clock className="h-4 w-4 text-[#087ef5]" aria-hidden="true" />
                     {readingMinutes(post)} min read
@@ -211,6 +239,12 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                     </p>
                   )}
 
+                  {/* Answer-first block, above the intro: the passage an
+                      answer engine lifts, and a `speakable` target. */}
+                  <div className="mb-8">
+                    <AnswerBlock text={post.answer} tone="onLight" />
+                  </div>
+
                   <div className="flex flex-col gap-5">
                     {post.intro.map((paragraph) => (
                       <p
@@ -222,7 +256,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
                     ))}
                   </div>
 
-                  <div className="my-10 rounded-[22px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-7">
+                  <div className="ih-takeaways my-10 rounded-[22px] border border-[#e5eaf0] bg-[#ffffff] p-6 sm:p-7">
                     <p className="m-0 flex items-center gap-3 text-[12px] font-semibold tracking-[0.16em] uppercase text-[#087ef5]">
                       <span className="h-px w-8 bg-[#ff6b00]" aria-hidden="true" />
                       Key takeaways

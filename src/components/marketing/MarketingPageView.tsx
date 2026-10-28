@@ -8,7 +8,7 @@ import MarketingHero from "@/components/marketing/MarketingHero";
 import MarketingSections from "@/components/marketing/MarketingSections";
 import { JsonLd } from "@/components/ui";
 import type { MarketingPage } from "@/content/types";
-import { breadcrumbNode, webPageNode, type Crumb } from "@/lib/seo";
+import { absoluteUrl, breadcrumbNode, faqPageNode, webPageNode, type Crumb } from "@/lib/seo";
 import { CONTACT_EMAIL } from "@/lib/site";
 
 /** Breadcrumb trail for a platform, use-case or company page. */
@@ -61,8 +61,13 @@ export default function MarketingPageView({ page }: { page: MarketingPage }) {
       description: page.metaDescription,
       dateModified: page.dateModified,
       aboutSoftware: page.kind !== "use-case",
+      primaryImage: page.heroImage,
+      ...(page.faqs.length ? { extra: { mainEntityOfPage: { "@id": `${absoluteUrl(page.path)}#faq` } } } : {}),
     }),
     breadcrumbNode(page.path, crumbs),
+    // The page's own type stays WebPage/AboutPage; its visible Q&A becomes a
+    // separate FAQPage node so it is eligible for People Also Ask.
+    ...[faqPageNode(page.path, page.faqs)].filter((node) => node !== null),
   ];
 
   return (

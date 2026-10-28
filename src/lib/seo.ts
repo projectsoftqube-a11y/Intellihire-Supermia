@@ -193,6 +193,13 @@ type WebPageInput = {
   /** Adds `about` → the SoftwareApplication node. */
   aboutSoftware?: boolean;
   hasBreadcrumb?: boolean;
+  /** Hero or article image, emitted as `primaryImageOfPage`. */
+  primaryImage?: { src: string; width: number; height: number };
+  /**
+   * CSS selectors for `speakable`. Defaults to the answer block and takeaway
+   * region; pass `null` for a page with neither (legal pages).
+   */
+  speakableSelectors?: string[] | null;
   extra?: JsonLdNode;
 };
 
@@ -204,6 +211,8 @@ export function webPageNode({
   dateModified,
   aboutSoftware = false,
   hasBreadcrumb = true,
+  primaryImage,
+  speakableSelectors,
   extra,
 }: WebPageInput): JsonLdNode {
   const url = absoluteUrl(path);
@@ -218,17 +227,75 @@ export function webPageNode({
     publisher: { "@id": ORG_ID },
     ...(hasBreadcrumb ? { breadcrumb: { "@id": `${url}#breadcrumb` } } : {}),
     ...(aboutSoftware ? { about: { "@id": SOFTWARE_ID } } : {}),
+    ...(primaryImage
+      ? {
+          primaryImageOfPage: {
+            "@type": "ImageObject",
+            url: `${SITE_URL}${primaryImage.src}`,
+            width: primaryImage.width,
+            height: primaryImage.height,
+          },
+        }
+      : {}),
+    ...(speakableSelectors === null
+      ? {}
+      : { speakable: speakable(speakableSelectors ?? undefined) }),
     dateModified,
     ...extra,
   };
 }
 
+/**
+ * `Question` nodes for a page's FAQ.
+ *
+ * The answer text is passed through `plainText`, because the rendered answer
+ * strips the same inline marks. Google requires the two to match, so both the
+ * visible paragraph and this node must come from one content string.
+ */
 export function faqEntities(items: { question: string; answer: string }[]) {
   return items.map(({ question, answer }) => ({
     "@type": "Question",
     name: question,
-    acceptedAnswer: { "@type": "Answer", text: answer },
+    acceptedAnswer: { "@type": "Answer", text: plainText(answer) },
   }));
+}
+
+/**
+ * A standalone `FAQPage` for a page whose primary type is something else.
+ *
+ * `/faq` is itself a FAQPage, so it keeps `mainEntity` on its WebPage node.
+ * Every other page with visible Q&A gets this as a second node in the graph,
+ * linked back to the page by `isPartOf`, which is what makes the Q&A eligible
+ * for People Also Ask and AI Overviews without changing the page's own type.
+ */
+export function faqPageNode(
+  path: string,
+  items: { question: string; answer: string }[],
+  /** Fragment of the page's own node: `#webpage`, or `#article` on a post. */
+  parentFragment: "webpage" | "article" = "webpage",
+): JsonLdNode | null {
+  if (items.length === 0) return null;
+  const url = absoluteUrl(path);
+  return {
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    url,
+    isPartOf: { "@id": `${url}#${parentFragment}` },
+    inLanguage: "en-US",
+    mainEntity: faqEntities(items),
+  };
+}
+
+/**
+ * CSS selectors naming the passages an assistant should read aloud: the
+ * answer-first block, then the key-takeaway region where a page has one.
+ * `AnswerBlock` and the takeaway lists carry these class names.
+ */
+export function speakable(selectors: string[] = [".ih-answer", ".ih-takeaways"]) {
+  return {
+    "@type": "SpeakableSpecification",
+    cssSelector: selectors,
+  };
 }
 
 /** Strip the inline link/bold marks used in content strings. */
