@@ -31,8 +31,9 @@ import {
 } from "@/lib/seo";
 import { DEMO_URL, PRICING_NOTIFY_MAILTO } from "@/lib/site";
 
-// Prices come from the billing API on every request, like the homepage.
-export const dynamic = "force-dynamic";
+// Prices come from the billing API, refreshed at most once a minute, like the
+// homepage.
+export const revalidate = 60;
 
 const PATH = "/pricing";
 const CRUMBS: Crumb[] = [

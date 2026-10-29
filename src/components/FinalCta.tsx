@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -141,7 +142,7 @@ export default function FinalCta() {
           </p>
 
           <div className="flex flex-wrap items-center gap-x-7 gap-y-5">
-            <a
+            <Link
               data-cta-btn
               data-track="book_demo_click"
               className="group inline-flex min-h-[64px] items-center gap-5 rounded-full bg-[#ffffff] py-2.5 pr-2.5 pl-9 text-[16px] font-semibold text-[#071a3d] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(255,255,255,0.18)]"
@@ -154,7 +155,7 @@ export default function FinalCta() {
                   aria-hidden="true"
                 />
               </span>
-            </a>
+            </Link>
 
             <a
               data-cta-btn

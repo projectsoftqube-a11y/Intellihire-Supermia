@@ -209,7 +209,7 @@ export default function SiteFooter() {
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">
-              <a
+              <Link
                 href={DEMO_URL}
                 data-track="book_demo_click"
                 className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#ffffff] px-5 text-[14px] font-semibold text-[#071a3d] transition-colors duration-200 hover:bg-[#087ef5] hover:text-[#ffffff]"
@@ -219,7 +219,7 @@ export default function SiteFooter() {
                   className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
                   aria-hidden="true"
                 />
-              </a>
+              </Link>
               <a
                 href={APP_LOGIN_URL}
                 data-track="login_click"

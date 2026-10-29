@@ -435,9 +435,10 @@ async function fetchBillingPlans(): Promise<PricingPlan[]> {
       redirect: "error",
       // Abort a hung upstream so a slow API cannot stall page rendering.
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-      // Always fetch fresh pricing: a plan change in the database must show
-      // on the next page load, not up to an hour later.
-      cache: "no-store",
+      // Reuse the response for a minute. The API takes 1-2 s to answer, and
+      // fetching it on every visit made each page that shows prices slow to
+      // open. A plan change in the database still shows within a minute.
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) return FALLBACK_PLANS;

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -359,7 +360,7 @@ export default function HiringFlow() {
             <span className="text-[#ff6b00]">.</span>
           </p>
 
-          <a
+          <Link
             className="group inline-flex min-h-[58px] shrink-0 items-center gap-4 rounded-full bg-[#071a3d] py-2 pr-2 pl-8 text-[15px] font-semibold text-[#ffffff] shadow-[0_8px_24px_rgba(7,26,61,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5]"
             href={DEMO_URL}
             data-track="book_demo_click"
@@ -368,7 +369,7 @@ export default function HiringFlow() {
             <span className="grid h-[42px] w-[42px] shrink-0 place-items-center rounded-full bg-[#ffffff] text-[#071a3d] transition-transform duration-300 group-hover:rotate-45">
               <ArrowRight className="h-[18px] w-[18px]" aria-hidden="true" />
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

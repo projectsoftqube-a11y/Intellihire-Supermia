@@ -17,9 +17,9 @@ import {
 } from "@/lib/seo";
 import { CONTACT_EMAIL, DEMO_URL, PRICING_NOTIFY_MAILTO } from "@/lib/site";
 
-// The pricing answer is built from the billing API, so render per request
-// like /pricing and the homepage.
-export const dynamic = "force-dynamic";
+// The pricing answer is built from the billing API, so refresh it once a
+// minute like /pricing and the homepage.
+export const revalidate = 60;
 
 const PATH = "/faq";
 const TITLE = "IntelliHire FAQ: AI Screening, Interviews and Your Data";

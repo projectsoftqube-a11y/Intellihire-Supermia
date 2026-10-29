@@ -90,12 +90,22 @@ export default function SiteHeader() {
   const root = useRef<HTMLElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<number | null>(null);
+  const openTimer = useRef<number | null>(null);
   const pathname = usePathname() ?? "/";
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdown, setDropdown] = useState<DropdownKey | null>(null);
   const [mobileSection, setMobileSection] = useState<DropdownKey | null>(null);
+
+  // Close the menus when the page changes by any route, including the
+  // browser's back and forward buttons, which skip the links' onClick.
+  const [shownPath, setShownPath] = useState(pathname);
+  if (shownPath !== pathname) {
+    setShownPath(pathname);
+    setDropdown(null);
+    setMenuOpen(false);
+  }
 
   const platformActive = PLATFORM_LINKS.some((l) => isActivePath(pathname, l.href));
   const useCasesActive = USE_CASE_LINKS.some((l) => isActivePath(pathname, l.href));
@@ -128,8 +138,15 @@ export default function SiteHeader() {
     return () => {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onPointerDown);
+      if (openTimer.current) window.clearTimeout(openTimer.current);
+      if (closeTimer.current) window.clearTimeout(closeTimer.current);
     };
   }, []);
+
+  const cancelOpen = () => {
+    if (openTimer.current) window.clearTimeout(openTimer.current);
+    openTimer.current = null;
+  };
 
   const cancelClose = () => {
     if (closeTimer.current) window.clearTimeout(closeTimer.current);
@@ -137,11 +154,13 @@ export default function SiteHeader() {
   };
 
   const openDropdown = (key: DropdownKey) => {
+    cancelOpen();
     cancelClose();
     setDropdown(key);
   };
 
   const scheduleClose = () => {
+    cancelOpen();
     cancelClose();
     closeTimer.current = window.setTimeout(() => setDropdown(null), 250);
   };
@@ -150,8 +169,18 @@ export default function SiteHeader() {
   // mouse events before the click, which used to open the menu and then
   // close it again in the same tap.
   const lastPointer = useRef<string>("mouse");
+  // Moving from one open menu to the other switches at once. Opening from
+  // closed waits a moment, so sweeping the pointer across the bar on the way
+  // to "Log in" or "Book a demo" does not flash a menu open.
   const hoverOpen = (e: ReactPointerEvent, key: DropdownKey) => {
-    if (e.pointerType === "mouse") openDropdown(key);
+    if (e.pointerType !== "mouse") return;
+    if (dropdown) {
+      openDropdown(key);
+      return;
+    }
+    cancelOpen();
+    cancelClose();
+    openTimer.current = window.setTimeout(() => openDropdown(key), 120);
   };
   const hoverStay = (e: ReactPointerEvent) => {
     if (e.pointerType === "mouse") cancelClose();
@@ -172,6 +201,7 @@ export default function SiteHeader() {
   };
 
   const closeAll = () => {
+    cancelOpen();
     cancelClose();
     setDropdown(null);
     setMenuOpen(false);
@@ -320,7 +350,7 @@ export default function SiteHeader() {
               className={`absolute top-full left-1/2 w-[min(940px,calc(100vw-48px))] -translate-x-1/2 pt-3 transition-all duration-300 ${
                 dropdown === "platform"
                   ? "visible translate-y-0 opacity-100"
-                  : "invisible -translate-y-2 opacity-0"
+                  : "pointer-events-none invisible -translate-y-2 opacity-0"
               }`}
               onPointerEnter={hoverStay}
               onPointerLeave={hoverClose}
@@ -414,7 +444,7 @@ export default function SiteHeader() {
               className={`absolute top-[calc(100%-2rem)] left-1/2 w-[400px] -translate-x-1/2 pt-3 transition-all duration-300 ${
                 dropdown === "use-cases"
                   ? "visible translate-y-0 opacity-100"
-                  : "invisible -translate-y-2 opacity-0"
+                  : "pointer-events-none invisible -translate-y-2 opacity-0"
               }`}
               onPointerEnter={hoverStay}
               onPointerLeave={hoverClose}
@@ -464,7 +494,7 @@ export default function SiteHeader() {
           Log in
         </a>
 
-        <a
+        <Link
           href={DEMO_URL}
           data-track="book_demo_click"
           className={`group relative inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-4 text-[13px] font-semibold whitespace-nowrap shadow-[0_6px_20px_rgba(7,26,61,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:shadow-[0_14px_32px_rgba(8,126,245,0.45)] sm:min-h-[48px] sm:px-6 sm:text-[14px] lg:min-h-[50px] lg:px-7 xl:text-[15px] ${
@@ -476,7 +506,7 @@ export default function SiteHeader() {
             className="hidden h-4 w-4 transition-transform duration-300 ease-out group-hover:translate-x-1 min-[400px]:block"
             aria-hidden="true"
           />
-        </a>
+        </Link>
 
         <button
           className={`relative z-[60] grid h-11 w-11 shrink-0 place-items-center rounded-2xl transition-all duration-300 sm:h-12 sm:w-12 lg:hidden ${
@@ -630,7 +660,7 @@ export default function SiteHeader() {
           </nav>
 
           <div data-hd-link className="mt-auto flex flex-col gap-3 pt-8">
-            <a
+            <Link
               href={DEMO_URL}
               data-track="book_demo_click"
               onClick={closeAll}
@@ -638,7 +668,7 @@ export default function SiteHeader() {
             >
               <span>Book a demo</span>
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </a>
+            </Link>
             <a
               href={APP_LOGIN_URL}
               data-track="login_click"

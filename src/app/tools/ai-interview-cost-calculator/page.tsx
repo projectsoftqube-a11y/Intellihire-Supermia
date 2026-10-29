@@ -16,8 +16,9 @@ import {
 } from "@/lib/seo";
 import { ORG_ID } from "@/lib/site";
 
-// Prices and limits come from the billing API on every request, like /pricing.
-export const dynamic = "force-dynamic";
+// Prices and limits come from the billing API, refreshed at most once a
+// minute, like /pricing.
+export const revalidate = 60;
 
 const PATH = "/tools/ai-interview-cost-calculator";
 const TITLE = "AI Interview Cost Calculator: Cost per Interview";

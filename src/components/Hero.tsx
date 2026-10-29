@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight } from "lucide-react";
@@ -102,7 +103,7 @@ export default function Hero() {
             </p>
 
             <div data-hero-actions className="mt-8 flex flex-wrap items-center gap-5">
-              <a
+              <Link
                 className="group inline-flex min-h-[58px] items-center gap-4 rounded-full bg-[#ffffff] py-2 pr-2 pl-8 text-[15px] font-semibold text-[#071a3d] shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#087ef5] hover:text-[#ffffff] hover:shadow-[0_14px_32px_rgba(8,126,245,0.45)]"
                 href={DEMO_URL}
                 data-track="book_demo_click"
@@ -116,7 +117,7 @@ export default function Hero() {
                     aria-hidden="true"
                   />
                 </span>
-              </a>
+              </Link>
               <a
                 className="group relative inline-flex items-center gap-2 pb-1 text-[15px] font-semibold text-[#ffffff] transition-opacity duration-300 hover:opacity-80"
                 href="#how-it-works"

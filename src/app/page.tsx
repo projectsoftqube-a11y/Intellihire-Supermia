@@ -19,10 +19,10 @@ import { homePricingIntro } from "@/lib/pricing";
 import { buildMetadata, faqPageNode, webPageNode } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL, SOFTWARE_ID } from "@/lib/site";
 
-// Render on every request so pricing always reflects the billing API. Without
-// this the page is prerendered once at build time and the API is never called
-// again.
-export const dynamic = "force-dynamic";
+// Pricing comes from the billing API. Rebuild the page in the background at
+// most once a minute, so plan changes show within a minute while visitors get
+// the cached page instantly instead of waiting on the API.
+export const revalidate = 60;
 
 export const metadata: Metadata = buildMetadata({
   title: SITE_TITLE,
