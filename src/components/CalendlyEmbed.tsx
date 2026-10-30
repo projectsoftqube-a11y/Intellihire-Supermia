@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { trackEvent } from "@/lib/analytics";
 import { withAttribution } from "@/lib/attribution";
 
 const CALENDLY_SCRIPT = "https://assets.calendly.com/assets/external/widget.js";
@@ -63,9 +64,7 @@ export default function CalendlyEmbed({
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
       if (!isCalendlyEvent(e) || e.data.event !== "calendly.event_scheduled") return;
-      const params = { page_path: window.location.pathname };
-      if (typeof window.gtag === "function") window.gtag("event", "demo_booked", params);
-      else if (Array.isArray(window.dataLayer)) window.dataLayer.push({ event: "demo_booked", ...params });
+      trackEvent("demo_booked", { page_path: window.location.pathname });
       onScheduledRef.current?.();
       if (redirectTo) router.push(redirectTo);
     };

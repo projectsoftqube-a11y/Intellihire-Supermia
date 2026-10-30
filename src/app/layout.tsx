@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { AnalyticsBody, AnalyticsHead } from "@/components/Analytics";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import TrackClicks from "@/components/TrackClicks";
 import { JsonLd } from "@/components/ui";
@@ -91,11 +92,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${questrial.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
+        <AnalyticsHead />
         {/* Organization, WebSite and SoftwareApplication, referenced by @id
             from every page's own graph. */}
         <JsonLd nodes={SITEWIDE_GRAPH} />
       </head>
       <body>
+        <AnalyticsBody />
         <a
           href="#main"
           className="fixed top-3 left-3 z-[100] -translate-y-24 rounded-full bg-[#071a3d] px-5 py-3 text-[14px] font-semibold text-[#ffffff] shadow-lg transition-transform duration-200 focus:translate-y-0"
